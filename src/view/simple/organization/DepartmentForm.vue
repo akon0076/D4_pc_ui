@@ -280,11 +280,14 @@ export default {
         saveDepartment()//保存部门
         {
             this.isSubmiting = true;
+          this.buttonRequestProgressStart("正在保存,请稍后...");
             DepartmentService.saveDepartment(this.department).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/simple/organization/department'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
             this.isSubmiting = false;
 
@@ -298,11 +301,14 @@ export default {
         updateDepartment()//编辑部门
         {
             this.isSubmiting = true;
+          this.buttonRequestProgressStart("正在更新,请稍后...");
             DepartmentService.updateDepartment(this.department).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/simple/organization/department'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
             this.isSubmiting = false;
             this.addAlert({title:error.data.message})

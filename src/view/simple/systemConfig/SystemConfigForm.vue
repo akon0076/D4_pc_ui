@@ -267,11 +267,14 @@ export default {
         saveSystemConfig()//保存系统参数
         {
             this.isSubmiting = true;
+          this.buttonRequestProgressStart("正在保存,请稍后...");
             SystemConfigService.saveSystemConfig(this.systemConfig,this.fileList).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/simple/systemConfig/systemConfig'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
             this.isSubmiting = false;
 
@@ -285,11 +288,14 @@ export default {
         updateSystemConfig()//编辑系统参数
         {
             this.isSubmiting = true;
+          this.buttonRequestProgressStart("正在更新,请稍后...");
             SystemConfigService.updateSystemConfig(this.systemConfig,this.fileList).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/simple/systemConfig/systemConfig'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
             this.isSubmiting = false;
             this.addAlert({title:error.data.message})

@@ -254,11 +254,14 @@
       saveOperator()//保存操作员
       {
         this.isSubmiting = true;
+        this.buttonRequestProgressStart("正在保存,请稍后...");
         OperatorService.saveOperator(this.operator).then((resp) => {
+          this.buttonRequestProgressClose();
           this.isSubmiting = false;
           var router = this.$router;
           router.push({path: '/simple/permission/Operator'})
         }).catch((error) => {
+          this.buttonRequestProgressClose();
           this.isSubmiting = false;
           this.$message({
             type: 'error',
@@ -269,11 +272,14 @@
       updateOperator()//编辑操作员
       {
         this.isSubmiting = true;
+        this.buttonRequestProgressStart("正在更新,请稍后...");
         OperatorService.updateOperator(this.operator).then((resp) => {
+          this.buttonRequestProgressClose();
           this.isSubmiting = false;
           var router = this.$router;
           router.push({path: '/simple/permission/Operator'})
         }).catch((error) => {
+          this.buttonRequestProgressClose();
           this.isSubmiting = false;
           this.$message({
             type: 'error',

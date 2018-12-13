@@ -153,10 +153,13 @@
       },
       findPermissions() {
         var parms = this.installParms();
+        this.buttonRequestProgressStart("正在搜索,请稍后...");
         PermissionService.findPermissions(parms).then((res) => {
+          this.buttonRequestProgressClose();
           this.permissions = res.data.datas;
           this.totalCount = res.data.totalCount;
         }).catch((error) => {
+          this.buttonRequestProgressClose();
           this.$message({
             type: 'error',
             message: '网络繁忙，请稍候再试！'
@@ -173,13 +176,16 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
+          this.buttonRequestProgressStart("正在删除,请稍后...");
           PermissionService.deletePermission(permissionId).then((res) =>{
+            this.buttonRequestProgressClose();
             this.$message({
               type: 'success',
               message: '删除成功！'
             })
             this.refresh();
           }).catch((error) => {
+            this.buttonRequestProgressClose();
             this.$message({
               type: 'error',
               message: '删除失败，请稍后再试！'

@@ -253,11 +253,14 @@ export default {
         saveOrganization()//保存单位
         {
             this.isSubmiting = true;
+          this.buttonRequestProgressStart("正在保存,请稍后...");
             OrganizationService.saveOrganization(this.organization).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/simple/organization'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             this.isSubmiting = false;
             this.$message({
             type: 'error',
@@ -268,11 +271,14 @@ export default {
         updateOrganization()//编辑单位
         {
             this.isSubmiting = true;
+          this.buttonRequestProgressStart("正在更新,请稍后...");
             OrganizationService.updateOrganization(this.organization).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/simple/organization/Organization'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             this.isSubmiting = false;
             this.$message({
             type: 'error',

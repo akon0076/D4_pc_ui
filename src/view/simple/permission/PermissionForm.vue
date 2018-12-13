@@ -219,11 +219,14 @@ export default {
         savePermission()//保存权限点
         {
             this.isSubmiting = true;
+          this.buttonRequestProgressStart("正在保存,请稍后...");
             PermissionService.savePermission(this.permission).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/simple/permission/Permission'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             this.isSubmiting = false;
             this.$message({
             type: 'error',
@@ -234,11 +237,14 @@ export default {
         updatePermission()//编辑权限点
         {
             this.isSubmiting = true;
+          this.buttonRequestProgressStart("正在更新,请稍后...");
             PermissionService.updatePermission(this.permission).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/simple/permission'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             this.isSubmiting = false;
             this.$message({
             type: 'error',

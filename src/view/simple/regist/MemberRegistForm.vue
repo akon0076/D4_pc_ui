@@ -313,12 +313,14 @@ export default {
           md5.update(this.memberRegist.password);
           let password = md5.digest('hex');
           this.memberRegist.password = password;
-          debugger
+          this.buttonRequestProgressStart("正在保存,请稍后...");
             MemberRegistService.saveMemberRegist(this.memberRegist).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/wisdomCateringLogin'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
             this.isSubmiting = false;
 
@@ -332,11 +334,14 @@ export default {
         updateMemberRegist()//编辑商家注册审核
         {
             this.isSubmiting = true;
+          this.buttonRequestProgressStart("正在更新,请稍后...");
             MemberRegistService.updateMemberRegist(this.memberRegist).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/simple/regist/memberRegist'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
             this.isSubmiting = false;
             this.addAlert({title:error.data.message})

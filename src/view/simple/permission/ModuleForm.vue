@@ -325,11 +325,14 @@ export default {
         saveModule()//保存模块
         {
             this.isSubmiting = true;
+          this.buttonRequestProgressStart("正在保存,请稍后...");
             ModuleService.saveModule(this.module).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/simple/permission/Module'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             this.isSubmiting = false;
             this.$message({
             type: 'error',
@@ -340,11 +343,14 @@ export default {
         updateModule()//编辑模块
         {
             this.isSubmiting = true;
+          this.buttonRequestProgressStart("正在更新,请稍后...");
             ModuleService.updateModule(this.module).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/simple/permission/module'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             this.isSubmiting = false;
             this.$message({
             type: 'error',

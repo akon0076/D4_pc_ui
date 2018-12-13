@@ -348,11 +348,14 @@ export default {
         saveAttachment()//保存附件
         {
             this.isSubmiting = true;
+          this.buttonRequestProgressStart("正在保存,请稍后...");
             AttachmentService.saveAttachment(this.attachment).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/simple/attachment/attachment'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
             this.isSubmiting = false;
 
@@ -366,11 +369,14 @@ export default {
         updateAttachment()//编辑附件
         {
             this.isSubmiting = true;
+          this.buttonRequestProgressStart("正在更新,请稍后...");
             AttachmentService.updateAttachment(this.attachment).then((resp) => {
+              this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
                 router.push({path: '/simple/attachment/attachment'})
         }).catch((error) => {
+              this.buttonRequestProgressClose();
             //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
             this.isSubmiting = false;
             this.addAlert({title:error.data.message})

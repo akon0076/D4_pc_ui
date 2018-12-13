@@ -667,14 +667,16 @@
             md5.update(this.organizationRegist.adminPassword);
             let password = md5.digest('hex');
             this.organizationRegist.adminPassword = password;
-
+            this.buttonRequestProgressStart("正在保存,请稍后...");
             OrganizationRegistService.saveOrganizationRegist(this.organizationRegist).then((resp) => {
+              this.buttonRequestProgressClose();
               if (resp.data != null) {
                 console.log(resp.data);
                 this.saveFile(resp.data.eid);
               }
 
             }).catch((error) => {
+              this.buttonRequestProgressClose();
               //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
               this.$message({
                 type: 'error',

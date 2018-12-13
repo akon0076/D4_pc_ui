@@ -315,11 +315,14 @@
       saveEmployee()//保存职员
       {
         this.isSubmiting = true;
+        this.buttonRequestProgressStart("正在保存,请稍后...");
         EmployeeService.saveEmployee(this.employee).then((resp) => {
+          this.buttonRequestProgressClose();
           this.isSubmiting = false;
           var router = this.$router;
           router.push({path: '/simple/organization/employee'})
         }).catch((error) => {
+          this.buttonRequestProgressClose();
           //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
           this.isSubmiting = false;
 
@@ -333,11 +336,14 @@
       updateEmployee()//编辑职员
       {
         this.isSubmiting = true;
+        this.buttonRequestProgressStart("正在更新,请稍后...");
         EmployeeService.updateEmployee(this.employee).then((resp) => {
+          this.buttonRequestProgressClose();
           this.isSubmiting = false;
           var router = this.$router;
           router.push({path: '/simple/organization/employee'})
         }).catch((error) => {
+          this.buttonRequestProgressClose();
           //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
           this.isSubmiting = false;
           this.addAlert({title: error.data.message})

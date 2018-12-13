@@ -92,6 +92,9 @@
         <el-col :span="4">
           <el-button @click="wordDownlaod" type="primary">word模板替换下载</el-button>
         </el-col>
+        <el-col >
+          <el-button @click="openFullScreen2" type="primary">整页服务方式</el-button>
+        </el-col>
       </el-row>
       <br>
       <el-row>
@@ -155,6 +158,9 @@
       }
     },
     methods: {
+      openFullScreen2() {
+        this.buttonRequestProgress();
+      },
       deleteFile(id) {
         GeneratorService.deleteFileById({attachmentId: id}).then(res => {
           Msg.success("删除成功")
@@ -381,9 +387,10 @@
         )
       },
       testException() {
-
-        GeneratorService.testException().then((res) => {
-          Msg.success('生成方法代码成功' + res.data);
+        this.buttonRequestProgressStart("正在保存,请稍后...");
+         GeneratorService.testException().then((res) => {
+           this.buttonRequestProgressClose();
+          Msg.success('成功' + res.data);
         }).catch((error) => {
           console.log(error)
           //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据

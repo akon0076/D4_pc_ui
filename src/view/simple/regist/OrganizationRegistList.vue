@@ -165,10 +165,13 @@
             },
             findOrganizationRegists() {
                 var parms = this.installParms();
+              this.buttonRequestProgressStart("正在搜索,请稍后...");
                     OrganizationRegistService.findOrganizationRegists(parms).then((res) => {
+                      this.buttonRequestProgressClose();
                     this.organizationRegists = res.data.datas;
                 this.totalCount = res.data.totalCount;
             }).catch((error) => {
+                      this.buttonRequestProgressClose();
                     this.$message({
                     type: 'error',
                     message: '网络繁忙，请稍候再试！'
@@ -185,14 +188,16 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
+                  this.buttonRequestProgressStart("正在删除,请稍后...");
                         OrganizationRegistService.deleteOrganizationRegist(organizationRegistId).then((res) =>{
+                          this.buttonRequestProgressClose();
                     this.$message({
                     type: 'success',
                     message: '删除成功！'
                 })
                 this.refresh();
             }).catch((error) => {
-
+                          this.buttonRequestProgressClose();
                 //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
                 this.isSubmiting = false;
                 this.addAlert({title:error.data.message})

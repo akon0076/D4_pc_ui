@@ -1,7 +1,4 @@
 import MemberRegistRoute from './regist/MemberRegistRoute'
-import TestStudentRoute from './organization/TestStudentRoute'
-import TestOpeatorRoute from './organization/TestOpeatorRoute'
-import TestEmployeeRoute from './organization/TestEmployeeRoute'
 import OrganizationRegistRoute from './regist/OrganizationRegistRoute'
 import EmployeRegistRoute from './regist/EmployeRegistRoute'
 import EmpOpenIdRoute from './qingTui/EmpOpenIdRoute'
@@ -50,9 +47,6 @@ export default [
       ...EmpOpenIdRoute,
       ...EmployeRegistRoute,
       ...OrganizationRegistRoute,
-    ...TestEmployeeRoute,
-     ...TestOpeatorRoute,
-     ...TestStudentRoute,
          ...MemberRegistRoute,
     ]
   }

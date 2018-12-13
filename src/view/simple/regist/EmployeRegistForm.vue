@@ -313,12 +313,14 @@
             md5.update(this.employeRegist.password);
             let password = md5.digest('hex');
             this.employeRegist.password = password;
-
+            this.buttonRequestProgressStart("正在保存,请稍后...");
             EmployeRegistService.saveEmployeRegist(this.employeRegist).then((resp) => {
+              this.buttonRequestProgressClose();
               this.isSubmiting = false;
               var router = this.$router;
               router.push({path: '/simple/regist/employeRegist'})
             }).catch((error) => {
+              this.buttonRequestProgressClose();
               //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
               this.isSubmiting = false;
 

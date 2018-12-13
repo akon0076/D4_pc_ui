@@ -192,11 +192,14 @@
       saveRole()//保存角色
       {
         this.isSubmiting = true;
+        this.buttonRequestProgressStart("正在保存,请稍后...");
         RoleService.saveRole(this.role).then((resp) => {
+          this.buttonRequestProgressClose();
           this.isSubmiting = false;
           var router = this.$router;
           router.push({path: '/simple/permission/Role'})
         }).catch((error) => {
+          this.buttonRequestProgressClose();
           this.isSubmiting = false;
           this.$message({
             type: 'error',
@@ -207,11 +210,14 @@
       updateRole()//编辑角色
       {
         this.isSubmiting = true;
+        this.buttonRequestProgressStart("正在更新,请稍后...");
         RoleService.updateRole(this.role).then((resp) => {
+          this.buttonRequestProgressClose();
           this.isSubmiting = false;
           var router = this.$router;
           router.push({path: '/simple/permission/Role'})
         }).catch((error) => {
+          this.buttonRequestProgressClose();
           this.isSubmiting = false;
           this.$message({
             type: 'error',
