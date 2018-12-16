@@ -58,6 +58,7 @@
 </script>
 <style scoped lang="scss">
   .nav-right {
+    float: right;
     display: flex;
     align-items: center;
     > div {

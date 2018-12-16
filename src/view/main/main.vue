@@ -6,7 +6,7 @@
 
     <el-container>
       <!--头部-->
-      <el-header height="50" style="display: flex;justify-content: space-between">
+      <el-header height="50" style="display: block;justify-content: space-between">
         <comp-head-user @openEditorPwd="openEditorPwd">
         </comp-head-user>
       </el-header>
