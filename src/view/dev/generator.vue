@@ -133,7 +133,9 @@
   import {GeneratorService} from './api';
   import {Msg} from '../../tools/message';
 
+
   export default {
+
     name: "generator",
     data() {
       return {
