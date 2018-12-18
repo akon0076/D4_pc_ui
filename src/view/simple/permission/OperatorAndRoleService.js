@@ -12,10 +12,10 @@ export class OperatorAndRoleService {
   }
 
   //根据操作员Id查询对应的角色
-  static findOperatorAndRoleByOperatorId(operatorId) {
+  static findOperatorAndRoleByOperatorIdAndOrganizationId(operatorId, organizationId) {
     var httpMethod = 'GET';
-    var body = simpleServer.getArgs(this.findOperatorAndRoleByOperatorId, arguments, 'GET');
-    return simpleServer.connection(httpMethod, '/simple/permission/OperatorAndRole/findOperatorAndRoleByOperatorId', body);
+    var body = simpleServer.getArgs(this.findOperatorAndRoleByOperatorIdAndOrganizationId, arguments, 'GET');
+    return simpleServer.connection(httpMethod, '/simple/permission/OperatorAndRole/findOperatorAndRoleByOperatorIdAndOrganizationId', body);
   }
 
 
