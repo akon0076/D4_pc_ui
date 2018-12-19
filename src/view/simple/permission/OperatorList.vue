@@ -181,11 +181,8 @@
       init() {
         this.findOperators();
       },
-      distributeRole(eid) {
-        this.dialogVisible = true
-        this.currentEditId = eid
-        this.findAllRoles()
-        this.findOperatorAndRoleByOperatorId()
+      distributeRole(operatorId) {
+        this.$router.push({path: '/simple/permission/Operator/operatorAssignment/' + operatorId});
       },
       refresh() {
         this.findOperators();

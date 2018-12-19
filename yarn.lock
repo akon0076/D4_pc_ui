@@ -5082,7 +5082,11 @@ node-pre-gyp@^0.10.0:
 
 node-sass@^4.10.0:
   version "4.11.0"
+<<<<<<< HEAD
   resolved "http://registry.npm.taobao.org/node-sass/download/node-sass-4.11.0.tgz#183faec398e9cbe93ba43362e2768ca988a6369a"
+=======
+  resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.11.0.tgz#183faec398e9cbe93ba43362e2768ca988a6369a"
+>>>>>>> d04d37845ab77087c1bda8ee46aa7e2160234523
   dependencies:
     async-foreach "^0.1.3"
     chalk "^1.1.1"
@@ -6762,7 +6766,11 @@ snapdragon@^0.8.1:
 
 sockjs-client@1.1.5:
   version "1.1.5"
+<<<<<<< HEAD
   resolved "http://registry.npm.taobao.org/sockjs-client/download/sockjs-client-1.1.5.tgz#1bb7c0f7222c40f42adf14f4442cbd1269771a83"
+=======
+  resolved "https://registry.yarnpkg.com/sockjs-client/-/sockjs-client-1.1.5.tgz#1bb7c0f7222c40f42adf14f4442cbd1269771a83"
+>>>>>>> d04d37845ab77087c1bda8ee46aa7e2160234523
   dependencies:
     debug "^2.6.6"
     eventsource "0.1.6"
@@ -7659,7 +7667,11 @@ webpack-dev-middleware@1.12.2:
 
 webpack-dev-server@^2.9.7:
   version "2.11.3"
+<<<<<<< HEAD
   resolved "http://registry.npm.taobao.org/webpack-dev-server/download/webpack-dev-server-2.11.3.tgz#3fd48a402164a6569d94d3d17f131432631b4873"
+=======
+  resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-2.11.3.tgz#3fd48a402164a6569d94d3d17f131432631b4873"
+>>>>>>> d04d37845ab77087c1bda8ee46aa7e2160234523
   dependencies:
     ansi-html "0.0.7"
     array-includes "^3.0.3"

@@ -160,11 +160,8 @@
       init() {
         this.findRoles();
       },
-      distributePermission(eid) {
-        this.dialogVisible = true
-        this.currentEditId = eid
-        this.findAllPermissions()
-        this.findRoleAndPermissionByRoleId()
+      distributePermission(roleId) {
+        this.$router.push({path: '/simple/permission/role/permissionAssignment/' + roleId});
       },
       //查询所有权限
       findAllPermissions() {
