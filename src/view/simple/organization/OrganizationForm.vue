@@ -258,7 +258,7 @@ export default {
               this.buttonRequestProgressClose();
                 this.isSubmiting = false;
                 var router = this.$router;
-                router.push({path: '/simple/organization'})
+                router.push({path: '/simple/organization/Organization'})
         }).catch((error) => {
               this.buttonRequestProgressClose();
             this.isSubmiting = false;
