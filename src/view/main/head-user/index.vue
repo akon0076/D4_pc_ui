@@ -1,5 +1,10 @@
 <template>
   <div class="nav-right">
+    <div class="btn-fullscreen" @click="handleFullScreen">
+      <el-tooltip effect="dark" :content="fullScreen ? `取消全屏`:`全屏`" placement="bottom">
+        <i style="font-size: 21px;" class="el-icon-rank"></i>
+      </el-tooltip>
+    </div>
     <div class="nav-quanp">
     </div>
     <el-dropdown @menu-item-click="click">
@@ -21,13 +26,17 @@
     data() {
       return {
         chalk: '', // content of theme-chalk css
+        fullScreen:false
       }
     },
     computed: mapState({
-      userInfo: state => state.user.userInfo
+      userInfo: state => state.user.userInfo,
     }),
     props: {},
     methods: {
+      handleFullScreen() {
+       this.fullScreen= this.toggleFullScreen(document.documentElement)
+      },
       click(type) {
 
         if (type === 'out') {
