@@ -38,7 +38,8 @@
         menuList: [],
         menu: this.$route.path.split('/')[1],
         dialogVisible: false,
-        id:this.$store.getters.userInfo.loginOperator.eid
+        id:this.$store.getters.userInfo.loginOperator.eid,
+        fullscreen: false
       }
     },
     created() {
@@ -50,6 +51,7 @@
       CompEditorPwd
     },
     methods: {
+
       changeTabs(name) {
         this.menu = name;
         this.getMenu()

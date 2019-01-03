@@ -72,8 +72,8 @@ export default {
               Msg.success('登录成功');
               resolve()
             } else {
-              Msg.warn('此账户无访问权限，请登录其他账户设置');
-              reject('此账户无访问权限，请登录其他账户设置')
+              Msg.warn('账号或密码错误,请重新输入');
+              reject('账号或密码错误,请重新输入')
             }
           } else {
             Msg.warn('验证码错误');
@@ -100,8 +100,8 @@ export default {
             Msg.success('登录成功');
             resolve()
           } else {
-            Msg.warn('此账户无访问权限，请登录其他账户设置');
-            reject('此账户无访问权限，请登录其他账户设置')
+            Msg.warn('账号或密码错误,请重新输入');
+            reject('账号或密码错误,请重新输入')
           }
           } else {
             Msg.warn('验证码错误');

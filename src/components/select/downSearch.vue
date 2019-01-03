@@ -33,20 +33,12 @@
             return "请输入"+this.selectValues[i].value+"名称(可以空格隔开)"
           }
         }
-        return "请先选择一列进行搜索";
+        return "请选择一列进行搜索";
       }
     },
     methods:{
       searchByCondition(){
-          if(this.selectedValuekey==''){
-            this.$message({
-              message: '请先选择一列进行搜索',
-              type: 'info'
-            });
-            return;
-          }else {
             this.$emit("returnedValue", {columnName: this.selectedValuekey, content: this.content});
-          }
       }
     }
   }

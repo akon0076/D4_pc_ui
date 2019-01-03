@@ -35,11 +35,10 @@
                     <!--新增任务按钮-->
                     <down-search :selectValues="selectValues" @returnedValue="searchByCondition"></down-search>
                     <div style="float: right; margin-bottom: 15px">
-
                         <el-button  type="primary" @click="addOrganization()"  v-permission:simple_organization_Organization_Add >新增单位</el-button>
                     </div>
                     <div class="table-control">
-                        <el-table v-loading="tableLoading" size="small" class="table-style" :data="organizations" border highlight-current-row @current-change="handleCurrentChange">
+                        <el-table ref="tableDD" id="appDD" v-loading="tableLoading" size="small" class="table-style" :data="organizations" border highlight-current-row @current-change="handleCurrentChange">
                             <el-table-column type="expand" fixed="left">
                                 <template slot-scope="props">
                                     <el-form label-position="left" inline class="list-table-expand">

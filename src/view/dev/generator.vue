@@ -1,6 +1,5 @@
 <template>
-  <el-form ref="modelform" :model="modelform" label-width="80px">
-
+  <el-form ref="modelform" :model="modelform" label-width="80px" style="overflow: auto;height: 100%;">
     <div class="alert-container clearfix">
       <div class="alert-container clearfix">
         <el-alert v-for="alert in alerts.errors" :key="alert.title"
@@ -9,99 +8,105 @@
                   show-icon>
         </el-alert>
       </div>
-
     </div>
 
-    <el-form-item label="模型定义">
-      <el-input type="textarea" v-model="modelform.modelDefinition" placeholder="请输入模型定义" clearable autosize></el-input>
-    </el-form-item>
-
-
+    <div class="tilteDisplay">
+      <h2 class="generatorCode">代码生成</h2>
+      <el-row class="generatorOperate">
+        <el-form-item label="模型定义">
+          <el-input type="textarea" v-model="modelform.modelDefinition" placeholder="请输入模型定义" clearable autosize></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="generateModel">生成模型</el-button>
+        </el-form-item>
+        <el-form-item label="模型名称">
+          <el-input type="textarea" v-model="modelform.className" placeholder="请输入模型名称" clearable autosize></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="generateBaseCode">生成基础代码</el-button>
+        </el-form-item>
+        <el-form-item label="Controller方法名称">
+          <el-input type="input" v-model="modelform.controllerMethodName"
+                    placeholder="请输入Controller方法名称，例如：com.cisdi.info.simple.controller.codetable.CodeTableController.updateCodeTable"
+                    clearable autosize></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="generateControllerMethod">生成方法代码</el-button>
+        </el-form-item>
+      </el-row>
+    </div>
     <el-form-item>
-      <el-button type="primary" @click="generateModel">生成模型</el-button>
-    </el-form-item>
-    <el-form-item label="模型名称">
-      <el-input type="textarea" v-model="modelform.className" placeholder="请输入模型名称" clearable autosize></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="generateBaseCode">生成基础代码</el-button>
-    </el-form-item>
-    <el-form-item label="Controller方法名称">
-      <el-input type="input" v-model="modelform.controllerMethodName"
-                placeholder="请输入Controller方法名称，例如：com.cisdi.info.simple.controller.codetable.CodeTableController.updateCodeTable"
-                clearable autosize></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="generateControllerMethod">生成方法代码</el-button>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="createSuperOperator">创建超级用户</el-button>
-    </el-form-item>
-    <el-form-item>
-      <el-row :body-style="{ padding: '0px' }">
-        <div style="padding: 14px;">
-          <div class="bottom clearfix">
-            <el-button type="primary" @click="testException">异常测试</el-button>
+      <h2 class="createEmp">创建超级用户测试</h2>
+      <el-row class="testFileBorder" style="padding-left: 2%;">
+        <el-button type="primary" class="createButton" @click="createSuperOperator">创建超级用户</el-button>
+        <el-row :body-style="{ padding: '0px' }" style="display: inline-block;">
+          <div style="padding: 14px;">
+            <div class="bottom clearfix">
+              <el-button type="primary" class="createButton" @click="testException">异常测试</el-button>
+            </div>
           </div>
-        </div>
+        </el-row>
       </el-row>
     </el-form-item>
     <el-form-item>
-      <el-row>
-        <el-col :span="4">
-          <el-upload
-            action=""
-            class="upload-demo"
-            :on-change="handleFileChange"
-            :file-list="fileLists"
-            :auto-upload="false">
-            <el-button class="distribButton" type="primary" style="padding: 9px 15px !important;">选择文件</el-button>
-          </el-upload>
-        </el-col>
-        <el-col :span="4">
-          <el-button class="distribButton" type="primary" style="padding: 9px 15px !important;" @click="submitFile">
-            提交文件
-          </el-button>
-        </el-col>
-        <el-col :span="4">
-          <el-button @click="findAllFile" type="primary">获取文件列表</el-button>
-        </el-col>
-      </el-row>
-      <br>
-      <el-row>
-        <el-col :span="4">
-          <el-button @click="excelExport" type="primary">excel导出</el-button>
-        </el-col>
-        <el-col :span="4">
-          <el-upload
-            action=""
-            :file-list="fileList"
-            :on-change="fileChange"
-            :limit="1"
-            :auto-upload="false">
-            <el-button type="primary">选择文件</el-button>
-          </el-upload>
-          <el-button @click="excelImport" type="primary">excel导入</el-button>
-        </el-col>
-        <el-col :span="4">
-          <el-button @click="wordExport" type="primary">word下载</el-button>
-        </el-col>
-        <el-col :span="4">
-          <el-button @click="wordView" type="primary">word模板替换预览</el-button>
-        </el-col>
-        <el-col :span="4">
-          <el-button @click="wordDownlaod" type="primary">word模板替换下载</el-button>
-        </el-col>
-        <el-col >
-          <el-button @click="openFullScreen2" type="primary">整页服务方式</el-button>
-        </el-col>
-      </el-row>
-      <br>
-      <el-row>
-        <el-col :span="4">
-          <el-button @click="onlineView" type="primary">在线预览</el-button>
-        </el-col>
-      </el-row>
+      <h2 class="testFileInterface">测试文件接口</h2>
+        <div class="testFileBorder">
+        <el-row class="testFileContent">
+          <el-col :span="4">
+            <el-upload
+              action=""
+              class="upload-demo"
+              :on-change="handleFileChange"
+              :file-list="fileLists"
+              :auto-upload="false">
+              <el-button class="distribButton" type="primary" style="padding: 9px 15px !important;">选择文件</el-button>
+            </el-upload>
+          </el-col>
+          <el-col :span="4">
+            <el-button class="distribButton" type="primary" style="padding: 9px 15px !important;" @click="submitFile">
+              提交文件
+            </el-button>
+          </el-col>
+          <el-col :span="4">
+            <el-button @click="findAllFile" class="distribButton" type="primary" >获取文件列表</el-button>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row class="testFileContent">
+          <el-col :span="4">
+            <el-button @click="excelExport" type="primary" class="fileButtonOne">excel导出</el-button>
+          </el-col>
+          <el-col :span="4">
+            <el-upload
+              action=""
+              :file-list="fileList"
+              :on-change="fileChange"
+              :limit="1"
+              :auto-upload="false">
+              <el-button type="primary" class="fileButtonOne">选择文件</el-button>
+            </el-upload>
+            <el-button @click="excelImport" type="primary" class="fileButtonOne">excel导入</el-button>
+          </el-col>
+          <el-col :span="4">
+            <el-button @click="wordExport" type="primary" class="fileButtonOne">word下载</el-button>
+          </el-col>
+          <el-col :span="4">
+            <el-button @click="wordView" type="primary" class="fileButtonOne">word模板替换预览</el-button>
+          </el-col>
+          <el-col :span="4">
+            <el-button @click="wordDownlaod" type="primary" class="fileButtonOne">word模板替换下载</el-button>
+          </el-col>
+          <el-col >
+            <el-button @click="openFullScreen2" type="primary" class="fileButtonOne">整页服务方式</el-button>
+          </el-col>
+        </el-row>
+        <br>
+        <el-row class="testFileContent">
+          <el-col :span="4">
+            <el-button @click="onlineView" type="primary" style="background: #1f80af;border: 0;">在线预览</el-button>
+          </el-col>
+        </el-row>
+        </div>
       <el-row>
         <div v-for=" file in fileArray">
           {{file.attachmentRealName}}<span style="color: blue;cursor: pointer"
@@ -419,4 +424,52 @@
 
 <style scoped>
 
+.testUploadFile{
+  border: 1px solid #ded9d9;
+  margin-left: -4%;
+  padding: 1% 0 1% 4%;
+}
+.generatorCode{
+  text-align: center;
+  height: 30px;
+  margin-top: 2vh;
+  color: dodgerblue;
+}
+.testFileInterface{
+  text-align: center;
+  color: dodgerblue;
+  margin-left: -4%;
+}
+.generatorOperate{
+  border: 1px dashed #ded9d9;
+  margin-left: 2vw;
+  padding-top: 1%;
+}
+.createEmp{
+  text-align: center;
+  margin-left: -6%;
+  color: #4783c1;
+  margin-top: 3vh;
+}
+.testFileBorder{
+  border: 1px dashed #ded9d9;
+  margin-left: -2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+.testFileContent{
+  margin-left: 2%;
+}
+.fileButtonOne{
+  background: #048bccc4;
+  border: 0;
+}
+.distribButton{
+  background: #35a3d899;
+  border: 0;
+}
+.createButton{
+  background: #4783c1;
+  border: 0;
+}
 </style>
