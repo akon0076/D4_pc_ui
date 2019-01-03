@@ -9,7 +9,6 @@ import directive from './tools/directive'
 import './assets/icon/iconfont.css'
 import './assets/styles/index.scss'
 import globalJs from '@/components/js/progressBar'
-
 import filters from './filters';
 
 Vue.config.productionTip = false
@@ -17,8 +16,6 @@ Object.keys(filters).forEach(k => Vue.filter(k, filters[k]));
 /** 注册 element 组件 */
 Vue.use(ElementUI, {size: 'medium'});
 Vue.use(globalJs);
-
-
 /** 注册一个全局自定义指令 */
 directive.map(directive => Vue.directive(directive.name, directive.event));
 

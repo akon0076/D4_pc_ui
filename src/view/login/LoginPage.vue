@@ -2,7 +2,7 @@
   <div class="mh-login">
     <div class="form">
       <img src="../../assets/images/合成1.png"/>
-      <el-form :model="loginForm" :rules="rules" ref="loginForm" label-position="left" label-width="0px"
+      <el-form v-if="login" :model="loginForm" :rules="rules" ref="loginForm" label-position="left" label-width="0px"
                class="login-container">
         <div class="head">
           <el-form-item prop="userName" style="margin-bottom: 45px">
@@ -62,6 +62,15 @@
           </div>
         </el-form-item>
       </el-form>
+      <el-form v-else class="login-container">
+        <el-row class="title">请选择单位：</el-row>
+        <el-row v-for="item in organizations" :key="item.eid">
+          <el-radio class="organization" v-model="organization" :label="item" border>
+            {{item.name}}
+          </el-radio>
+        </el-row>
+        <el-button class="organizationButton" type="primary" @click="setOrganization">确定</el-button>
+      </el-form>
     </div>
 
   </div>
@@ -70,19 +79,26 @@
 <script>
   import {version} from '../../../package'
   import {LoginService} from "./loginService";
+  import ElRow from "element-ui/packages/row/src/row";
+  import crypto from 'crypto';
 
   export default {
     name: 'Login',
-    components: {},
+    components: {ElRow},
     /** state 默认信息 */
     data() {
       return {
+        login: true,
         loading: false,
+        pass: '',
+        organization: '',
+        organizations: [],
         version,
         loginForm: {
           userName: '',
           password: '',
           captcha: '',
+          organizationId: '',
           remember: false
         },
         src: '',
@@ -103,7 +119,7 @@
       window.addEventListener('keydown', this.Enter);
       this.getUser();
       this.changeCaptcha();
-  },
+    },
     /** 计算属性 */
     computed: {},
     /** 完成挂载 */
@@ -127,9 +143,43 @@
         this.$refs['loginForm'].validate((valid) => {
           if (valid) {
             this.loading = true;
-            this.$store.dispatch('accountLoginSubmit', this.loginForm).then(() => {
+            this.pass = this.loginForm.password
+            let md5 = crypto.createHash("md5");
+            md5.update(this.loginForm.password);
+            let password = md5.digest('hex');
+            this.loginForm.password = password
+            LoginService.getOrganizations(this.loginForm).then(res => {
+              if (res.data.captcha) {
+                if (res.data.isLogin) {
+                  this.organizations = res.data.organizations
+                  this.organization = this.organizations[0]
+                  if (this.organizations.length == 1) {
+                    this.loginForm.organizationId = this.organization.eid
+                    this.loginForm.password = this.pass
+                    this.$store.dispatch('accountLoginSubmit', this.loginForm).then(() => {
+                      this.$store.getters.userInfo.currentOrganization = this.organization
+                      this.loading = false;
+                      this.$router.push({path: '/'})
+                    }).catch(() => {
+                      this.loading = false;
+                      this.changeCaptcha();
+                    })
+                  } else {
+                    this.login = false
+                  }
+                } else {
+                  this.$message({
+                    type: 'error',
+                    message: '账号或密码错误,请重新输入'
+                  })
+                }
+              } else {
+                this.$message({
+                  type: 'error',
+                  message: '验证码错误'
+                })
+              }
               this.loading = false;
-              this.$router.push({path: '/'})
             }).catch(() => {
               this.loading = false;
               this.changeCaptcha();
@@ -139,18 +189,45 @@
           }
         })
       },
+      setOrganization() {
+        this.loginForm.organizationId = this.organization.eid
+        this.loginForm.password = this.pass
+        this.$store.dispatch('accountLoginSubmit', this.loginForm).then(() => {
+          this.$store.getters.userInfo.currentOrganization = this.organization
+          this.loading = false;
+          this.$router.push({path: '/'})
+        }).catch(() => {
+          this.loading = false;
+          this.changeCaptcha();
+        })
+      },
       goEmpRegiste() {
         this.$router.push({path: '/EmployeeRegistForm', query: {}});
       },
       //更新验证码
       changeCaptcha() {
-        this.src =  process.env.BASE_SIMPLE_API + "/Captcha/getCaptcha?" + new Date();
+        this.src = process.env.BASE_SIMPLE_API + "/Captcha/getCaptcha?" + new Date();
       }
     },
   }
 </script>
 
 <style lang="scss" scoped>
+  .title {
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .organization {
+    margin-top: 10px;
+    width: 400px;
+  }
+
+  .organizationButton {
+    margin-top: 30px;
+    width: 400px;
+  }
+
   .mh-login {
     width: 100%;
     height: 100%;

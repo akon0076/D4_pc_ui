@@ -66,18 +66,13 @@ export default {
         let password = md5.digest('hex');
         param.password = password
         LoginService.loginSubmit(param).then((res) => {
-          if (res.data.captcha) {
-            if (res.data.isLogin) {
-              commit('ACCOUNT_AUTH_STATUS_CHANGED', {...res, params});
-              Msg.success('登录成功');
-              resolve()
-            } else {
-              Msg.warn('此账户无访问权限，请登录其他账户设置');
-              reject('此账户无访问权限，请登录其他账户设置')
-            }
+          if (res.data.isLogin) {
+            commit('ACCOUNT_AUTH_STATUS_CHANGED', {...res, params});
+            Msg.success('登录成功');
+            resolve()
           } else {
-            Msg.warn('验证码错误');
-            reject('验证码错误');
+            Msg.warn('账号或密码错误,请重新输入');
+            reject('账号或密码错误,请重新输入')
           }
         }).catch(err => {
           reject(err);
@@ -95,14 +90,14 @@ export default {
         debugger
         LoginService.wisdomCateringLoginSubmit(params).then((res) => {
           if (res.data.captcha) {
-          if (res.data.isLogin) {
-            commit('ACCOUNT_AUTH_STATUS_CHANGED', {...res, params});
-            Msg.success('登录成功');
-            resolve()
-          } else {
-            Msg.warn('此账户无访问权限，请登录其他账户设置');
-            reject('此账户无访问权限，请登录其他账户设置')
-          }
+            if (res.data.isLogin) {
+              commit('ACCOUNT_AUTH_STATUS_CHANGED', {...res, params});
+              Msg.success('登录成功');
+              resolve()
+            } else {
+              Msg.warn('账号或密码错误,请重新输入');
+              reject('账号或密码错误,请重新输入')
+            }
           } else {
             Msg.warn('验证码错误');
             reject('验证码错误');

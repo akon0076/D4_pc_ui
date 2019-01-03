@@ -1,3 +1,4 @@
+import ModelFileRoute from './report/ModelFileRoute'
 import MemberRegistRoute from './regist/MemberRegistRoute'
 import OrganizationRegistRoute from './regist/OrganizationRegistRoute'
 import EmployeRegistRoute from './regist/EmployeRegistRoute'
@@ -15,6 +16,13 @@ import OperatorRoute from './permission/OperatorRoute'
 import CodeTableRoute from './system/CodeTableRoute'
 import fileRoute from './fileUpload/Route'
 import OrganizationRoute from './organization/OrganizationRoute'
+
+
+
+// 添加统计报表展示
+import reportMesShowRoute from './report/reportShow/reportMesShowRoute'
+
+
 // import EmployeeManageRoute from './registrationAudit/EmployeeManageRoute'
 // import OrganizationManageRoute from './registrationAudit/OrganizationManageRoute'
 
@@ -48,6 +56,9 @@ export default [
       ...EmployeRegistRoute,
       ...OrganizationRegistRoute,
          ...MemberRegistRoute,
+         ...ModelFileRoute,
+
+      ...reportMesShowRoute
     ]
   }
 ]
