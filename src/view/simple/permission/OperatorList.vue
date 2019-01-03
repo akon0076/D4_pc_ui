@@ -9,7 +9,7 @@
         <!--数据表格-->
         <el-col>
           <!--新增任务按钮-->
-          <downSearch  :selectValues="selectValues" @returnedValue="searchByCondition"></downSearch>
+          <downSearch :selectValues="selectValues" @returnedValue="searchByCondition"></downSearch>
           <div style="float: right; margin-bottom: 15px">
 
             <el-button type="primary" @click="addOperator()" v-permission:simple_permission_Operator_Add>新增操作员
@@ -72,8 +72,6 @@
               </el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="code" label="编码" min-width="80" sortable resizable
                                show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="passWord" label="密码" min-width="80" sortable
-                               resizable show-overflow-tooltip></el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="status" label="状态" min-width="80" sortable
                                resizable show-overflow-tooltip></el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="type" label="类型" min-width="80" sortable resizable
@@ -121,7 +119,7 @@
     <el-dialog
       title="角色分配"
       :visible.sync="dialogVisible"
-      >
+    >
       <el-transfer
         :titles="['所有角色', '当前角色']"
         v-model="roleData"
@@ -158,24 +156,24 @@
         roleDataTable: [],
         dialogVisible: false,
         currentEditId: '',
-        selectValues:[
-          {key:"name",value:"操作员名称"},
-          {key:"code",value:"编码"},
-          {key:"passWord",value:"密码"},
-          {key:"status",value:"状态"},
-          {key:"type",value:"类型"},
-          {key:"remark",value:"备注"},
+        selectValues: [
+          {key: "name", value: "操作员名称"},
+          {key: "code", value: "编码"},
+          {key: "passWord", value: "密码"},
+          {key: "status", value: "状态"},
+          {key: "type", value: "类型"},
+          {key: "remark", value: "备注"},
 
         ],
-        condition:''
+        condition: ''
       }
     },
     created: function () {
       this.init()
     },
     methods: {
-      searchByCondition(value){
-        this.condition=value;
+      searchByCondition(value) {
+        this.condition = value;
         this.init()
       },
       init() {
@@ -191,8 +189,8 @@
         var parms = {
           currentPage: this.currentPage,
           pageSize: this.pageSize,
-          columnName:this.condition.columnName,
-          content:this.condition.content
+          columnName: this.condition.columnName,
+          content: this.condition.content
         }
         return parms;
       },
