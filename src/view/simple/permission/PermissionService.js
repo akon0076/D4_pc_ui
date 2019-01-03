@@ -19,15 +19,15 @@ export class PermissionService {
   }
 
 
-  //根据权限点Id查询权限点
-  static findPermission(permissionId) {
+  //根据权限点code查询权限点
+  static findPermission(code) {
     var httpMethod = 'GET';
     var body = simpleServer.getArgs(this.findPermission, arguments, 'GET');
     return simpleServer.connection(httpMethod, '/simple/permission/Permission/findPermission', body);
   }
 
   //为了编辑,根据权限点Id查询权限点
-  static findPermissionForEdit(permissionId) {
+  static findPermissionForEdit(code) {
     var httpMethod = 'GET';
     var body = simpleServer.getArgs(this.findPermissionForEdit, arguments, 'GET');
     return simpleServer.connection(httpMethod, '/simple/permission/Permission/findPermissionForEdit', body);
@@ -62,7 +62,7 @@ export class PermissionService {
   }
 
   //根据权限点Id删除权限点
-  static deletePermission(permissionId) {
+  static deletePermission(code) {
     var httpMethod = 'GET';
     var body = simpleServer.getArgs(this.deletePermission, arguments, 'GET');
     return simpleServer.connection(httpMethod, '/simple/permission/Permission/deletePermission', body);
