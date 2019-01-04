@@ -65,6 +65,14 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
+            <el-form-item label="urls" prop="urls">
+              <el-input type="textarea" v-model="permission.urls"
+                        placeholder="urls路径" clearable autosize
+                        resize="both" tabindex=7
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
             <el-form-item label="备注" prop="remark">
 
               <el-input type="textarea" v-model="permission.remark"
@@ -125,6 +133,9 @@
           moduleCode: [
             {required: true, message: '请输入模块编码', trigger: 'blur'},
             {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
+          ],
+          urls: [
+            {required: true, message: '请输入urls', trigger: 'blur'}
           ],
           remark: [
             {required: false, message: '请输入备注', trigger: 'blur'},
@@ -220,7 +231,9 @@
       {
         this.isSubmiting = true;
         this.buttonRequestProgressStart("正在保存,请稍后...");
-        PermissionService.savePermission(this.permission).then((resp) => {
+        let params = JSON.parse(JSON.stringify(this.permission))
+        params.urls = this.permission.urls.split("\n")
+        PermissionService.savePermission(params).then((resp) => {
           this.buttonRequestProgressClose();
           this.isSubmiting = false;
           var router = this.$router;
@@ -238,7 +251,9 @@
       {
         this.isSubmiting = true;
         this.buttonRequestProgressStart("正在更新,请稍后...");
-        PermissionService.updatePermission(this.permission).then((resp) => {
+        let params = JSON.parse(JSON.stringify(this.permission))
+        params.urls = this.permission.urls.split("\n")
+        PermissionService.updatePermission(params).then((resp) => {
           this.buttonRequestProgressClose();
           this.isSubmiting = false;
           var router = this.$router;
@@ -265,18 +280,10 @@
       },
       createPermission()//创建新的权限点
       {
-        PermissionService.createPermission().then((resp) => {
-          this.prepareForEdit(resp.data);
-        }).catch((error) => {
-          this.$message({
-            type: 'error',
-            message: '创建新的权限点出错'
-          })
-        })
       },
       prepareForEdit(permissionEditDto) {
-        this.permission = permissionEditDto.permission;
-
+        this.permission = permissionEditDto.permission
+        this.permission.urls = permissionEditDto.permission.urls.join("\n")
       },
 
     },
