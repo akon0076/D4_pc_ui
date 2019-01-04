@@ -130,4 +130,101 @@ export class d4utils {
       }
     }
   }
+
+   /** 
+   * 前端导出表格数据接口
+   *
+  */
+ static downloadData(fileName,tableDatas,borderAll){
+  let wb = XLSX.utils.table_to_book(document.querySelector("#tableKey"),{raw:true});
+  let wbSheet = wb.Sheets.Sheet1;
+  //todo 获取列的最大值（A-Z）
+  let ascCol = ((wbSheet["!ref"].split(":")[1].charAt(0)).charCodeAt() - 1);
+  let maxCol = String.fromCharCode(ascCol);
+  wbSheet['!cols'] = this.setCols(wbSheet,100,maxCol,tableDatas);;
+  let count = 0;
+  for(let key in wb.Sheets.Sheet1){
+    if((/[A-Z]/.test((key.charAt(0)))) && (key.charAt(0)) <= maxCol){
+      wb.Sheets.Sheet1[key].s = {
+        border:borderAll,
+        numFmt:''
+      }
+    }
+    
+    if((/[B-Z]/.test((key.charAt(0))))){
+      if((key.charAt(0)) == maxCol){
+        if(tableDatas[count] && tableDatas[count].color){
+          wb.Sheets.Sheet1[key].s = {
+            border:borderAll,
+            fill:{
+              fgColor:{
+                rgb: tableDatas[count].color.split('#')[1]
+              }
+            }
+          }
+        }
+        count = 0;
+      }else{
+        if(((key.charAt(0)).charCodeAt()) <= ascCol){
+          if(tableDatas[count] && tableDatas[count].color){
+            wb.Sheets.Sheet1[key].s = {
+              border:borderAll,
+              fill:{
+                fgColor: {
+                  rgb: tableDatas[count].color.split('#')[1]
+                }
+              }
+            }
+          }
+          count++;
+        }
+      }
+    }
+  }
+  let wbout = xlsxStyle.write(wb, {
+    bookType: 'xlsx',
+    bookSST: true, 
+    type: 'buffer' 
+  });
+  try{
+    FileSaver.saveAs(new Blob([wbout],{type : 'application/octet-stream;charset=utf-8' }), fileName + ".xlsx");
+  }catch(e){
+    console.log(e,wb);
+  }
+  return wb;
+}
+
+static setCols(sheet,orderNumber,maxCol,tableDatas){
+  let cols = []; 
+  let temp = {};
+  let count = 0;
+  let tempWidth = 0;
+  for(let key in sheet){
+    if((/[A-Z]/.test((key.charAt(0))))){
+      if((key.charAt(0)) == 'A'){
+        temp = {wpx:orderNumber};
+        cols.push(temp);
+      }
+      else if((key.charAt(0)) == maxCol){
+        if(tableDatas[count] && tableDatas[count].width){
+          tempWidth = parseInt(tableDatas[count].width);
+          temp = {wpx:tempWidth};
+          cols.push(temp);
+        }
+        break;
+      }
+      else{
+        if(tableDatas[count] && tableDatas[count].width){
+          tempWidth = parseInt(tableDatas[count].width);
+          temp = {wpx:tempWidth}
+          cols.push(temp);
+        }
+      }
+    }
+  count++;
+  }
+  return cols;
+}
+}
+
 }

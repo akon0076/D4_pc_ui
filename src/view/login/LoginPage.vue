@@ -149,29 +149,41 @@
             let password = md5.digest('hex');
             this.loginForm.password = password
             LoginService.getOrganizations(this.loginForm).then(res => {
-              this.organizations = res.data
-              this.organization = this.organizations[0]
-              console.log(this.organizations.length)
-              if (this.organizations.length == 1) {
-                this.loginForm.organizationId = this.organization.eid
-                this.loginForm.password = this.pass
-                this.$store.dispatch('accountLoginSubmit', this.loginForm).then(() => {
-                  this.$store.getters.userInfo.currentOrganization = this.organization
-                  this.loading = false;
-                  this.$router.push({path: '/'})
-                }).catch(() => {
-                  this.loading = false;
-                  this.changeCaptcha();
-                })
+              if (res.data.captcha) {
+                if (res.data.isLogin) {
+                  this.organizations = res.data.organizations
+                  this.organization = this.organizations[0]
+                  if (this.organizations.length == 1) {
+                    this.loginForm.organizationId = this.organization.eid
+                    this.loginForm.password = this.pass
+                    this.$store.dispatch('accountLoginSubmit', this.loginForm).then(() => {
+                      this.$store.getters.userInfo.currentOrganization = this.organization
+                      this.loading = false;
+                      this.$router.push({path: '/'})
+                    }).catch(() => {
+                      this.loading = false;
+                      this.changeCaptcha();
+                    })
+                  } else {
+                    this.login = false
+                  }
+                } else {
+                  this.$message({
+                    type: 'error',
+                    message: '账号或密码错误,请重新输入'
+                  })
+                }
               } else {
-                this.login = false
+                this.$message({
+                  type: 'error',
+                  message: '验证码错误'
+                })
               }
               this.loading = false;
             }).catch(() => {
               this.loading = false;
               this.changeCaptcha();
             })
-
           } else {
             return false
           }
