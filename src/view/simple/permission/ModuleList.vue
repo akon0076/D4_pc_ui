@@ -9,7 +9,7 @@
       <el-row>
         <!--数据表格-->
         <el-col>
-<down-search  :selectValues="selectValues" @returnedValue="searchByCondition"></down-search>
+<down-search  :selectValues="selectValues"  @returnedValue="searchByCondition"></down-search>
           <!--新增任务按钮-->
           <div style="float: right; margin-bottom: 15px">
             <el-button  type="primary" @click="addModule()"  v-permission:simple_permission_Module_Add >新增模块</el-button>
@@ -95,15 +95,13 @@
               <el-table-column align="left" clalss="setCenter" prop="parentCode" label="上级模块编码" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="isInUse" label="在用" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="routeParamsObj" label="路由参数对象" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-
               <el-table-column label="操作" min-width="120" resizable>
                 <template slot-scope="scope">
                   <template>
-                    <el-button @click="editOrganation(modules[scope.$index].eid)" type="text" size="small" v-permission:simple_permission_Module_Edit >编辑</el-button>
+                    <el-button @click="editOrganation(modules[scope.$index].code)" type="text" size="small" v-permission:simple_permission_Module_Edit >编辑</el-button>
                   </template>
                   <template>
-                    <el-button @click="deleteModule(modules[scope.$index].eid)" type="text" size="small" v-permission:simple_permission_Module_Delete ><p
+                    <el-button @click="deleteModule(modules[scope.$index].code)" type="text" size="small" v-permission:simple_permission_Module_Delete ><p
                       style="color: red !important;">删除</p></el-button>
                   </template>
                 </template>
@@ -171,6 +169,7 @@
     },
     methods: {
       searchByCondition(value){
+        this.currentPage=1;
         this.condition=value;
         this.findModules();
       },
@@ -184,6 +183,7 @@
           columnName:this.condition.columnName,
           content:this.condition.content
         }
+
         return parms;
       },
       findModules() {
@@ -223,7 +223,7 @@
             this.buttonRequestProgressClose();
             this.$message({
               type: 'error',
-              message: '删除失败，请稍后再试！'
+              message: error.data.message
             })
           })
         }).catch(() => {
@@ -249,7 +249,7 @@
       editOrganation(moduleId){
         //编辑模块
         var router = this.$router;
-        router.push({path: '/simple/permission/module/edit/'+moduleId, query: {}});
+        router.push({path: '/simple/permission/module/edit', query: {moduleId:moduleId}});
       },
       handleCurrentChange(currentRow,oldCurrentRow) {
         //this.currentRow = val;

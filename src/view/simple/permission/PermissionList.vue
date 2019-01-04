@@ -136,6 +136,7 @@
     },
     methods: {
       searchByCondition(value){
+        this.currentPage=1;
         this.condition=value;
         this.findPermissions();
       },
