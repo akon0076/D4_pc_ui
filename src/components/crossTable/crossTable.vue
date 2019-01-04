@@ -1,7 +1,7 @@
 <template>
   <div class="boxShadow">
     <div class="operate" style="height:5vh">
-      <el-button size="mini" class="del-com" @click="exportTable('example',tableDatas)">导出</el-button>
+      <el-button size="mini" class="del-com" @click="exportTable('example',tableDatas,borderStyle)">导出</el-button>
     </div>
     <div style="width:100%;height:100%;overflow:auto">
       <el-table id="tableKey"
