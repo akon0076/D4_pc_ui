@@ -131,7 +131,7 @@ export class d4utils {
     }
   }
 
-   /** 
+   /**
    * 前端导出表格数据接口
    *
   */
@@ -150,7 +150,7 @@ export class d4utils {
         numFmt:''
       }
     }
-    
+
     if((/[B-Z]/.test((key.charAt(0))))){
       if((key.charAt(0)) == maxCol){
         if(tableDatas[count] && tableDatas[count].color){
@@ -183,8 +183,8 @@ export class d4utils {
   }
   let wbout = xlsxStyle.write(wb, {
     bookType: 'xlsx',
-    bookSST: true, 
-    type: 'buffer' 
+    bookSST: true,
+    type: 'buffer'
   });
   try{
     FileSaver.saveAs(new Blob([wbout],{type : 'application/octet-stream;charset=utf-8' }), fileName + ".xlsx");
@@ -195,7 +195,7 @@ export class d4utils {
 }
 
 static setCols(sheet,orderNumber,maxCol,tableDatas){
-  let cols = []; 
+  let cols = [];
   let temp = {};
   let count = 0;
   let tempWidth = 0;
@@ -225,6 +225,6 @@ static setCols(sheet,orderNumber,maxCol,tableDatas){
   }
   return cols;
 }
-}
+
 
 }
