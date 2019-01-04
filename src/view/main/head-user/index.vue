@@ -50,7 +50,7 @@
               window.location.reload()
             })
           }).catch(() => {
-            // todo  
+            // todo
           });
         } else {
           this.$emit('openEditorPwd')

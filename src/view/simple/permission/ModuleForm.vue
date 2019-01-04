@@ -32,7 +32,7 @@
                                     <el-col :span="12">
                                         <el-form-item label="编码" prop="code">
                                             <el-input type="input" v-model="module.code"
-                                                      placeholder="编码" clearable autosize
+                                                      placeholder="编码(如:Simple)" clearable autosize
                                                       resize ="both" tabindex=3
                                                               maxlength=200
                                             ></el-input>
@@ -91,9 +91,10 @@
                                                 value-key="name"
                                                 v-model="module.parentName"
                                                 :fetch-suggestions="searchParentName "
-                                                placeholder="上级模块"
+                                                placeholder="上级模块(不填默认为顶级模块)"
                                                 @select="handleSelectParentName"
-                                                clearable autosize
+                                                clearable
+                                                autosize
                                                 resize ="both" tabindex="9"
                                         ></el-autocomplete>
                                     </el-form-item>
@@ -111,7 +112,7 @@
                                         ></el-autocomplete>
                                     </el-form-item>
                                 </el-col>
-                                    <el-col :span="12">
+                             <!--       <el-col :span="12">
                                         <el-form-item label="上级模块编码" prop="parentCode">
                                             <el-input type="input" v-model="module.parentCode"
                                                       placeholder="上级模块编码" clearable autosize
@@ -119,7 +120,7 @@
                                                               maxlength=500
                                             ></el-input>
                                     </el-form-item>
-                                    </el-col>
+                                    </el-col>-->
                                 <el-col :span="12">
                                     <el-form-item label="在用" prop="isInUse">
                                         <el-autocomplete
@@ -142,17 +143,7 @@
                                             ></el-input>
                                     </el-form-item>
                                     </el-col>
-                                <el-col :span="24">
-                                    <el-form-item label="备注" prop="remark">
-
-                                            <el-input type="textarea" v-model="module.remark"
-                                                      placeholder="备注" clearable autosize
-                                                      resize ="both" tabindex=10000
-                                                              maxlength=255
-                                            ></el-input>
-                                    </el-form-item>
-                                </el-col>
-                    <el-col :span="12">
+                    <el-col :span="24">
                         <el-form-item>
                             <el-button type="primary" @click="submitModule()"    :loading="isSubmiting" v-permission:simple_permission_Module_Edit >提交</el-button>
                         </el-form-item>
@@ -194,7 +185,7 @@ export default {
                     { validator:validateString(0,1000,/^.*$/,"输入的数据不正确，请检查"), trigger: 'blur' },
                     ],
                 name: [
-                    {required:  false , message: '请输入名称', trigger: 'blur'},
+                    {required:  true , message: '请输入名称', trigger: 'blur'},
                     { validator:validateString(0,1000,/^.*$/,"输入的数据不正确，请检查"), trigger: 'blur' },
                     ],
                 url: [
@@ -221,14 +212,14 @@ export default {
                     {required:  false , message: '请输入上级模块', trigger: 'blur'},
                     ],
                 moduleType: [
-                    {required:  false , message: '请输入模块类型', trigger: 'blur'},
+                    {required:  true , message: '请输入模块类型', trigger: 'blur'},
                     ],
                 parentCode: [
                     {required:  false , message: '请输入上级模块编码', trigger: 'blur'},
                     { validator:validateString(0,1000,/^.*$/,"输入的数据不正确，请检查"), trigger: 'blur' },
                     ],
                 isInUse: [
-                    {required:  false , message: '请输入在用', trigger: 'blur'},
+                    {required:  true , message: '请输入在用', trigger: 'blur'},
                     ],
                 routeParamsObj: [
                     {required:  false , message: '请输入路由参数对象', trigger: 'blur'},
@@ -309,7 +300,7 @@ export default {
             var refs = this.$refs;
             refs['moduleForm'].validate(valid => {
             if (valid) {
-            if(this.module.eid)//编辑模块
+            if( this.moduleId)//编辑模块
             {
             this.updateModule();
             }
@@ -326,6 +317,11 @@ export default {
         {
             this.isSubmiting = true;
           this.buttonRequestProgressStart("正在保存,请稍后...");
+          if(this.module.parentName){}
+          else{
+            this.module.parentCode = "";
+            this.module.parentName = "";
+          }
             ModuleService.saveModule(this.module).then((resp) => {
               this.buttonRequestProgressClose();
                 this.isSubmiting = false;
@@ -336,7 +332,7 @@ export default {
             this.isSubmiting = false;
             this.$message({
             type: 'error',
-            message: '保存出错'
+            message: error.data.message
         })
         })
         },
@@ -344,6 +340,11 @@ export default {
         {
             this.isSubmiting = true;
           this.buttonRequestProgressStart("正在更新,请稍后...");
+          if(this.module.parentName){}
+          else{
+            this.module.parentCode = "";
+            this.module.parentName = "";
+          }
             ModuleService.updateModule(this.module).then((resp) => {
               this.buttonRequestProgressClose();
                 this.isSubmiting = false;
@@ -383,7 +384,6 @@ export default {
         prepareForEdit(moduleEditDto)
         {
             this.module = moduleEditDto.module;
-
             this.moduleTypeCodeTables = moduleEditDto.moduleTypeCodeTables;
             this.isInUseCodeTables = moduleEditDto.isInUseCodeTables;
             this.parentModules = moduleEditDto.parentModules
@@ -465,11 +465,11 @@ export default {
                 };
             },
             handleSelectParentName(item){
-                this.module.parentId = item.eId;
+                this.module.parentCode = item.code;
             },
     },
     created() {
-        this.moduleId = this.$route.params.moduleId;
+        this.moduleId = this.$route.query.moduleId;
         if(this.moduleId)//编辑
         {
             this.findModuleForEdit(this.moduleId);
