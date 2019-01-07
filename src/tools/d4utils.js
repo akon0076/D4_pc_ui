@@ -1,5 +1,4 @@
 const XLSX = require("xlsx");
-//import a form "xlsx";
 import FileSaver from "file-saver";
 const xlsxStyle =require("xlsx-style");
 export class d4utils {
@@ -133,17 +132,16 @@ export class d4utils {
       }
     }
   }
-    /** 
+    /**
    * 前端导出表格数据接口
    *
   */
   static downloadData(fileName,tableDatas,borderAll){
     let wb = XLSX.utils.table_to_book(document.querySelector("#tableKey"),{raw:true});
     let wbSheet = wb.Sheets.Sheet1;
-    //todo 获取列的最大值（A-Z）
     let ascCol = ((wbSheet["!ref"].split(":")[1].charAt(0)).charCodeAt() - 1);
     let maxCol = String.fromCharCode(ascCol);
-    wbSheet['!cols'] = this.setCols(wbSheet,100,maxCol,tableDatas);
+    wbSheet['!cols'] = this.setCols(wbSheet,100,maxCol,tableDatas);;
     let count = 0;
     for(let key in wb.Sheets.Sheet1){
       if((/[A-Z]/.test((key.charAt(0)))) && (key.charAt(0)) <= maxCol){
@@ -164,7 +162,7 @@ export class d4utils {
           },
         }
       }
-      
+
       if((/[B-Z]/.test((key.charAt(0))))){
         if((key.charAt(0)) == maxCol){
           if(tableDatas[count] && tableDatas[count].color){
@@ -223,8 +221,8 @@ export class d4utils {
     }
     let wbout = xlsxStyle.write(wb, {
       bookType: 'xlsx',
-      bookSST: true, 
-      type: 'buffer' 
+      bookSST: true,
+      type: 'buffer'
     });
     try{
       FileSaver.saveAs(new Blob([wbout],{type : 'application/octet-stream;charset=utf-8' }), fileName + ".xlsx");
@@ -235,7 +233,7 @@ export class d4utils {
   }
 
   static setCols(sheet,orderNumber,maxCol,tableDatas){
-    let cols = []; 
+    let cols = [];
     let temp = {};
     let count = 0;
     let tempWidth = 0;

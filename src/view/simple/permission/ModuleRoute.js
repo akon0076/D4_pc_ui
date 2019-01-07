@@ -24,7 +24,7 @@ export default [
     component: () => import('./ModuleForm')
 },
 {
-    path: '/simple/permission/Module/edit/:moduleId',
+    path: '/simple/permission/Module/edit',
     name: 'simple_permission_Module_edit',
     meta: {
         label: '编辑模块',

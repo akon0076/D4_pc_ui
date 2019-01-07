@@ -26,26 +26,28 @@
             </el-input>
           </el-form-item>
         </div>
-        <el-form-item prop="captcha">
-          <div class="wrapper">
-            <el-input
-              type="text"
-              v-model="loginForm.captcha"
-              auto-complete="off"
-              placeholder="验证码"
-              style="width: 45%"
-            ></el-input>
-            <img :src=src style="width: 45%;" @click="changeCaptcha"/>
-          </div>
-        </el-form-item>
-        <el-form-item label="">
-          <div class="wrapper">
-            <el-checkbox
-              label="记住我" name="type" v-model="loginForm.remember">
-            </el-checkbox>
-            <span @click="changeCaptcha">看不清楚，换一张</span>
-          </div>
-        </el-form-item>
+        <div v-if="hasVertify">
+          <el-form-item prop="captcha">
+            <div class="wrapper">
+              <el-input
+                type="text"
+                v-model="loginForm.captcha"
+                auto-complete="off"
+                placeholder="验证码"
+                style="width: 45%"
+              ></el-input>
+              <img :src=src style="width: 45%;" @click="changeCaptcha"/>
+            </div>
+          </el-form-item>
+          <el-form-item label="">
+            <div class="wrapper">
+              <el-checkbox
+                label="记住我" name="type" v-model="loginForm.remember">
+              </el-checkbox>
+              <span @click="changeCaptcha">看不清楚，换一张</span>
+            </div>
+          </el-form-item>
+        </div>
         <el-form-item>
           <el-button
             class="btn"
@@ -93,6 +95,7 @@
         pass: '',
         organization: '',
         organizations: [],
+        hasVertify:false,
         version,
         loginForm: {
           userName: '',
@@ -149,7 +152,8 @@
             let password = md5.digest('hex');
             this.loginForm.password = password
             LoginService.getOrganizations(this.loginForm).then(res => {
-              if (res.data.captcha) {
+               this.hasVertify=res.data.hasVertify;
+              if (res.data.captcha||!this.hasVertify) {
                 if (res.data.isLogin) {
                   this.organizations = res.data.organizations
                   this.organization = this.organizations[0]

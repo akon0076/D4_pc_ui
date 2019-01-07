@@ -2,7 +2,7 @@
   <div class="spanControl-list" style="width: 100%;margin-left: 0!important;">
     <el-card class="box-card card-head" style="margin: 0px; width: 100%; min-height: 99%">
       <el-row>
-        <el-col :span="6">
+        <el-col :span="5">
           <el-tree
             :data="menus"
             :props="defaultProps"
@@ -10,11 +10,8 @@
             @node-click="handleNodeClick">
           </el-tree>
         </el-col>
-        <el-col :span="16" :offset="1">
-          <div style="float: right;margin-left: 10px">
-            <el-button class="permission-button" type="primary" @click="updateOperatorAndRole">确 定</el-button>
-          </div>
-          <div style="float: right">
+        <el-col :span="18" :offset="1">
+          <div style="float: left">
             <el-transfer
               filterable
               filter-placeholder="请输入角色名称"
@@ -23,6 +20,9 @@
               @change="handleChange"
               :data="roleDataTable">
             </el-transfer>
+          </div>
+          <div style="float: left;margin-left: 10px">
+            <el-button class="permission-button" type="primary" @click="updateOperatorAndRole">确 定</el-button>
           </div>
         </el-col>
       </el-row>
@@ -103,11 +103,11 @@
             disabled: false
           })
         })
-        data.forEach(function (item, index) {
-          _this.roleData.push(item.eid)
+        data.forEach(function (item) {
+          _this.roleData.push(item.roleId)
         })
       },
-      //更新操作员权限
+      //更新操作员角色
       updateOperatorAndRole() {
         let parms = {
           operatorId: this.currentEditId,
@@ -116,6 +116,8 @@
           removeRoles: this.removeRoles,
         }
         OperatorAndRoleService.updateOperatorAndRole(parms).then((res) => {
+          this.removeRoles = []
+          this.addRoles = []
           this.$message({
             type: 'success',
             message: '分配成功！'
@@ -138,7 +140,6 @@
       },
       //选择角色
       handleChange(value, direction, movedKeys) {
-        console.log(movedKeys)
         let _this = this
         //分配角色
         if (direction == "right") {

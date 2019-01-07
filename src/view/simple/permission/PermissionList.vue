@@ -69,10 +69,10 @@
               <el-table-column label="操作" min-width="120" resizable>
                 <template slot-scope="scope" style="text-align: center;">
                   <template>
-                    <el-button @click="editOrganation(permissions[scope.$index].eid)" type="text" size="small" v-permission:simple_permission_Permission_Edit >编辑</el-button>
+                    <el-button @click="editOrganation(permissions[scope.$index].code)" type="text" size="small" v-permission:simple_permission_Permission_Edit >编辑</el-button>
                   </template>
                   <template>
-                    <el-button @click="deletePermission(permissions[scope.$index].eid)" type="text" size="small" v-permission:simple_permission_Permission_Delete ><p
+                    <el-button @click="deletePermission(permissions[scope.$index].code)" type="text" size="small" v-permission:simple_permission_Permission_Delete ><p
                       style="color: red !important;">删除</p></el-button>
                   </template>
                 </template>
@@ -136,6 +136,7 @@
     },
     methods: {
       searchByCondition(value){
+        this.currentPage=1;
         this.condition=value;
         this.findPermissions();
       },
@@ -157,6 +158,7 @@
         PermissionService.findPermissions(parms).then((res) => {
           this.buttonRequestProgressClose();
           this.permissions = res.data.datas;
+          console.log(this.permissions)
           this.totalCount = res.data.totalCount;
         }).catch((error) => {
           this.buttonRequestProgressClose();
@@ -166,18 +168,18 @@
           })
         })
       },
-      displayPermission(permissionId){
+      displayPermission(code){
         var router = this.$router;
-        router.push({path: '/simple/permission/permission/display/'+permissionId, query: {}});
+        router.push({path: '/simple/permission/permission/display/'+code, query: {}});
       },
-      deletePermission(permissionId) {
+      deletePermission(code) {
         this.$confirm('您确定要删除吗?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           this.buttonRequestProgressStart("正在删除,请稍后...");
-          PermissionService.deletePermission(permissionId).then((res) =>{
+          PermissionService.deletePermission(code).then((res) =>{
             this.buttonRequestProgressClose();
             this.$message({
               type: 'success',
@@ -211,10 +213,10 @@
         var router = this.$router;
         router.push({path: '/simple/permission/permission/add', query: {}});
       },
-      editOrganation(permissionId){
+      editOrganation(permissionCode){
         //编辑权限点
         var router = this.$router;
-        router.push({path: '/simple/permission/permission/edit/'+permissionId, query: {}});
+        router.push({path: '/simple/permission/permission/edit/'+permissionCode, query: {}});
       },
       handleCurrentChange(currentRow,oldCurrentRow) {
         //this.currentRow = val;

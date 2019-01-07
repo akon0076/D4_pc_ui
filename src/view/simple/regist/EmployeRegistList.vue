@@ -127,7 +127,7 @@
             this.findEmployeRegists();
         },
         methods: {
-          searchByCondition(value){
+          searchByCondition(value){        this.currentPage=1;
             this.condition=value;
             this.findEmployeRegists();
           },
