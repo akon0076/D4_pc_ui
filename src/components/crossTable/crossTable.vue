@@ -1,7 +1,7 @@
 <template>
   <div class="boxShadow">
     <div class="operate" style="height:5vh">
-      <el-button size="mini" class="del-com" @click="exportTable('example',tableDatas,borderStyle)">导出</el-button>
+      <el-button size="mini" class="del-com" @click="exportTable('example',tableDatas,'thin')">导出</el-button>
     </div>
     <div style="width:100%;height:100%;overflow:auto">
       <el-table id="tableKey"
@@ -189,12 +189,28 @@ import { d4utils } from '../../tools/d4utils';
           for(let j = 0;j < trs.length;j++){
             if(this.tableDatas[i] && this.tableDatas[i].color) {
               trs[j].childNodes[count].style.background = this.tableDatas[i].color;
+            }else{
+              trs[j].childNodes[count].style.background = "#ffffff";
             }
           }
         }
       },
-      exportTable(fileName,arr){
-        d4utils.downloadData(fileName,arr);
+      exportTable(fileName,arr,borderStyle){
+        const borderAll = {
+          top: {
+            style: borderStyle
+          },
+          bottom: {
+            style: borderStyle
+          },
+          left: {
+            style: borderStyle
+          },
+          right: {
+            style: borderStyle
+          }
+        }
+        d4utils.downloadData(fileName,arr,borderAll);
       }
     }
   }
