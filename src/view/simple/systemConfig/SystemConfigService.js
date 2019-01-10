@@ -46,7 +46,6 @@ export class SystemConfigService {
         var httpMethod = 'POST';
  /*       var body = simpleServer.getArgs(this.saveSystemConfig,arguments,'POST');*/
         var files=[];
-         systemConfig.eid=1;//无其他作用,仅作验证
         for(let i=0;i<fileList.length;i++){
           files[i]=fileList[i].raw;
         }

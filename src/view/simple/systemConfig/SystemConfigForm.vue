@@ -133,6 +133,7 @@ export default {
 
         return {
           fileList:[],
+          requiredValue:true,
             rules: {
 
                 name: [
@@ -144,7 +145,7 @@ export default {
                     { validator:validateString(0,1000,/^.*$/,"输入的数据不正确，请检查"), trigger: 'blur' },
                     ],
                 systemConfigValue: [
-                    {required:  true , message: '请输入值', trigger: 'blur'},
+                    {required: true , message: '请输入值', trigger: 'blur'},
                     { validator:validateString(0,1000,/^.*$/,"输入的数据不正确，请检查"), trigger: 'blur' },
                     ],
                 systemConfigDescription: [
@@ -220,7 +221,16 @@ export default {
                 errors:[]},
         }
     },
-
+watch:{
+fileList(newval){
+     if(this.fileList.length>0){
+         this.rules.systemConfigValue[0].required=false;
+     }
+     else{
+       this.rules.systemConfigValue[0].required=true;
+     }
+}
+},
     methods: {
       deleteFileList(item,ids){
        let index= this.fileList.indexOf(item);
@@ -330,14 +340,23 @@ export default {
         },
         prepareForEdit(systemConfigEditDto)
         {
-          debugger
+
             this.systemConfig = systemConfigEditDto.systemConfig;
             this.systemConfig.deleteIds=[];
-            if(systemConfigEditDto.attachments)
-            for(let i=0;i<systemConfigEditDto.attachments.length;i++){
-              this.fileList[i]={name:systemConfigEditDto.attachments[i].attachmentRealName,id:systemConfigEditDto.attachments[i].eid};
+            if(systemConfigEditDto.attachments) {
+              for (let i = 0; i < systemConfigEditDto.attachments.length; i++) {
+                this.fileList[i] = {
+                  name: systemConfigEditDto.attachments[i].attachmentRealName,
+                  id: systemConfigEditDto.attachments[i].eid
+                };
+              }
+              if(this.fileList.length>0){
+                this.rules.systemConfigValue[0].required=false;
+              }
+              else{
+                this.rules.systemConfigValue[0].required=true;
+              }
             }
-
         },
 
     },
