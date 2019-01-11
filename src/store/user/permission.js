@@ -99,8 +99,9 @@ const permission = {
       return new Promise((resolve, reject) => {
         LoginService.constructNewTree(params.operatorId,params.moduleType).then((res) => {
             commit('setMenus', {...res, params});
-            resolve()
+            resolve(res)
         }).catch(err => {
+          reject(err);
         })
       })
     },

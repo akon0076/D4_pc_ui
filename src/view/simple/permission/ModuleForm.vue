@@ -30,9 +30,9 @@
             <div class="text item">
                 <el-form ref="moduleForm" :model="module" label-width="150px" :rules="rules">
                                     <el-col :span="12">
-                                        <el-form-item label="编码" prop="code">
-                                            <el-input type="input" v-model="module.code"
-                                                      placeholder="编码(如:Simple)" clearable autosize
+                                        <el-form-item label="编码"  prop="code">
+                                            <el-input :disabled="moduleId" type="input" v-model="module.code"
+                                                      placeholder="编码(如:Simple)不能包含/" clearable autosize
                                                       resize ="both" tabindex=3
                                                               maxlength=200
                                             ></el-input>
@@ -87,6 +87,7 @@
                                 <el-col :span="12">
                                     <el-form-item label="上级模块" prop="parentName">
                                         <el-autocomplete
+                                              :disabled="moduleId"
                                                 class="inline-input"
                                                 value-key="name"
                                                 v-model="module.parentName"
@@ -202,7 +203,7 @@ export default {
                     ],
                 displayIndex: [
 
-                    {required:  false , message: '请输入显示顺序', trigger: 'blur'},
+                    {required:  true , message: '请输入显示顺序', trigger: 'blur'},
                     { validator: validateIntRange(-9223372036854775808,9223372036854775807), trigger: 'blur' },
                     ],
                 parentId: [

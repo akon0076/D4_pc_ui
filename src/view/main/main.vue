@@ -59,8 +59,11 @@
       getMenu() {
         var parms = {'operatorId':this.$store.getters.userInfo.loginOperator.eid,'moduleType':'电脑模块'};
         this.$store.dispatch('constructNewTree', parms).then(() => {
-        }).catch(() => {
-
+        }).catch((error) => {
+          this.$message({
+            type: 'error',
+            message:error.data.message
+          })
         })
       },
       openEditorPwd() {
