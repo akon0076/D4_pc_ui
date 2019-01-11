@@ -55,7 +55,7 @@ export class PermissionService {
   }
 
   //编辑权限点
-  static updatePermission(permission) {
+  static updatePermission(dto) {
     var httpMethod = 'POST';
     var body = simpleServer.getArgs(this.updatePermission, arguments, 'POST');
     return simpleServer.connection(httpMethod, '/simple/permission/Permission/updatePermission', body);

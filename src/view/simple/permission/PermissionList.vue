@@ -158,7 +158,6 @@
         PermissionService.findPermissions(parms).then((res) => {
           this.buttonRequestProgressClose();
           this.permissions = res.data.datas;
-          console.log(this.permissions)
           this.totalCount = res.data.totalCount;
         }).catch((error) => {
           this.buttonRequestProgressClose();
