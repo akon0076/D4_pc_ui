@@ -143,6 +143,7 @@
           ],
         },
         isSubmiting: false,
+        lastCode: '',
         permission: {},
         code: '',
         pickerOptionsCreateDatetime: {
@@ -227,8 +228,8 @@
           }
         })
       },
-      savePermission()//保存权限点
-      {
+      //保存权限点
+      savePermission() {
         this.isSubmiting = true;
         this.buttonRequestProgressStart("正在保存,请稍后...");
         let params = JSON.parse(JSON.stringify(this.permission))
@@ -243,17 +244,20 @@
           this.isSubmiting = false;
           this.$message({
             type: 'error',
-            message: '保存出错'
+            message: error.data.message
           })
         })
       },
-      updatePermission()//编辑权限点
-      {
+      //编辑权限点
+      updatePermission() {
         this.isSubmiting = true;
         this.buttonRequestProgressStart("正在更新,请稍后...");
         let params = JSON.parse(JSON.stringify(this.permission))
         params.urls = this.permission.urls.split("\n")
-        PermissionService.updatePermission(params).then((resp) => {
+        let dto = {}
+        dto.permission = params
+        dto.lastCode = this.lastCode
+        PermissionService.updatePermission(dto).then((resp) => {
           this.buttonRequestProgressClose();
           this.isSubmiting = false;
           var router = this.$router;
@@ -263,7 +267,7 @@
           this.isSubmiting = false;
           this.$message({
             type: 'error',
-            message: '保存出错'
+            message: error.data.message
           })
         })
       },
@@ -283,6 +287,7 @@
       },
       prepareForEdit(permissionEditDto) {
         this.permission = permissionEditDto.permission
+        this.lastCode = permissionEditDto.permission.code
         this.permission.urls = permissionEditDto.permission.urls.join("\n")
       },
 
