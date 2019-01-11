@@ -49,19 +49,26 @@
           <el-col :span="12">
             <el-form-item label="全名" prop="fullName">
               <el-input type="input" v-model="permission.fullName"
-                        placeholder="名称加上模块名称" clearable autosize
+                        placeholder="模块名称加上权限点名称" clearable autosize
                         resize="both" tabindex=5
                         maxlength=200
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="模块编码" prop="moduleCode">
-              <el-input type="input" v-model="permission.moduleCode"
-                        placeholder="模块编码" clearable autosize
-                        resize="both" tabindex=6
-                        maxlength=100
-              ></el-input>
+            <el-form-item label="模块" prop="moduleCode">
+              <el-autocomplete
+                class="inline-input"
+                v-model="moduleName"
+                :fetch-suggestions="querySearch"
+                value-key="name"
+                placeholder="请输入对应模块"
+                resize="both"
+                clearable
+                autosize
+                tabindex=6
+                @select="handleSelect"
+              ></el-autocomplete>
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -107,6 +114,7 @@
 
 
   import {PermissionService} from './PermissionService'
+  import {ModuleService} from './ModuleService'
   import {d4utils} from '../../../tools/d4utils'
 
   export default {
@@ -143,6 +151,8 @@
           ],
         },
         isSubmiting: false,
+        moduleName: '',
+        modules: [],
         lastCode: '',
         permission: {},
         code: '',
@@ -282,25 +292,68 @@
           })
         })
       },
-      createPermission()//创建新的权限点
-      {
+      findAllModules() {
+        ModuleService.findAllModules().then((resp) => {
+          let _this = this
+          resp.data.forEach(item => {
+            let module = {}
+            module.code = item.code
+            module.name = item.name
+            _this.modules.push(module)
+          })
+
+        }).catch((error) => {
+          this.$message({
+            type: 'error',
+            message: error.data.message
+          })
+        })
       },
       prepareForEdit(permissionEditDto) {
-        this.permission = permissionEditDto.permission
-        this.lastCode = permissionEditDto.permission.code
-        this.permission.urls = permissionEditDto.permission.urls.join("\n")
+        ModuleService.findAllModules().then((resp) => {
+          let _this = this
+          resp.data.forEach(item => {
+            let module = {}
+            module.code = item.code
+            module.name = item.name
+            _this.modules.push(module)
+          })
+          this.permission = permissionEditDto.permission
+          this.lastCode = permissionEditDto.permission.code
+          this.permission.urls = permissionEditDto.permission.urls.join("\n")
+          this.modules.forEach(item => {
+            if (item.code == _this.permission.moduleCode) {
+              _this.moduleName = item.name
+            }
+          })
+        }).catch((error) => {
+          this.$message({
+            type: 'error',
+            message: error.data.message
+          })
+        })
       },
-
+      querySearch(queryString, cb) {
+        var restaurants = this.modules;
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
+      },
+      createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.code.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
+      },
+      handleSelect(item) {
+        this.permission.moduleCode = item.code
+      },
     },
     created() {
       this.code = this.$route.params.code;
-      if (this.code)//编辑
-      {
-        this.findPermissionForEdit(this.code);
-      }
-      else//新增
-      {
-        this.createPermission();
+      if (this.code) {
+        this.findPermissionForEdit(this.code);//编辑
+      } else {
+        this.findAllModules();//新增
       }
     },
   }
