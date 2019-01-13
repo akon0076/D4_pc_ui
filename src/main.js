@@ -19,6 +19,14 @@ Vue.use(globalJs);
 /** 注册一个全局自定义指令 */
 directive.map(directive => Vue.directive(directive.name, directive.event));
 
+/**
+ * 全局注册一个时间处理方法
+ */
+import moment from 'moment'
+Vue.filter('dateFormat', function(dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
+  return moment(dataStr).format(pattern)
+});
+
 /* eslint-disable no-new */
 var vue=  new Vue({
   el: '#app',
