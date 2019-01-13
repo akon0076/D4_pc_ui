@@ -359,5 +359,7 @@
   }
 </script>
 <style scoped lang="scss">
-
+  .inline-input {
+    width: 100%;
+  }
 </style>

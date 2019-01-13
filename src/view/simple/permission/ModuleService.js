@@ -12,6 +12,13 @@ export class ModuleService {
   }
 
   // 查询全部模块
+  static findAllTreeNode(modelType) {
+    var httpMethod = 'GET';
+    var body = simpleServer.getArgs(this.findAllTreeNode, arguments, 'GET');
+    return simpleServer.connection(httpMethod, '/simple/permission/Module/findAllTreeNode', body);
+  }
+
+  // 查询全部模块
   static findAllModules() {
     var httpMethod = 'GET';
     var body = simpleServer.getArgs(this.findModules, arguments, 'GET');

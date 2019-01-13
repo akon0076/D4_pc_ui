@@ -33,11 +33,13 @@
 <script>
   import {mapState} from 'vuex';
   import {PermissionService} from './PermissionService';
+  import {ModuleService} from './ModuleService';
   import {RoleAndPermissionService} from './RoleAndPermissionService';
 
   export default {
     data() {
       return {
+        menus: [],
         permissionData: [],
         permissionDataTable: [],
         allPermissions: [],
@@ -52,7 +54,6 @@
       };
     },
     computed: mapState({
-      menus: state => state.permission.menus,
       user: state => state.user,
     }),
     mounted() {
@@ -61,6 +62,14 @@
     },
     methods: {
       init() {
+        ModuleService.findAllTreeNode("电脑模块").then((res) => {
+          this.menus = res.data.nodes
+        }).catch((error) => {
+          this.$message({
+            type: 'error',
+            message: '网络繁忙，请稍候再试！'
+          })
+        })
         this.findAllPermissions();
         this.findRoleAndPermissionByRoleId();
       },
