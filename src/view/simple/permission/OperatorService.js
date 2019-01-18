@@ -44,7 +44,7 @@ export class OperatorService {
   //保存操作员
   static saveOperator(operator) {
     let md5 = crypto.createHash("md5");
-    md5.update(operator.code + operator.passWord);
+    md5.update(operator.passWord);
     let password = md5.digest('hex');
     operator.passWord = password
     var httpMethod = 'POST';
@@ -55,7 +55,7 @@ export class OperatorService {
   //编辑操作员
   static updateOperator(operator) {
     let md5 = crypto.createHash("md5");
-    md5.update(operator.code + operator.passWord);
+    md5.update(operator.passWord);
     let password = md5.digest('hex');
     operator.passWord = password
     var httpMethod = 'POST';
