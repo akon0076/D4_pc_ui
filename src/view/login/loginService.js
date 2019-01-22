@@ -50,7 +50,10 @@ export class LoginService {
     var body = simpleServer.getArgs(this.getCaptcha, arguments, 'GET');
     return simpleServer.connection('GET', 'Captcha/getCaptcha', body);
   }
-
+  static hasVertify() {
+    var body = simpleServer.getArgs(this.getCaptcha, arguments, 'GET');
+    return simpleServer.connection('GET', 'Captcha/hasVertify', body);
+  }
   //获取单位
   static getOrganizations(loginForm) {
     var body = simpleServer.getArgs(this.getOrganizations, arguments, 'POST');
