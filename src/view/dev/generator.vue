@@ -59,31 +59,39 @@
               :on-change="handleFileChange"
               :file-list="fileLists"
               :auto-upload="false">
-              <el-button class="distribButton" type="primary" style="padding: 9px 15px !important;">选择文件</el-button>
+              <el-button type="primary" style="padding: 9px 15px !important;">选择文件</el-button>
             </el-upload>
           </el-col>
           <el-col :span="4">
-            <el-button class="distribButton" type="primary" style="padding: 9px 15px !important;" @click="submitFile">
+            <el-button  type="primary" style="padding: 9px 15px !important;" @click="submitFile">
               提交文件
             </el-button>
           </el-col>
           <el-col :span="4">
-            <el-button @click="findAllFile" class="distribButton" type="primary" >获取文件列表</el-button>
+            <el-button @click="findAllFile"  type="primary" >获取文件列表</el-button>
           </el-col>
         </el-row>
+          <el-row>
+            <div v-for=" file in fileArray">
+              {{file.attachmentRealName}}<span style="color: blue;cursor: pointer"
+                                               @click="down(file.attachmentAddr)">下载</span> <span
+              style="color: blue;cursor: pointer" @click="view(file.attachmentAddr)">预览</span><span
+              style="color:red;cursor: pointer" @click="deleteFile(file.eid)">删除</span>
+            </div>
+          </el-row>
         <br>
-        <el-row class="testFileContent">
-          <el-col :span="4">
-            <el-button @click="excelExport" type="primary" class="fileButtonOne">excel导出</el-button>
-          </el-col>
-          <el-col :span="4">
-            <el-upload
+<!--        <el-row class="testFileContent">
+            <el-col :span="4">
+              <el-button @click="excelExport" type="primary" class="fileButtonOne">excel导出</el-button>
+            </el-col>
+            <el-col :span="4">
+              <el-upload
               action=""
               :file-list="fileList"
               :on-change="fileChange"
               :limit="1"
               :auto-upload="false">
-              <el-button type="primary" class="fileButtonOne">选择文件</el-button>
+              <el-button type="primary" class="fileButtonOne">word选择文件</el-button>
             </el-upload>
             <el-button @click="excelImport" type="primary" class="fileButtonOne">excel导入</el-button>
           </el-col>
@@ -100,27 +108,22 @@
             <el-button @click="openFullScreen2" type="primary" class="fileButtonOne">整页服务方式</el-button>
           </el-col>
         </el-row>
+            --><!--
         <br>
         <el-row class="testFileContent">
           <el-col :span="4">
             <el-button @click="onlineView" type="primary" style="background: #1f80af;border: 0;">在线预览</el-button>
           </el-col>
-        </el-row>
+        </el-row>-->
         </div>
-      <el-row>
-        <div v-for=" file in fileArray">
-          {{file.attachmentRealName}}<span style="color: blue;cursor: pointer"
-                                           @click="down(file.attachmentAddr)">下载</span> <span
-          style="color: blue;cursor: pointer" @click="view(file.attachmentAddr)">预览</span><span
-          style="color:red;cursor: pointer" @click="deleteFile(file.eid)">删除</span>
-        </div>
-      </el-row>
+
       <el-row>
         <div v-for=" file in fileArray">
           <img height="200px" width="200" style="text-align: center" :src="headerFile+file.attachmentAddr"/>
         </div>
       </el-row>
     </el-form-item>
+
     <div class="text item clearfix">
       <el-alert v-for="remark in alerts.remarks" :key="remark.title"
                 v-bind:title="remark.title"
@@ -235,9 +238,9 @@
         window.open("http://localhost:8080/simple/attachment/Attachment/download?fileAddress=/20180823/批量下载VPN等201808231500114378.zip&isOnline=true");
       },
       submitFile() {
-        GeneratorService.fileUpload({name: 'xx'}, this.fileLists).then(res => {
+        GeneratorService.fileUpload({name: 'xx',associateFormId:'4',associateFormName:'simple_test'}, this.fileLists).then(res => {
           Msg.success("上传成功")
-          this.findAllFile();
+        this.findAllFile();
         })
       },
       handleFileChange(file, fileList) {
@@ -270,26 +273,14 @@
 
       },
       findAllFile() {
-        GeneratorService.findAllUploadedFilesByIdAndName({id: '1', name: 'cheshibiaoge'}).then(res => {
+        GeneratorService.findAllUploadedFilesByIdAndName({id: '4', name: 'simple_test'}).then(res => {
           Msg.success("获取成功")
           this.fileArray = res.data;
           console.log(res)
         })
-      },
-      submitFile() {
-        GeneratorService.fileUpload({
-          name: 'xx',
-          associateFormId: '1',
-          associateFormName: 'cheshibiaoge'
-        }, this.fileList).then(res => {
-          Msg.success("上传成功")
-          this.findAllFile();
-        })
-      },
-      handleFileChange(file, fileList) {
-        this.fileList = fileList;
-        console.log(this.fileList)
-      },
+      }
+     ,
+
       addAlert(message, title, type) {
         //type 可选的值为:remarks,successes,infos,warnings,errors
         type = type ? type : "errors";
