@@ -349,7 +349,7 @@
 
                 }
               }).catch(err => {
-                Msg.error("生成基础代码出错：" + err)
+                Msg.error("生成基础代码出错：" + err.data.message)
               })
             }
             else {
