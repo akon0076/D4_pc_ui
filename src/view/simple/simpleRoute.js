@@ -1,3 +1,4 @@
+
 import ModelFileRoute from './report/ModelFileRoute'
 import MemberRegistRoute from './regist/MemberRegistRoute'
 import OrganizationRegistRoute from './regist/OrganizationRegistRoute'
@@ -58,7 +59,8 @@ export default [
          ...MemberRegistRoute,
          ...ModelFileRoute,
 
-      ...reportMesShowRoute
+      ...reportMesShowRoute,
+     ...reportMesShowRoute,
     ]
   }
 ]
