@@ -34,7 +34,7 @@ export default [
     component: () => import('./ModuleForm')
 },
 {
-    path: '/simple/permission/Module/display/:moduleId',
+    path: '/simple/permission/Module/display',
     name: 'simple_permission_Module_display',
     meta: {
         label: '查看模块',

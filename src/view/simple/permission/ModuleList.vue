@@ -79,7 +79,7 @@
 
               <el-table-column show-overflow-tooltip align="left" prop="name" label="模块名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>
                 <template slot-scope="scope">
-                  <p v-on:click="displayModule(modules[scope.$index].eid)"
+                  <p v-on:click="displayModule(modules[scope.$index].code)"
                      style="text-decoration: underline">
                     {{ modules[scope.$index].name }}
                   </p>
@@ -203,7 +203,7 @@
       },
       displayModule(moduleId){
         var router = this.$router;
-        router.push({path: '/simple/permission/module/display/'+moduleId, query: {}});
+        router.push({path: '/simple/permission/module/display', query: {moduleCode:moduleId}});
       },
       deleteModule(moduleId) {
         this.$confirm('您确定要删除吗?', '提示', {
