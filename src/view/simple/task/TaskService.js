@@ -76,5 +76,32 @@ export class TaskService {
         return simpleServer.connection(httpMethod, '/simple/task/Task/findTasksWithIdNameByName',body);
     }
 
-
+  // 启动任务
+  static startTask (id) {
+    var httpMethod = 'GET';
+    var body = simpleServer.getArgs(this.startTask,arguments,'GET');
+    return simpleServer.connection(httpMethod, '/simple/task/Task/startSchedulerJob',body);
+  }
+  // 暂停任务
+  static pauseTask (id) {
+    var httpMethod = 'GET';
+    var body = simpleServer.getArgs(this.pauseTask,arguments,'GET');
+    return simpleServer.connection(httpMethod, '/simple/task/Task/pauseSchedulerJob',body);
+  }
+  // 恢复任务
+  static resumeTask (id) {
+    var httpMethod = 'GET';
+    var body = simpleServer.getArgs(this.resumeTask,arguments,'GET');
+    return simpleServer.connection(httpMethod, '/simple/task/Task/resumeSchedulerJob',body);
+  }
+  // 删除任务
+  static deleteJob (id) {
+    var httpMethod = 'GET';
+    var body = simpleServer.getArgs(this.deleteJob,arguments,'GET');
+    return simpleServer.connection(httpMethod, '/simple/task/Task/deleteJob',body);
+  }
+  // 读取定时配置配置
+  static getTaskConfigList () {
+    return simpleServer.connection('GET', '/simple/task/Task/getTaskConfigList');
+  }
 }

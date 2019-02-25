@@ -1,5 +1,5 @@
-import TaskConfigRoute from './task/TaskConfigRoute.js'
 import TaskRoute from './task/TaskRoute.js'
+import TaskConfigRoute from './task/TaskConfigRoute.js'
 import reportMesShowRoute from './report/reportShow/reportMesShowRoute.js'
 import SystemConfigRoute from './systemConfig/SystemConfigRoute.js'
 import CodeTableRoute from './system/CodeTableRoute.js'
@@ -56,8 +56,8 @@ export default [
      ...CodeTableRoute,
      ...SystemConfigRoute,
          ...reportMesShowRoute,
-         ...TaskRoute,
          ...TaskConfigRoute,
+         ...TaskRoute,
     ]
   }
 ]

@@ -36,7 +36,7 @@
                     <down-search :selectValues="selectValues" @returnedValue="searchByCondition"></down-search>
                     <div style="float: right; margin-bottom: 15px">
 
-                        <el-button  type="primary" @click="addTaskConfig()"  v-permission:simple_task_TaskConfig_Add >新增定时任务</el-button>
+                        <el-button  type="primary" @click="addTaskConfig()"  v-permission:simple_task_TaskConfig_Add >新增定时任务配置</el-button>
                     </div>
                     <div class="table-control">
                         <el-table v-loading="tableLoading" size="small" class="table-style" :data="taskConfigs" border highlight-current-row @current-change="handleCurrentChange">
@@ -68,13 +68,13 @@
                                                 <span>{{ props.row.createId }}</span>
                                             </el-form-item>
                                             <el-form-item label="创建时间">
-                                                <span>{{ props.row.createDatetime }}</span>
+                                                <span>{{ props.row.createDatetime | dateFormat}}</span>
                                             </el-form-item>
                                             <el-form-item label="修改人">
                                                 <span>{{ props.row.updateId }}</span>
                                             </el-form-item>
                                             <el-form-item label="修改时间">
-                                                <span>{{ props.row.updateDatetime }}</span>
+                                                <span>{{ props.row.updateDatetime | dateFormat}}</span>
                                             </el-form-item>
                                     </el-form>
                                 </template>

@@ -3,7 +3,7 @@
     <div class="spanControl-list" style="width: 100%;margin-left: 0!important;">
         <el-card class="box-card card-head" style="margin: 0px; width: 100%; min-height: 99%">
             <div slot="header" class="clearfix">
-                <span>定时任务管理</span>
+                <span>定时任务配置管理</span>
             </div>
             <div class="alert-container clearfix">
                 <el-alert  v-for="alert in alerts.successes"  :key="alert.title"
@@ -41,7 +41,7 @@
                                     </el-col>
                                     <el-col :span="11">
                                         <el-form-item label="任务名称" prop="taskName">
-                                            <file-tip content="任务编码"></file-tip>
+                                            <file-tip content="任务名称"></file-tip>
                                             <el-input type="input" v-model="taskConfig.taskName"
                                                       placeholder="任务编码" clearable autosize
                                                       resize ="both" tabindex=3
@@ -51,9 +51,9 @@
                                     </el-col>
                                     <el-col :span="11">
                                         <el-form-item label="任务类型" prop="taskType">
-                                            <file-tip content="表达式"></file-tip>
+                                            <file-tip content="任务类型"></file-tip>
                                             <el-input type="input" v-model="taskConfig.taskType"
-                                                      placeholder="表达式" clearable autosize
+                                                      placeholder="任务类型" clearable autosize
                                                       resize ="both" tabindex=4
                                                               maxlength=255
                                             ></el-input>
@@ -66,7 +66,7 @@
                                                 align="right"
                                                 type="date"
                                                 placeholder="创建时间"
-                                                :picker-options="pickerOptionsCreateTime">
+                                                :picker-options="pickerOptionsCreateTime" style="width: 100%">
                                         </el-date-picker>
                                     </el-form-item>
                                 </el-col>
@@ -127,22 +127,22 @@ export default {
         return {
             rules: {
                 name: [
-                    {required:  false , message: '请输入名称', trigger: 'blur'},
+                    {required:  true , message: '请输入名称', trigger: 'blur'},
                     { validator:validateString(0,1000,/^.*$/,"输入的数据不正确，请检查"), trigger: 'blur' },
                     ],
                 taskName: [
-                    {required:  false , message: '请输入任务名称', trigger: 'blur'},
+                    {required:  true , message: '请输入任务名称', trigger: 'blur'},
                     { validator:validateString(0,1000,/^.*$/,"输入的数据不正确，请检查"), trigger: 'blur' },
                     ],
                 taskType: [
-                    {required:  false , message: '请输入任务类型', trigger: 'blur'},
+                    {required:  true , message: '请输入任务类型', trigger: 'blur'},
                     { validator:validateString(0,1000,/^.*$/,"输入的数据不正确，请检查"), trigger: 'blur' },
                     ],
                 createTime: [
-                    { type: 'date',required:  false , message: '请输入创建时间', trigger: 'change'},
+                    { type: 'date',required:  true , message: '请输入创建时间', trigger: 'change'},
                     ],
                 isNeedVariable: [
-                    {required:  false , message: '请输入是否需要参数', trigger: 'blur'},
+                    {required:  true , message: '请输入是否需要参数', trigger: 'blur'},
                     { validator: validateIntRange(-2147483648,2147483647), trigger: 'blur' },
                     ],
                 remark: [

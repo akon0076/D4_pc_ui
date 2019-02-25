@@ -32,11 +32,11 @@
                         <el-form-item label="任务状态">
                             <span>{{ task.taskStatus }}</span>
                         </el-form-item>
-                        <el-form-item label="单位">
-                            <span>{{ task.taskClassId }}</span>
+                        <el-form-item label="执行任务类">
+                            <span>{{ task.taskClass }}</span>
                         </el-form-item>
-                        <el-form-item label="单位">
-                            <span>{{ task.taskClassName }}</span>
+                        <el-form-item label="执行任务变量">
+                            <span>{{ task.taskVariable }}</span>
                         </el-form-item>
                         <el-form-item label="任务配置ID">
                             <span>{{ task.taskConfigId }}</span>

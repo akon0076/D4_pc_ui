@@ -250,8 +250,7 @@
             message: '已取消'
           });
         });
-      },
-      editJob() {}
+      }
     },
     created() {
       this.getTaskList();

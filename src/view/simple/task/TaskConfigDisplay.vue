@@ -3,7 +3,7 @@
     <div class="spanControl-list" style="width: 100%;margin-left: 0!important;">
         <el-card class="box-card card-head" style="margin: 0px; width: 100%; min-height: 99%">
             <div slot="header" class="clearfix">
-                <span>查看定时任务</span>
+                <span>查看定时任务配置</span>
             </div>
 
             <div class="text item">
