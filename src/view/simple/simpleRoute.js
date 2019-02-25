@@ -1,25 +1,24 @@
-import ModelFileRoute from './report/ModelFileRoute'
-import MemberRegistRoute from './regist/MemberRegistRoute'
-import OrganizationRegistRoute from './regist/OrganizationRegistRoute'
-import EmployeRegistRoute from './regist/EmployeRegistRoute'
-import EmpOpenIdRoute from './qingTui/EmpOpenIdRoute'
-import EmployeeRoute from './organization/EmployeeRoute'
-import DepartmentRoute from './organization/DepartmentRoute'
-import SystemConfigRoute from './systemConfig/SystemConfigRoute'
-import AttachmentRoute from './attachment/AttachmentRoute'
-import OperatorAndRoleRoute from './permission/OperatorAndRoleRoute'
-import RoleAndPermissionRoute from './permission/RoleAndPermissionRoute'
-import RoleRoute from './permission/RoleRoute'
-import PermissionRoute from './permission/PermissionRoute'
-import ModuleRoute from './permission/ModuleRoute'
-import OperatorRoute from './permission/OperatorRoute'
-import CodeTableRoute from './system/CodeTableRoute'
-import fileRoute from './fileUpload/Route'
-import OrganizationRoute from './organization/OrganizationRoute'
-
-
-// 添加统计报表展示
-import reportMesShowRoute from './report/reportShow/reportMesShowRoute'
+import TaskRoute from './task/TaskRoute.js'
+import TaskConfigRoute from './task/TaskConfigRoute.js'
+import reportMesShowRoute from './report/reportShow/reportMesShowRoute.js'
+import SystemConfigRoute from './systemConfig/SystemConfigRoute.js'
+import CodeTableRoute from './system/CodeTableRoute.js'
+import ModelFileRoute from './report/ModelFileRoute.js'
+import OrganizationRegistRoute from './regist/OrganizationRegistRoute.js'
+import MemberRegistRoute from './regist/MemberRegistRoute.js'
+import EmployeRegistRoute from './regist/EmployeRegistRoute.js'
+import EmpOpenIdRoute from './qingTui/EmpOpenIdRoute.js'
+import RoleRoute from './permission/RoleRoute.js'
+import RoleAndPermissionRoute from './permission/RoleAndPermissionRoute.js'
+import PermissionRoute from './permission/PermissionRoute.js'
+import OperatorRoute from './permission/OperatorRoute.js'
+import OperatorAndRoleRoute from './permission/OperatorAndRoleRoute.js'
+import ModuleRoute from './permission/ModuleRoute.js'
+import OrganizationRoute from './organization/OrganizationRoute.js'
+import EmployeeRoute from './organization/EmployeeRoute.js'
+import DepartmentRoute from './organization/DepartmentRoute.js'
+import Route from './fileUpload/Route.js'
+import AttachmentRoute from './attachment/AttachmentRoute.js'
 
 
 // import EmployeeManageRoute from './registrationAudit/EmployeeManageRoute'
@@ -38,25 +37,27 @@ export default [
       icon: 'el-icon-message'
     },
     children: [
-      ...OrganizationRoute,
-      ...CodeTableRoute,
-      ...OperatorRoute,
-      ...ModuleRoute,
-      ...PermissionRoute,
-      ...RoleRoute,
-      ...RoleAndPermissionRoute,
-      ...OperatorAndRoleRoute,
       ...AttachmentRoute,
-      ...SystemConfigRoute,
+      ...Route,
       ...DepartmentRoute,
       ...EmployeeRoute,
-      ...fileRoute,
+      ...OrganizationRoute,
+      ...ModuleRoute,
+      ...OperatorAndRoleRoute,
+      ...OperatorRoute,
+      ...PermissionRoute,
+      ...RoleAndPermissionRoute,
+      ...RoleRoute,
       ...EmpOpenIdRoute,
       ...EmployeRegistRoute,
-      ...OrganizationRegistRoute,
       ...MemberRegistRoute,
+      ...OrganizationRegistRoute,
       ...ModelFileRoute,
-      ...reportMesShowRoute
+      ...CodeTableRoute,
+      ...SystemConfigRoute,
+      ...reportMesShowRoute,
+      ...TaskConfigRoute,
+      ...TaskRoute,
     ]
   }
 ]

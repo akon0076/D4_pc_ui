@@ -55,7 +55,7 @@
 
               <el-table-column show-overflow-tooltip align="left" prop="name" label="权限点名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>
                 <template slot-scope="scope">
-                  <p v-on:click="displayPermission(permissions[scope.$index].eid)"
+                  <p v-on:click="displayPermission(permissions[scope.$index].code)"
                      style="text-decoration: underline">
                     {{ permissions[scope.$index].name }}
                   </p>
@@ -169,7 +169,7 @@
       },
       displayPermission(code){
         var router = this.$router;
-        router.push({path: '/simple/permission/permission/display/'+code, query: {}});
+        router.push({path: '/simple/permission/Permission/display/'+code, query: {}});
       },
       deletePermission(code) {
         this.$confirm('您确定要删除吗?', '提示', {
