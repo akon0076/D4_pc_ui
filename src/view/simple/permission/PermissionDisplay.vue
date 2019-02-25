@@ -56,9 +56,9 @@ export default {
         }
     },
     methods: {
-        findPermissionForView(permissionId)//查找权限点
+        findPermissionForView(code)//查找权限点
         {
-            PermissionService.findPermissionForView(permissionId).then((resp) => {
+            PermissionService.findPermissionForView(code).then((resp) => {
                 this.permission = resp.data;
         }).catch((error) => {
             this.$message({
@@ -69,8 +69,9 @@ export default {
         },
     },
     created() {
-        const permissionId = this.$route.params.permissionId;
-        this.findPermissionForView(permissionId);
+        const code = this.$route.params.code;
+        console.log(code)
+        this.findPermissionForView(code);
     },
 }
 

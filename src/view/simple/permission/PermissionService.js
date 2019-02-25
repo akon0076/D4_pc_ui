@@ -34,7 +34,7 @@ export class PermissionService {
   }
 
   //为了查看,根据权限点Id查询权限点，所有外键字段的名称都已加载
-  static findPermissionForView(permissionId) {
+  static findPermissionForView(code) {
     var httpMethod = 'GET';
     var body = simpleServer.getArgs(this.findPermissionForView, arguments, 'GET');
     return simpleServer.connection(httpMethod, '/simple/permission/Permission/findPermissionForView', body);

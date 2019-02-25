@@ -90,7 +90,7 @@ export default {
         },
     },
     created() {
-        const moduleId = this.$route.params.moduleId;
+        const moduleId = this.$route.query.moduleCode;
         this.findModuleForView(moduleId);
     },
 }
