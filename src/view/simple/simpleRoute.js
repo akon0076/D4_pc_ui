@@ -18,7 +18,6 @@ import fileRoute from './fileUpload/Route'
 import OrganizationRoute from './organization/OrganizationRoute'
 
 
-
 // 添加统计报表展示
 import reportMesShowRoute from './report/reportShow/reportMesShowRoute'
 
@@ -55,9 +54,8 @@ export default [
       ...EmpOpenIdRoute,
       ...EmployeRegistRoute,
       ...OrganizationRegistRoute,
-         ...MemberRegistRoute,
-         ...ModelFileRoute,
-
+      ...MemberRegistRoute,
+      ...ModelFileRoute,
       ...reportMesShowRoute
     ]
   }
