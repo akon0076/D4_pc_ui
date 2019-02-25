@@ -83,6 +83,8 @@
                               v-model="task.taskCreateTime"
                               align="right"
                               type="date"
+                              value-format="yyyy-MM-dd"
+                              format="yyyy-MM-dd"
                               placeholder="创建时间"
                               :picker-options="pickerOptionsTaskCreateTime" class="task-form-width">
               </el-date-picker>
@@ -209,10 +211,10 @@
             { validator:validateString(0,1000,/^.*$/,"输入的数据不正确，请检查"), trigger: 'blur' },
           ],
           taskCreateTime: [
-            { type: 'date',required:  true , message: '请输入创建时间', trigger: 'change'},
+            { required:  true , message: '请输入创建时间', trigger: 'blur'},
           ],
           taskCompleteTime: [
-            { type: 'date',required:  false , message: '请输入完成时间', trigger: 'change'},
+            { required:  false , message: '请输入完成时间', trigger: 'blur'},
           ],
           taskStatus: [
             {required:  false , message: '请输入任务状态', trigger: 'blur'},

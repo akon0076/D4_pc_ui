@@ -59,10 +59,10 @@
                       <span>{{ props.row.taskPublisher }}</span>
                     </el-form-item>
                     <el-form-item label="创建时间">
-                      <span>{{ props.row.taskCreateTime }}</span>
+                      <span>{{ props.row.taskCreateTime  | dateFormat}}</span>
                     </el-form-item>
                     <el-form-item label="完成时间">
-                      <span>{{ props.row.taskCompleteTime }}</span>
+                      <span>{{ props.row.taskCompleteTime | dateFormat}}</span>
                     </el-form-item>
                     <el-form-item label="任务状态">
                       <span>{{ props.row.taskStatus }}</span>
@@ -100,7 +100,6 @@
                   </el-form>
                 </template>
               </el-table-column>
-
               <!--<el-table-column show-overflow-tooltip align="left" prop="name" label="定时任务名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>-->
               <!--<template slot-scope="scope">-->
               <!--<p v-on:click="displayTask(tasks[scope.$index].eid)"-->
@@ -112,8 +111,20 @@
               <el-table-column align="left" clalss="setCenter" prop="taskName" label="任务名称" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="taskExpression" label="表达式" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="taskPublisher" label="发布人" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="taskCreateTime" label="创建时间" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="taskCompleteTime" label="完成时间" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" label="创建时间" min-width="80" sortable resizable show-overflow-tooltip>
+                <template  slot-scope="scope">
+                  <div>
+                    {{scope.row.taskCreateTime | dateFormat}}
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="taskCompleteTime" label="完成时间" min-width="80" sortable resizable show-overflow-tooltip>
+                <template  slot-scope="scope">
+                  <div>
+                    {{scope.row.taskCompleteTime | dateFormat}}
+                  </div>
+                </template>
+              </el-table-column>
               <el-table-column align="left" clalss="setCenter"  label="任务状态" min-width="80" sortable resizable show-overflow-tooltip>
                 <template  slot-scope="scope">
                   <div v-if="scope.row.taskStatus === '已激活'||scope.row.taskStatus === '已结束'" style="color: green;">
@@ -138,7 +149,6 @@
                 </template>
               </el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-
               <el-table-column label="操作" min-width="120" resizable align="center">
                 <template slot-scope="scope">
                   <template>
@@ -165,7 +175,6 @@
                 </template>
               </el-table-column>
             </el-table>
-
             <!--分页功能-->
             <div class="block">
               <el-pagination
