@@ -95,7 +95,7 @@
         pass: '',
         organization: '',
         organizations: [],
-        hasVertify:false,
+        hasVertify:"",
         version,
         loginForm: {
           userName: '',
@@ -152,7 +152,12 @@
             let password = md5.digest('hex');
             this.loginForm.password = password
             LoginService.getOrganizations(this.loginForm).then(res => {
-               this.hasVertify=res.data.hasVertify;
+              if(res.data.count<3)
+                this.hasVertify=false;
+              else{
+                this.hasVertify=true;
+                this.changeCaptcha();
+              }
               if (res.data.captcha||!this.hasVertify) {
                 if (res.data.isLogin) {
                   this.organizations = res.data.organizations
@@ -210,7 +215,15 @@
       },
       //更新验证码
       changeCaptcha() {
-        this.src = process.env.BASE_SIMPLE_API + "/Captcha/getCaptcha?" + new Date();
+        LoginService.hasVertify().then(res => {
+          this.hasVertify=res.data;
+          if(this.hasVertify){
+            this.src = process.env.BASE_SIMPLE_API + "/Captcha/getCaptcha?" + new Date();
+          }
+        }).catch(err=>{
+
+        });
+
       }
     },
   }
