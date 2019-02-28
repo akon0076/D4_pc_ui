@@ -272,8 +272,8 @@
     background: rgba(255, 255, 255, 0.9);
     min-width: 270px;
     position: absolute;
-    top: 48%;
-    left: 6%;
+    top: 33%;
+    left: 5%;
   }
 
   .icon {

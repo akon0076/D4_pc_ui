@@ -26,7 +26,7 @@
     },
     data() {
       return {
-        title: '园区管理系统',
+        title: '框架管理系统',
         debugInfos: {}
       }
     },
@@ -96,7 +96,7 @@
           this.title = ''
         } else if (oldVal) {
           setTimeout(() => {
-            this.title = '园区管理系统'
+            this.title = '框架管理系统'
           }, 200)
         }
       },
