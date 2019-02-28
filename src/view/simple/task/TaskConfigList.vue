@@ -56,7 +56,7 @@
                                                 <span>{{ props.row.taskType }}</span>
                                             </el-form-item>
                                             <el-form-item label="创建时间">
-                                                <span>{{ props.row.createTime }}</span>
+                                                <span>{{ props.row.createTime  | dateFormat}}</span>
                                             </el-form-item>
                                             <el-form-item label="是否需要参数">
                                                 <span>{{ props.row.isNeedVariable }}</span>
@@ -90,8 +90,16 @@
                             </el-table-column>
                                     <el-table-column align="left" clalss="setCenter" prop="taskName" label="任务名称" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
                                     <el-table-column align="left" clalss="setCenter" prop="taskType" label="任务类型" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="createTime" label="创建时间" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="isNeedVariable" label="是否需要参数" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="createTime" label="创建时间" min-width="80" sortable resizable show-overflow-tooltip>
+                                      <template  slot-scope="scope">
+                                        <div>
+                                          {{scope.row.createTime | dateFormat}}
+                                        </div>
+                                      </template>
+                                    </el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="isNeedVariable" label="是否需要参数" min-width="80" sortable resizable show-overflow-tooltip>
+
+                                    </el-table-column>
                                     <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
 
                             <el-table-column label="操作" min-width="120" resizable>
