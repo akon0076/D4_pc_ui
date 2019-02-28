@@ -10,7 +10,7 @@
         <comp-head-user @openEditorPwd="openEditorPwd">
         </comp-head-user>
       </el-header>
-      <el-main>
+      <el-main >
         <!--路由-->
         <router-view>
         </router-view>

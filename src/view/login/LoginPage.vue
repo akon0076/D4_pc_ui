@@ -1,7 +1,7 @@
 <template>
   <div class="mh-login">
-    <div class="form">
-      <img src="../../assets/images/合成1.png"/>
+    <div class="form" style="width: 100%">
+      <img style="width: 100%" src="../../assets/images/timg.jpg"/>
       <el-form v-if="login" :model="loginForm" :rules="rules" ref="loginForm" label-position="left" label-width="0px"
                class="login-container">
         <div class="head">
@@ -51,7 +51,7 @@
         <el-form-item>
           <el-button
             class="btn"
-            type="primary"
+            type="danger"
             @click.native.prevent="submitForm"
             :loading="loading"
           >登录
@@ -71,7 +71,7 @@
             {{item.name}}
           </el-radio>
         </el-row>
-        <el-button class="organizationButton" type="primary" @click="setOrganization">确定</el-button>
+        <el-button class="organizationButton" style="   background: #f56c6cf5;"   type="danger" @click="setOrganization">确定</el-button>
       </el-form>
     </div>
 
@@ -272,8 +272,8 @@
     background: rgba(255, 255, 255, 0.9);
     min-width: 270px;
     position: absolute;
-    top: 7%;
-    left: 45%;
+    top: 48%;
+    left: 6%;
   }
 
   .icon {
@@ -299,8 +299,8 @@
   .btn {
     width: 100%;
     height: 45px !important;
-    background: #1569ae;
     border-radius: 0px;
+    background: #f56c6cf5;
     font-size: 21px;
     text-indent: 26px;
     letter-spacing: 26px;
