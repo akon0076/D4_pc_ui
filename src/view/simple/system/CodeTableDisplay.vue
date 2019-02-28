@@ -8,9 +8,6 @@
 
             <div class="text item">
                 <el-form label-position="left" inline class="display-form">
-                        <el-form-item label="标识">
-                            <span>{{ codeTable.EId }}</span>
-                        </el-form-item>
                         <el-form-item label="名称">
                             <span>{{ codeTable.name }}</span>
                         </el-form-item>
@@ -20,35 +17,8 @@
                         <el-form-item label="码表类型">
                             <span>{{ codeTable.codeType }}</span>
                         </el-form-item>
-                        <el-form-item label="父级">
-                            <span>{{ codeTable.parentFullname }}</span>
-                        </el-form-item>
-                        <el-form-item label="父级">
-                            <span>{{ codeTable.parentId }}</span>
-                        </el-form-item>
-                        <el-form-item label="父级">
-                            <span>{{ codeTable.parentName }}</span>
-                        </el-form-item>
                         <el-form-item label="显示顺序">
                             <span>{{ codeTable.displayOrder }}</span>
-                        </el-form-item>
-                        <el-form-item label="有子码表">
-                            <span>{{ codeTable.hasChildren }}</span>
-                        </el-form-item>
-                        <el-form-item label="备注">
-                            <span>{{ codeTable.remark }}</span>
-                        </el-form-item>
-                        <el-form-item label="创建人">
-                            <span>{{ codeTable.createId }}</span>
-                        </el-form-item>
-                        <el-form-item label="创建时间">
-                            <span>{{ codeTable.createDatetime }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改人">
-                            <span>{{ codeTable.updateId }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改时间">
-                            <span>{{ codeTable.updateDatetime }}</span>
                         </el-form-item>
                 </el-form>
             </div>

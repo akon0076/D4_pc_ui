@@ -43,9 +43,6 @@
                             <el-table-column type="expand" fixed="left">
                                 <template slot-scope="props">
                                     <el-form label-position="left" inline class="list-table-expand">
-                                            <el-form-item label="标识">
-                                                <span>{{ props.row.EId }}</span>
-                                            </el-form-item>
                                             <el-form-item label="名称">
                                                 <span>{{ props.row.name }}</span>
                                             </el-form-item>
@@ -55,35 +52,8 @@
                                             <el-form-item label="码表类型">
                                                 <span>{{ props.row.codeType }}</span>
                                             </el-form-item>
-                                            <el-form-item label="父级">
-                                                <span>{{ props.row.parentFullname }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="父级">
-                                                <span>{{ props.row.parentId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="父级">
-                                                <span>{{ props.row.parentName }}</span>
-                                            </el-form-item>
                                             <el-form-item label="显示顺序">
                                                 <span>{{ props.row.displayOrder }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="有子码表">
-                                                <span>{{ props.row.hasChildren }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="备注">
-                                                <span>{{ props.row.remark }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="创建人">
-                                                <span>{{ props.row.createId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="创建时间">
-                                                <span>{{ props.row.createDatetime }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="修改人">
-                                                <span>{{ props.row.updateId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="修改时间">
-                                                <span>{{ props.row.updateDatetime }}</span>
                                             </el-form-item>
                                     </el-form>
                                 </template>
@@ -91,7 +61,7 @@
 
                             <el-table-column show-overflow-tooltip align="left" prop="name" label="码表名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>
                                 <template slot-scope="scope">
-                                        <p v-on:click="displayCodeTable(codeTables[scope.$index].eid)"
+                                        <p v-on:click="displayCodeTable(codeTables[scope.$index].fullname)"
                                            style="text-decoration: underline">
                                             {{ codeTables[scope.$index].name }}
                                         </p>
@@ -99,19 +69,15 @@
                             </el-table-column>
                                     <el-table-column align="left" clalss="setCenter" prop="fullname" label="码表全名" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
                                     <el-table-column align="left" clalss="setCenter" prop="codeType" label="码表类型" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="parentFullname" label="父级" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="parentName" label="父级" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
                                     <el-table-column align="left" clalss="setCenter" prop="displayOrder" label="显示顺序" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="hasChildren" label="有子码表" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
 
                             <el-table-column label="操作" min-width="120" resizable>
                                 <template slot-scope="scope">
                                     <template>
-                                        <el-button @click="editOrganation(codeTables[scope.$index].eid)" type="text" size="small" v-permission:simple_system_CodeTable_Edit >编辑</el-button>
+                                        <el-button @click="editOrganation(codeTables[scope.$index].fullname)" type="text" size="small" v-permission:simple_system_CodeTable_Edit >编辑</el-button>
                                     </template>
                                     <template>
-                                        <el-button @click="deleteCodeTable(codeTables[scope.$index].eid)" type="text" size="small" v-permission:simple_system_CodeTable_Delete ><p
+                                        <el-button @click="deleteCodeTable(codeTables[scope.$index].fullname)" type="text" size="small" v-permission:simple_system_CodeTable_Delete ><p
                                                 style="color: red !important;">删除</p></el-button>
                                     </template>
                                 </template>
@@ -168,11 +134,7 @@
                 selectValues:[
                     {key:"fullname",value:"码表全名"},
                     {key:"codeType",value:"码表类型"},
-                    {key:"parentFullname",value:"父级"},
-                    {key:"parentName",value:"父级"},
                     {key:"displayOrder",value:"显示顺序"},
-                    {key:"hasChildren",value:"有子码表"},
-                    {key:"remark",value:"备注"},
                 ],
                 condition:''
 
