@@ -1,3 +1,4 @@
+import LogRoute from './log/LogRoute.js'
 import TaskRoute from './task/TaskRoute.js'
 import TaskConfigRoute from './task/TaskConfigRoute.js'
 import reportMesShowRoute from './report/reportShow/reportMesShowRoute.js'
@@ -58,6 +59,7 @@ export default [
       ...reportMesShowRoute,
       ...TaskConfigRoute,
       ...TaskRoute,
+         ...LogRoute,
     ]
   }
 ]
