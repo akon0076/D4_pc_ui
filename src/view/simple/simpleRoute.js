@@ -59,7 +59,7 @@ export default [
       ...reportMesShowRoute,
       ...TaskConfigRoute,
       ...TaskRoute,
-         ...LogRoute,
+      ...LogRoute,
     ]
   }
 ]
