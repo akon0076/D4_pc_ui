@@ -119,7 +119,7 @@
   }
 
   .el-menu-vertical-silder:not(.el-menu--collapse) {
-    width: 180px;
+    width: 100%;
     min-height: 400px;
   }
 
