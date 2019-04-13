@@ -123,9 +123,9 @@
           </el-col>
           <el-col :span="11">
             <el-form-item label="执行任务变量" prop="taskVariable">
-              <file-tip content="执行任务变量"></file-tip>
+              <file-tip content="执行任务变量，注意需要使用json格式保存数据！"></file-tip>
               <el-input type="input" v-model="task.taskVariable"
-                        placeholder="执行任务变量" clearable autosize
+                        placeholder="执行任务变量，注意需要使用json格式保存数据！" clearable autosize
                         resize ="both" tabindex=10
                         maxlength=255
               ></el-input>
