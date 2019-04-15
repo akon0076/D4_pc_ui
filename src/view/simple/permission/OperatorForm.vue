@@ -85,11 +85,18 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="人员ID" prop="personId">
-              <el-input type="number" step="1" v-model="operator.personId"
-                        placeholder="与操作员相应的人员ID，此字段和type直接相关" clearable autosize
-                        resize="both" tabindex=7
-                        maxlength=250
-              ></el-input>
+              <el-autocomplete
+                class="inline-input"
+                v-model="employeeName"
+                :fetch-suggestions="querySearch"
+                value-key="name"
+                placeholder="请选择对应职员"
+                resize="both"
+                clearable
+                autosize
+                tabindex=6
+                @select="handleSelect"
+              ></el-autocomplete>
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -126,6 +133,7 @@
 
 
   import {OperatorService} from './OperatorService'
+  import {EmployeeService} from '../organization/EmployeeService'
   import {d4utils} from '../../../tools/d4utils'
 
 
@@ -157,9 +165,7 @@
             {required: false, message: '请输入类型', trigger: 'blur'},
           ],
           personId: [
-
             {required: false, message: '请输入人员ID', trigger: 'blur'},
-            {validator: validateIntRange(-9223372036854775808, 9223372036854775807), trigger: 'blur'},
           ],
           remark: [
             {required: false, message: '请输入备注', trigger: 'blur'},
@@ -167,6 +173,8 @@
           ],
         },
         isSubmiting: false,
+        employeeName: '',
+        employees: [],
         operator: {},
         operatorId: null,
         pickerOptionsCreateDatetime: {
@@ -308,10 +316,23 @@
             message: '创建新的操作员出错'
           })
         })
+        EmployeeService.findAllEmployees().then((resp) => {
+          let _this = this
+          resp.data.forEach(item => {
+            let employee = {}
+            employee.personId = item.eid
+            employee.name = item.name
+            _this.employees.push(employee)
+          })
+        }).catch((error) => {
+          this.$message({
+            type: 'error',
+            message: error.data.message
+          })
+        })
       },
       prepareForEdit(operatorEditDto) {
         this.operator = operatorEditDto.operator;
-
         this.statusCodeTables = operatorEditDto.statusCodeTables;
         this.typeCodeTables = operatorEditDto.typeCodeTables;
       },
@@ -335,7 +356,20 @@
           return (OperatorType.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
         };
       },
-
+      querySearch(queryString, cb) {
+        var restaurants = this.employees;
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
+      },
+      createFilter(queryString) {
+        return (restaurant) => {
+          return (restaurant.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        };
+      },
+      handleSelect(item) {
+        this.operator.personId = item.personId
+      },
     },
     created() {
       this.operatorId = this.$route.params.operatorId;

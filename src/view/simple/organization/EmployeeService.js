@@ -12,6 +12,12 @@ export class EmployeeService {
         return simpleServer.connection(httpMethod, '/simple/organization/Employee/findEmployees', body);
     }
 
+    // 查询全部职员
+    static findAllEmployees () {
+      var httpMethod = 'GET';
+      var body = simpleServer.getArgs(this.findAllEmployees,arguments,'GET');
+      return simpleServer.connection(httpMethod, '/simple/organization/Employee/findAllEmployees', body);
+    }
 
     //根据职员Id查询职员
     static findEmployee (employeeId) {

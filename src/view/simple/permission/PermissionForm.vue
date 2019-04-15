@@ -341,7 +341,7 @@
       },
       createFilter(queryString) {
         return (restaurant) => {
-          return (restaurant.code.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+          return (restaurant.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
         };
       },
       handleSelect(item) {
