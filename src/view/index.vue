@@ -1,15 +1,8 @@
 <template>
   <div >
     <!--根据自己的需求进行更改,只是搞起好玩的-->
-
-    <img
-        style="   width: 100%;
-    float: left;
-"
-           :src='"@/assets/loginImages/"+src+".jpg"'/>
-
     <div style="    position: absolute;
-    color: white">
+    color: black">
       欢迎登陆: <h3>{{userInfo.userName}}</h3> {{new Date()}}
     </div>
   </div>
@@ -47,7 +40,6 @@
       },
     },
     created(){
-      this.changeLogo();
     },
     watch: {
       data(val) {

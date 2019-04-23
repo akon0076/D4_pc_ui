@@ -1,4 +1,3 @@
-import TestStudentRoute from './student/TestStudentRoute.js'
 import LogRoute from './log/LogRoute.js'
 import TaskRoute from './task/TaskRoute.js'
 import TaskConfigRoute from './task/TaskConfigRoute.js'
@@ -61,7 +60,6 @@ export default [
       ...TaskConfigRoute,
       ...TaskRoute,
       ...LogRoute,
-         ...TestStudentRoute,
         ]
   }
 ]
