@@ -9,9 +9,6 @@
       </div>
       <div class="text item">
         <el-form label-position="left" inline class="display-form">
-          <el-form-item label="标识">
-            <span>{{ log.EId }}</span>
-          </el-form-item>
           <el-form-item label="名称">
             <span>{{ log.name }}</span>
           </el-form-item>
@@ -47,18 +44,6 @@
           </el-form-item>
           <el-form-item label="备注">
             <span>{{ log.remark }}</span>
-          </el-form-item>
-          <el-form-item label="创建人">
-            <span>{{ log.createId }}</span>
-          </el-form-item>
-          <el-form-item label="创建时间">
-            <span>{{ log.createDatetime }}</span>
-          </el-form-item>
-          <el-form-item label="修改人">
-            <span>{{ log.updateId }}</span>
-          </el-form-item>
-          <el-form-item label="修改时间">
-            <span>{{ log.updateDatetime }}</span>
           </el-form-item>
         </el-form>
       </div>

@@ -40,62 +40,7 @@
                     </div>
                     <div class="table-control">
                         <el-table v-loading="tableLoading" size="small" class="table-style" :data="employees" border highlight-current-row @current-change="handleCurrentChange">
-                            <el-table-column type="expand" fixed="left">
-                                <template slot-scope="props">
-                                    <el-form label-position="left" inline class="list-table-expand">
-                                            <el-form-item label="标识">
-                                                <span>{{ props.row.EId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="名称">
-                                                <span>{{ props.row.name }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="编码">
-                                                <span>{{ props.row.code }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="联系电话">
-                                                <span>{{ props.row.linkTel }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="所属单位">
-                                                <span>{{ props.row.organizationName }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="所属单位">
-                                                <span>{{ props.row.organizationId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="性别">
-                                                <span>{{ props.row.sex }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="出生日期">
-                                                <span>{{ props.row.birthDate }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="所属部门">
-                                                <span>{{ props.row.departmentName }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="所属部门">
-                                                <span>{{ props.row.departmentId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="邮箱">
-                                                <span>{{ props.row.email }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="备注">
-                                                <span>{{ props.row.remark }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="创建人">
-                                                <span>{{ props.row.createId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="创建时间">
-                                                <span>{{ props.row.createDatetime }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="修改人">
-                                                <span>{{ props.row.updateId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="修改时间">
-                                                <span>{{ props.row.updateDatetime }}</span>
-                                            </el-form-item>
-                                    </el-form>
-                                </template>
-                            </el-table-column>
-
-                            <el-table-column show-overflow-tooltip align="left" prop="name" label="职员名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>
+                            <el-table-column show-overflow-tooltip align="left" prop="name" label="职员名称" min-width="100" fixed="left"  resizable show-overflow-tooltip>
                                 <template slot-scope="scope">
                                         <p v-on:click="displayEmployee(employees[scope.$index].eid)"
                                            style="text-decoration: underline">
@@ -103,14 +48,14 @@
                                         </p>
                                 </template>
                             </el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="code" label="编码" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="linkTel" label="联系电话" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="organizationName" label="所属单位" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="sex" label="性别" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="birthDate" label="出生日期" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="departmentName" label="所属部门" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="email" label="邮箱" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="code" label="编码" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="linkTel" label="联系电话" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="organizationName" label="所属单位" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="sex" label="性别" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="birthDate" label="出生日期" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="departmentName" label="所属部门" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="email" label="邮箱" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80"  resizable show-overflow-tooltip></el-table-column>
 
                             <el-table-column label="操作" min-width="120" resizable>
                                 <template slot-scope="scope">

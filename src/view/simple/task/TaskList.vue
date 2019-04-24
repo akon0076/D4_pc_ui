@@ -40,67 +40,7 @@
           </div>
           <div class="table-control">
             <el-table v-loading="tableLoading" size="small" class="table-style" :data="tasks" border highlight-current-row @current-change="handleCurrentChange">
-              <el-table-column type="expand" fixed="left">
-                <template slot-scope="props">
-                  <el-form label-position="left" inline class="list-table-expand">
-                    <el-form-item label="标识">
-                      <span>{{ props.row.EId }}</span>
-                    </el-form-item>
-                    <el-form-item label="名称">
-                      <span>{{ props.row.name }}</span>
-                    </el-form-item>
-                    <el-form-item label="任务编码">
-                      <span>{{ props.row.taskId }}</span>
-                    </el-form-item>
-                    <el-form-item label="表达式">
-                      <span>{{ props.row.taskExpression }}</span>
-                    </el-form-item>
-                    <el-form-item label="发布人">
-                      <span>{{ props.row.taskPublisher }}</span>
-                    </el-form-item>
-                    <el-form-item label="创建时间">
-                      <span>{{ props.row.taskCreateTime  | dateFormat}}</span>
-                    </el-form-item>
-                    <el-form-item label="完成时间">
-                      <span>{{ props.row.taskCompleteTime | dateFormat}}</span>
-                    </el-form-item>
-                    <el-form-item label="任务状态">
-                      <span>{{ props.row.taskStatus }}</span>
-                    </el-form-item>
-                    <el-form-item label="执行任务类">
-                      <span>{{ props.row.taskClass }}</span>
-                    </el-form-item>
-                    <el-form-item label="执行任务变量">
-                      <span>{{ props.row.taskVariable }}</span>
-                    </el-form-item>
-                    <el-form-item label="任务配置ID">
-                      <span>{{ props.row.taskConfigId }}</span>
-                    </el-form-item>
-                    <el-form-item label="任务组">
-                      <span>{{ props.row.taskGroup }}</span>
-                    </el-form-item>
-                    <el-form-item label="任务名称">
-                      <span>{{ props.row.taskName }}</span>
-                    </el-form-item>
-                    <el-form-item label="备注">
-                      <span>{{ props.row.remark }}</span>
-                    </el-form-item>
-                    <el-form-item label="创建人">
-                      <span>{{ props.row.createId }}</span>
-                    </el-form-item>
-                    <el-form-item label="创建时间">
-                      <span>{{ props.row.createDatetime | dateFormat}}</span>
-                    </el-form-item>
-                    <el-form-item label="修改人">
-                      <span>{{ props.row.updateId }}</span>
-                    </el-form-item>
-                    <el-form-item label="修改时间">
-                      <span>{{ props.row.updateDatetime  | dateFormat}}</span>
-                    </el-form-item>
-                  </el-form>
-                </template>
-              </el-table-column>
-              <!--<el-table-column show-overflow-tooltip align="left" prop="name" label="定时任务名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>-->
+              <!--<el-table-column show-overflow-tooltip align="left" prop="name" label="定时任务名称" min-width="100" fixed="left"  resizable show-overflow-tooltip>-->
               <!--<template slot-scope="scope">-->
               <!--<p v-on:click="displayTask(tasks[scope.$index].eid)"-->
               <!--style="text-decoration: underline">-->
@@ -108,24 +48,24 @@
               <!--</p>-->
               <!--</template>-->
               <!--</el-table-column>-->
-              <el-table-column align="left" clalss="setCenter" prop="taskName" label="任务名称" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="taskExpression" label="表达式" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="taskPublisher" label="发布人" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" label="创建时间" min-width="80" sortable resizable show-overflow-tooltip>
+              <el-table-column align="left" clalss="setCenter" prop="taskName" label="任务名称" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="taskExpression" label="表达式" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="taskPublisher" label="发布人" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" label="创建时间" min-width="80"  resizable show-overflow-tooltip>
                 <template  slot-scope="scope">
                   <div>
                     {{scope.row.taskCreateTime | dateFormat}}
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="taskCompleteTime" label="完成时间" min-width="80" sortable resizable show-overflow-tooltip>
+              <el-table-column align="left" clalss="setCenter" prop="taskCompleteTime" label="完成时间" min-width="80"  resizable show-overflow-tooltip>
                 <template  slot-scope="scope">
                   <div>
                     {{scope.row.taskCompleteTime | dateFormat}}
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column align="left" clalss="setCenter"  label="任务状态" min-width="80" sortable resizable show-overflow-tooltip>
+              <el-table-column align="left" clalss="setCenter"  label="任务状态" min-width="80"  resizable show-overflow-tooltip>
                 <template  slot-scope="scope">
                   <div v-if="scope.row.taskStatus === '已激活'||scope.row.taskStatus === '已结束'" style="color: green;">
                     {{scope.row.taskStatus}}
@@ -135,9 +75,9 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="taskClass" label="执行任务类" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="taskVariable" label="执行任务变量" min-width="100" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter"  label="任务组" min-width="80" sortable resizable show-overflow-tooltip>
+              <el-table-column align="left" clalss="setCenter" prop="taskClass" label="执行任务类" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="taskVariable" label="执行任务变量" min-width="100"  resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter"  label="任务组" min-width="80"  resizable show-overflow-tooltip>
                 <!--prop="taskGroup"-->
                 <template  slot-scope="scope">
                   <div v-if="scope.row.taskGroup === 'ddd4'" >
@@ -148,7 +88,7 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80"  resizable show-overflow-tooltip></el-table-column>
               <el-table-column label="操作" min-width="120" resizable align="center">
                 <template slot-scope="scope">
                   <template>

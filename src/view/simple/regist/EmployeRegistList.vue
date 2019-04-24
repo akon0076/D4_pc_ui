@@ -35,19 +35,19 @@
                   <downSearch  :selectValues="selectValues" @returnedValue="searchByCondition"></downSearch>
                     <div class="table-control" style="margin-top:10px;">
                         <el-table v-loading="tableLoading" size="small" class="table-style" :data="employeRegists" border highlight-current-row @current-change="handleCurrentChange">
-                            <el-table-column show-overflow-tooltip align="left" prop="name" label="人员注册名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>
+                            <el-table-column show-overflow-tooltip align="left" prop="name" label="人员注册名称" min-width="100" fixed="left"  resizable show-overflow-tooltip>
                                 <template slot-scope="scope">
                                         <p>
                                             {{ employeRegists[scope.$index].name }}
                                         </p>
                                 </template>
                             </el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="linkTel" label="联系电话" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="organizationName" label="机构名称" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="email" label="邮箱" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="auditState" label="审核状态" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="auditEmloyeeName" label="审核人员" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" label="审核时间" min-width="80" sortable resizable show-overflow-tooltip>
+                                    <el-table-column align="left" clalss="setCenter" prop="linkTel" label="联系电话" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="organizationName" label="机构名称" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="email" label="邮箱" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="auditState" label="审核状态" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="auditEmloyeeName" label="审核人员" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" label="审核时间" min-width="80"  resizable show-overflow-tooltip>
                                       <template slot-scope="scope">{{employeRegists[scope.$index].auditDate | formatTime}}</template>
                                     </el-table-column>
                             <el-table-column label="操作" min-width="120" resizable>

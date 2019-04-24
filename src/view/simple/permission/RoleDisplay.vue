@@ -11,9 +11,6 @@
 
             <div class="text item">
                 <el-form label-position="left" inline class="display-form">
-                        <el-form-item label="标识">
-                            <span>{{ role.EId }}</span>
-                        </el-form-item>
                         <el-form-item label="编码">
                             <span>{{ role.code }}</span>
                         </el-form-item>
@@ -23,18 +20,7 @@
                         <el-form-item label="备注">
                             <span>{{ role.remark }}</span>
                         </el-form-item>
-                        <el-form-item label="创建人">
-                            <span>{{ role.createId }}</span>
-                        </el-form-item>
-                        <el-form-item label="创建时间">
-                            <span>{{ role.createDatetime }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改人">
-                            <span>{{ role.updateId }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改时间">
-                            <span>{{ role.updateDatetime }}</span>
-                        </el-form-item>
+
                 </el-form>
             </div>
         </el-card>

@@ -15,7 +15,7 @@
 
         <template v-if="isHavaData" v-for='(col) in tableDatas'>
           <el-table-column
-            sortable
+
             :show-overflow-tooltip="true"
             :prop="col.name"
             :label="col.label"
@@ -94,7 +94,7 @@ import { d4utils } from '../../tools/d4utils';
       //todo: 对导出的列宽进行设置
       //参数：orderNumber:序号的宽度设置，maxCol：最大列（A-Z）
       // setCols(sheet,orderNumber,maxCol){
-      //   let cols = []; 
+      //   let cols = [];
       // //  let tempOrderNumber = orderNumber.toString();
       //   let temp = {};
       //   let count = 0;
@@ -125,7 +125,7 @@ import { d4utils } from '../../tools/d4utils';
       //   }
       //   return cols;
       // },
-      
+
       // // todo：excel导出
       // // 参数：orderNumber：序号的宽度
       // downloadData(fileName){
@@ -164,12 +164,12 @@ import { d4utils } from '../../tools/d4utils';
       //         }
       //       }
       //     }
-          
+
       //   }
       //   let wbout = xlsxStyle.write(wb, {
       //     bookType: 'xlsx',
-      //     bookSST: true, 
-      //     type: 'buffer' 
+      //     bookSST: true,
+      //     type: 'buffer'
       //   });
       //   try{
       //     FileSaver.saveAs(new Blob([wbout],{type : 'application/octet-stream;charset=utf-8' }), fileName + ".xlsx");

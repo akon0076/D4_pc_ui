@@ -40,47 +40,8 @@
                     </div>
                     <div class="table-control">
                         <el-table v-loading="tableLoading" size="small" class="table-style" :data="taskConfigs" border highlight-current-row @current-change="handleCurrentChange">
-                            <el-table-column type="expand" fixed="left">
-                                <template slot-scope="props">
-                                    <el-form label-position="left" inline class="list-table-expand">
-                                            <el-form-item label="标识">
-                                                <span>{{ props.row.EId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="名称">
-                                                <span>{{ props.row.name }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="任务名称">
-                                                <span>{{ props.row.taskName }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="任务类型">
-                                                <span>{{ props.row.taskType }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="创建时间">
-                                                <span>{{ props.row.createTime  | dateFormat}}</span>
-                                            </el-form-item>
-                                            <el-form-item label="是否需要参数">
-                                                <span>{{ props.row.isNeedVariable }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="备注">
-                                                <span>{{ props.row.remark }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="创建人">
-                                                <span>{{ props.row.createId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="创建时间">
-                                                <span>{{ props.row.createDatetime | dateFormat}}</span>
-                                            </el-form-item>
-                                            <el-form-item label="修改人">
-                                                <span>{{ props.row.updateId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="修改时间">
-                                                <span>{{ props.row.updateDatetime | dateFormat}}</span>
-                                            </el-form-item>
-                                    </el-form>
-                                </template>
-                            </el-table-column>
 
-                            <el-table-column show-overflow-tooltip align="left" prop="name" label="定时任务名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>
+                            <el-table-column show-overflow-tooltip align="left" prop="name" label="定时任务名称" min-width="100" fixed="left"  resizable show-overflow-tooltip>
                                 <template slot-scope="scope">
                                         <p v-on:click="displayTaskConfig(taskConfigs[scope.$index].eid)"
                                            style="text-decoration: underline">
@@ -88,19 +49,19 @@
                                         </p>
                                 </template>
                             </el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="taskName" label="任务名称" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="taskType" label="任务类型" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="createTime" label="创建时间" min-width="80" sortable resizable show-overflow-tooltip>
+                                    <el-table-column align="left" clalss="setCenter" prop="taskName" label="任务名称" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="taskType" label="任务类型" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="createTime" label="创建时间" min-width="80"  resizable show-overflow-tooltip>
                                       <template  slot-scope="scope">
                                         <div>
                                           {{scope.row.createTime | dateFormat}}
                                         </div>
                                       </template>
                                     </el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="isNeedVariable" label="是否需要参数" min-width="80" sortable resizable show-overflow-tooltip>
+                                    <el-table-column align="left" clalss="setCenter" prop="isNeedVariable" label="是否需要参数" min-width="80"  resizable show-overflow-tooltip>
 
                                     </el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80"  resizable show-overflow-tooltip></el-table-column>
 
                             <el-table-column label="操作" min-width="120" resizable>
                                 <template slot-scope="scope">

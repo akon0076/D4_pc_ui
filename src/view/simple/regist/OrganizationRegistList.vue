@@ -37,21 +37,21 @@
                     <div class="table-control" style="margin-top: 10px;">
                         <el-table v-loading="tableLoading" size="small" class="table-style" :data="organizationRegists" border highlight-current-row @current-change="handleCurrentChange">
 
-                            <el-table-column show-overflow-tooltip align="left" prop="name" label="单位注册名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>
+                            <el-table-column show-overflow-tooltip align="left" prop="name" label="单位注册名称" min-width="100" fixed="left"  resizable show-overflow-tooltip>
                                 <template slot-scope="scope">
                                         <p>
                                             {{ organizationRegists[scope.$index].name }}
                                         </p>
                                 </template>
                             </el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="businessLicenseCode" label="营业执照号" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="amount" label="注册资金(万元)" min-width="120" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="address" label="单位地址" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="legalPerson" label="法人" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="industryAttributes" label="行业属性" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="auditState" label="审核状态" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="auditEmloyeeName" label="审核人员" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" label="审核时间" min-width="80" sortable resizable show-overflow-tooltip>
+                                    <el-table-column align="left" clalss="setCenter" prop="businessLicenseCode" label="营业执照号" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="amount" label="注册资金(万元)" min-width="120"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="address" label="单位地址" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="legalPerson" label="法人" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="industryAttributes" label="行业属性" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="auditState" label="审核状态" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="auditEmloyeeName" label="审核人员" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" label="审核时间" min-width="80"  resizable show-overflow-tooltip>
                                       <template slot-scope="scope">{{organizationRegists[scope.$index].auditDate | formatTime}}</template>
                                     </el-table-column>
                             <el-table-column label="操作" min-width="80" resizable>

@@ -11,9 +11,6 @@
 
             <div class="text item">
                 <el-form label-position="left" inline class="display-form">
-                        <el-form-item label="标识">
-                            <span>{{ department.EId }}</span>
-                        </el-form-item>
                         <el-form-item label="名称">
                             <span>{{ department.name }}</span>
                         </el-form-item>
@@ -41,18 +38,7 @@
                         <el-form-item label="备注">
                             <span>{{ department.remark }}</span>
                         </el-form-item>
-                        <el-form-item label="创建人">
-                            <span>{{ department.createId }}</span>
-                        </el-form-item>
-                        <el-form-item label="创建时间">
-                            <span>{{ department.createDatetime }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改人">
-                            <span>{{ department.updateId }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改时间">
-                            <span>{{ department.updateDatetime }}</span>
-                        </el-form-item>
+
                 </el-form>
             </div>
         </el-card>

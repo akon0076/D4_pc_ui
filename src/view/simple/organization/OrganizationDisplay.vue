@@ -11,9 +11,6 @@
 
             <div class="text item">
                 <el-form label-position="left" inline class="display-form">
-                        <el-form-item label="标识">
-                            <span>{{ organization.EId }}</span>
-                        </el-form-item>
                         <el-form-item label="名称">
                             <span>{{ organization.name }}</span>
                         </el-form-item>
@@ -38,18 +35,7 @@
                         <el-form-item label="备注">
                             <span>{{ organization.remark }}</span>
                         </el-form-item>
-                        <el-form-item label="创建人">
-                            <span>{{ organization.createId }}</span>
-                        </el-form-item>
-                        <el-form-item label="创建时间">
-                            <span>{{ organization.createDatetime }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改人">
-                            <span>{{ organization.updateId }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改时间">
-                            <span>{{ organization.updateDatetime }}</span>
-                        </el-form-item>
+
                 </el-form>
             </div>
         </el-card>

@@ -8,9 +8,6 @@
 
             <div class="text item">
                 <el-form label-position="left" inline class="display-form">
-                        <el-form-item label="标识">
-                            <span>{{ attachment.EId }}</span>
-                        </el-form-item>
                         <el-form-item label="名称">
                             <span>{{ attachment.name }}</span>
                         </el-form-item>
@@ -47,18 +44,7 @@
                         <el-form-item label="备注">
                             <span>{{ attachment.remark }}</span>
                         </el-form-item>
-                        <el-form-item label="创建人">
-                            <span>{{ attachment.createId }}</span>
-                        </el-form-item>
-                        <el-form-item label="创建时间">
-                            <span>{{ attachment.createDatetime }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改人">
-                            <span>{{ attachment.updateId }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改时间">
-                            <span>{{ attachment.updateDatetime }}</span>
-                        </el-form-item>
+
                 </el-form>
             </div>
         </el-card>

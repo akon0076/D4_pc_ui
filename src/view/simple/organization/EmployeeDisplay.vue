@@ -11,9 +11,6 @@
 
             <div class="text item">
                 <el-form label-position="left" inline class="display-form">
-                        <el-form-item label="标识">
-                            <span>{{ employee.EId }}</span>
-                        </el-form-item>
                         <el-form-item label="名称">
                             <span>{{ employee.name }}</span>
                         </el-form-item>
@@ -29,12 +26,6 @@
                         <el-form-item label="所属单位">
                             <span>{{ employee.organizationName }}</span>
                         </el-form-item>
-                        <el-form-item label="所属部门">
-                            <span>{{ employee.departmentId }}</span>
-                        </el-form-item>
-                        <el-form-item label="所属单位">
-                            <span>{{ employee.organizationId }}</span>
-                        </el-form-item>
                         <el-form-item label="性别">
                             <span>{{ employee.sex }}</span>
                         </el-form-item>
@@ -44,18 +35,7 @@
                         <el-form-item label="备注">
                             <span>{{ employee.remark }}</span>
                         </el-form-item>
-                        <el-form-item label="创建人">
-                            <span>{{ employee.createId }}</span>
-                        </el-form-item>
-                        <el-form-item label="创建时间">
-                            <span>{{ employee.createDatetime }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改人">
-                            <span>{{ employee.updateId }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改时间">
-                            <span>{{ employee.updateDatetime }}</span>
-                        </el-form-item>
+
                 </el-form>
             </div>
         </el-card>
