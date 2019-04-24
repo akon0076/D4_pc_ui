@@ -30,9 +30,12 @@
       </el-row>
       <el-row>
         <!--数据表格-->
+
         <el-col>
           <down-search :selectValues="selectValues" @returnedValue="searchByCondition"></down-search>
           <div class="table-control">
+            <div style=" margin-bottom: 15px">
+            </div>
             <el-table v-loading="tableLoading" size="small" class="table-style" :data="logs" border
                       highlight-current-row @current-change="handleCurrentChange">
               <el-table-column type="expand" fixed="left">
@@ -142,13 +145,6 @@
             </div>
           </div>
         </el-col>
-      </el-row>
-      <el-row>
-        <el-alert v-for="remark in alerts.remarks" :key="remark.title"
-                  v-bind:title="remark.title"
-                  type="info"
-                  v-bind:description="remark.content">
-        </el-alert>
       </el-row>
     </el-card>
   </div>

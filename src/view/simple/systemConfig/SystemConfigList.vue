@@ -117,13 +117,6 @@
                     </div>
                 </el-col>
             </el-row>
-            <el-row>
-                <el-alert v-for="remark in alerts.remarks"  :key="remark.title"
-                          v-bind:title="remark.title"
-                          type="info"
-                          v-bind:description="remark.content">
-                </el-alert>
-            </el-row>
         </el-card>
     </div>
 
@@ -211,7 +204,7 @@
             },
             displaySystemConfig(systemConfigId){
                 var router = this.$router;
-                router.push({path: '/simple/systemConfig/systemConfig/display/'+systemConfigId, query: {}});
+                router.push({path: '/simple/system/systemConfig/display/'+systemConfigId, query: {}});
             },
             deleteSystemConfig(systemConfigId) {
                 this.$confirm('您确定要删除吗?', '提示', {
@@ -256,12 +249,12 @@
             addSystemConfig(){
                 //新增系统参数
                 var router = this.$router;
-                router.push({path: '/simple/systemConfig/systemConfig/add', query: {}});
+                router.push({path: '/simple/system/systemConfig/add', query: {}});
             },
             editOrganation(systemConfigId){
                 //编辑系统参数
                 var router = this.$router;
-                router.push({path: '/simple/systemConfig/systemConfig/edit/'+systemConfigId, query: {}});
+                router.push({path: '/simple/system/systemConfig/edit/'+systemConfigId, query: {}});
             },
             handleCurrentChange(currentRow,oldCurrentRow) {
                 //this.currentRow = val;

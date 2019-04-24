@@ -3,7 +3,10 @@
     <div class="spanControl-list" style="width: 100%;margin-left: 0!important;">
         <el-card class="box-card card-head" style="margin: 0px; width: 100%; min-height: 99%">
             <div slot="header" class="clearfix">
-                <span>模块管理</span>
+              <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/simple/permission/Module' }">模块管理列表</el-breadcrumb-item>
+                <el-breadcrumb-item>模块管理</el-breadcrumb-item>
+              </el-breadcrumb>
             </div>
             <div class="alert-container clearfix">
                 <el-alert  v-for="alert in alerts.successes"  :key="alert.title"
@@ -151,13 +154,7 @@
                     </el-col>
                 </el-form>
             </div>
-            <div class="text item clearfix">
-                <el-alert v-for="remark in alerts.remarks"  :key="remark.title"
-                          v-bind:title="remark.title"
-                          type="info"
-                          v-bind:description="remark.description">
-                </el-alert>
-            </div>
+
         </el-card>
     </div>
 </template>

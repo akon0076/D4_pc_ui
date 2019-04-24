@@ -34,9 +34,7 @@
                 <el-col>
                     <!--新增任务按钮-->
                     <down-search :selectValues="selectValues" @returnedValue="searchByCondition"></down-search>
-                    <div style="float: right; margin-bottom: 15px">
-
-                        <el-button  type="primary" @click="addAttachment()"  v-permission:simple_attachment_Attachment_Add >新增附件</el-button>
+                    <div style=" margin-bottom: 15px">
                     </div>
                     <div class="table-control">
                         <el-table v-loading="tableLoading" size="small" class="table-style" :data="attachments" border highlight-current-row @current-change="handleCurrentChange">
@@ -115,18 +113,6 @@
                                     <el-table-column align="left" clalss="setCenter" prop="associateSize" label="附件大小" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
                                     <el-table-column align="left" clalss="setCenter" prop="isEffective" label="是否有效" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
                                     <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-
-                            <el-table-column label="操作" min-width="120" resizable>
-                                <template slot-scope="scope">
-                                    <template>
-                                        <el-button @click="editOrganation(attachments[scope.$index].eid)" type="text" size="small" v-permission:simple_attachment_Attachment_Edit >编辑</el-button>
-                                    </template>
-                                    <template>
-                                        <el-button @click="deleteAttachment(attachments[scope.$index].eid)" type="text" size="small" v-permission:simple_attachment_Attachment_Delete ><p
-                                                style="color: red !important;">删除</p></el-button>
-                                    </template>
-                                </template>
-                            </el-table-column>
                         </el-table>
 
                         <!--分页功能-->
@@ -143,13 +129,6 @@
                         </div>
                     </div>
                 </el-col>
-            </el-row>
-            <el-row>
-                <el-alert v-for="remark in alerts.remarks"  :key="remark.title"
-                          v-bind:title="remark.title"
-                          type="info"
-                          v-bind:description="remark.content">
-                </el-alert>
             </el-row>
         </el-card>
     </div>

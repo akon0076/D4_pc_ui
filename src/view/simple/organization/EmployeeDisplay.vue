@@ -3,7 +3,10 @@
     <div class="spanControl-list" style="width: 100%;margin-left: 0!important;">
         <el-card class="box-card card-head" style="margin: 0px; width: 100%; min-height: 99%">
             <div slot="header" class="clearfix">
-                <span>查看职员</span>
+              <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{ path: '/simple/organization/employee' }">职员管理列表</el-breadcrumb-item>
+                <el-breadcrumb-item>查看职员</el-breadcrumb-item>
+              </el-breadcrumb>
             </div>
 
             <div class="text item">

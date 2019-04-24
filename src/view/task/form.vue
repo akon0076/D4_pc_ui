@@ -77,14 +77,6 @@
     </el-form>
     <el-row>
       <el-col :span="16">
-        <div class="text item clearfix">
-          <el-alert v-for="remark in alerts.remarks"  :key="remark.title"
-                    v-bind:title="remark.title"
-                    type="info"
-                    close-text
-                    v-bind:description="remark.description">
-          </el-alert>
-        </div>
       </el-col>
     </el-row>
 

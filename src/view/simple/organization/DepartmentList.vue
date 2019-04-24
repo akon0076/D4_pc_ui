@@ -133,13 +133,6 @@
                     </div>
                 </el-col>
             </el-row>
-            <el-row>
-                <el-alert v-for="remark in alerts.remarks"  :key="remark.title"
-                          v-bind:title="remark.title"
-                          type="info"
-                          v-bind:description="remark.content">
-                </el-alert>
-            </el-row>
         </el-card>
     </div>
 

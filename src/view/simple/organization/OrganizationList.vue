@@ -38,11 +38,8 @@
                         <el-button  type="primary" @click="addOrganization()"  v-permission:simple_organization_Organization_Add >新增单位</el-button>
                     </div>
                     <div class="table-control" style="width:100%">
-                        <div class="towLine" style="width:100%;height:155px;overflow:hidden;">
-                                <div class="test1" style="float:left;width:20%">
-                                    <el-tree :data="datas" :props="defaultProps" @node-click="handleNodeClick" style="height:155px;overflow:auto"></el-tree>
-                                </div>
-                                <div class="test2" style="margin-left:21%">
+                        <div >
+                                <div>
                                     <el-table ref="tableDD" id="appDD" v-loading="tableLoading" size="small" class="table-style" :data="organizations" border highlight-current-row @current-change="handleCurrentChange">
                                         <el-table-column type="expand" fixed="left">
                                             <template slot-scope="props">
@@ -179,7 +176,7 @@
                                                 </el-form>
                                             </template>
                                         </el-table-column>
-                           
+
                                         <el-table-column show-overflow-tooltip align="left" prop="name" label="单位名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>
                                             <template slot-scope="scope">
                                                     <p v-on:click="displayOrganization(organizations[scope.$index].eid)"
@@ -239,7 +236,7 @@
                                     </el-table>
                                 </div>
                         </div>
-                        
+
 
                         <!--分页功能-->
                         <div class="block">
@@ -256,16 +253,8 @@
                     </div>
                 </el-col>
             </el-row>
-            <el-row>
-                <el-alert v-for="remark in alerts.remarks"  :key="remark.title"
-                          v-bind:title="remark.title"
-                          type="info"
-                          v-bind:description="remark.content">
-                </el-alert>
-            </el-row>
         </el-card>
     </div>
-
 </template>
 <script>
     import {mapState} from 'vuex';
@@ -275,42 +264,7 @@
     export default {
         components: {downSearch},
         data() {
-            return {    
-                datas: [{
-                    label: '一级 1',
-                    children: [{
-                        label: '二级 1-1',
-                        children: [{
-                        label: '三级 1-1-1'
-                        }]
-                    }]
-                    }, {
-                    label: '一级 2',
-                    children: [{
-                        label: '二级 2-1',
-                        children: [{
-                        label: '三级 2-1-1'
-                        }]
-                    }, {
-                        label: '二级 2-2',
-                        children: [{
-                        label: '三级 2-2-1'
-                        }]
-                    }]
-                    }, {
-                     label: '一级 3',
-                    children: [{
-                        label: '二级 3-1',
-                        children: [{
-                        label: '三级 3-1-1'
-                        }]
-                    }, {
-                        label: '二级 3-2',
-                        children: [{
-                        label: '三级 3-2-1'
-                        }]
-                    }]
-                    }],
+            return {
                     defaultProps: {
                         children: 'children',
                         label: 'label'
@@ -484,7 +438,4 @@
     }
 </script>
 <style scoped lang="scss">
-.towLine > div{
-    height:100%;
-}
 </style>

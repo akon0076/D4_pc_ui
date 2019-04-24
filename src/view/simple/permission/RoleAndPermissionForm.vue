@@ -73,13 +73,6 @@
                     </el-col>
                 </el-form>
             </div>
-            <div class="text item clearfix">
-                <el-alert v-for="remark in alerts.remarks"  :key="remark.title"
-                          v-bind:title="remark.title"
-                          type="info"
-                          v-bind:description="remark.description">
-                </el-alert>
-            </div>
         </el-card>
     </div>
 </template>

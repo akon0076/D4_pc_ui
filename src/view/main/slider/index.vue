@@ -2,7 +2,7 @@
   <div style="background-color: #545c64">
     <div class="mh-admin-title" v-on:click="handMain">
       <router-link class="head-link" to="/" style="display: block">
-        <div :class="!isCollapse ? 'title-animation':'title-logo'">{{title}}</div>
+        <div :class="!isCollapse ? 'title-animation':'title-logo'"><i v-show="!isCollapse" style="margin-right: 10px;font-size: 19px;" class="iconfont icon-home-"></i>{{title}}</div>
       </router-link>
     </div>
    <Tree-view >
