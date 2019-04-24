@@ -1,11 +1,10 @@
 <template>
   <div class="mh-login">
-    <div class="form" style="width: 100%">
-      <img style="width: 100%" src="../../assets/images/timg.jpg"/>
+    <div class="form" >
       <el-form v-if="login" :model="loginForm" :rules="rules" ref="loginForm" label-position="left" label-width="0px"
                class="login-container">
         <div class="head">
-          <el-form-item prop="userName" style="margin-bottom: 45px">
+          <el-form-item prop="userName" >
             <el-input
               type="text"
               v-model="loginForm.userName"
@@ -51,7 +50,7 @@
         <el-form-item>
           <el-button
             class="btn"
-            type="danger"
+            type="primary"
             @click.native.prevent="submitForm"
             :loading="loading"
           >登录
@@ -272,8 +271,8 @@
     background: rgba(255, 255, 255, 0.9);
     min-width: 270px;
     position: absolute;
-    top: 33%;
-    left: 5%;
+    top: 10%;
+    left: 45%;
   }
 
   .icon {
@@ -300,7 +299,6 @@
     width: 100%;
     height: 45px !important;
     border-radius: 0px;
-    background: #f56c6cf5;
     font-size: 21px;
     text-indent: 26px;
     letter-spacing: 26px;

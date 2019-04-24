@@ -21,6 +21,10 @@ import DepartmentRoute from './organization/DepartmentRoute.js'
 import Route from './fileUpload/Route.js'
 import AttachmentRoute from './attachment/AttachmentRoute.js'
 
+
+// import EmployeeManageRoute from './registrationAudit/EmployeeManageRoute'
+// import OrganizationManageRoute from './registrationAudit/OrganizationManageRoute'
+
 /**
  * 系统设置
  */
@@ -55,7 +59,7 @@ export default [
       ...reportMesShowRoute,
       ...TaskConfigRoute,
       ...TaskRoute,
-      ...LogRoute
-    ]
+      ...LogRoute,
+        ]
   }
 ]
