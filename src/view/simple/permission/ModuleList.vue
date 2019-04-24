@@ -16,65 +16,7 @@
           </div>
           <div class="table-control">
             <el-table v-loading="tableLoading" size="small" class="table-style" :data="modules" border highlight-current-row @current-change="handleCurrentChange">
-              <el-table-column type="expand" fixed="left">
-                <template slot-scope="props">
-                  <el-form label-position="left" inline class="list-table-expand">
-                    <el-form-item label="标识">
-                      <span>{{ props.row.EId }}</span>
-                    </el-form-item>
-                    <el-form-item label="编码">
-                      <span>{{ props.row.code }}</span>
-                    </el-form-item>
-                    <el-form-item label="名称">
-                      <span>{{ props.row.name }}</span>
-                    </el-form-item>
-                    <el-form-item label="URL地址">
-                      <span>{{ props.row.url }}</span>
-                    </el-form-item>
-                    <el-form-item label="路由">
-                      <span>{{ props.row.route }}</span>
-                    </el-form-item>
-                    <el-form-item label="图标">
-                      <span>{{ props.row.iconClass }}</span>
-                    </el-form-item>
-                    <el-form-item label="显示顺序">
-                      <span>{{ props.row.displayIndex }}</span>
-                    </el-form-item>
-                    <el-form-item label="上级模块">
-                      <span>{{ props.row.parentId }}</span>
-                    </el-form-item>
-                    <el-form-item label="上级模块">
-                      <span>{{ props.row.parentName }}</span>
-                    </el-form-item>
-                    <el-form-item label="模块类型">
-                      <span>{{ props.row.moduleType }}</span>
-                    </el-form-item>
-                    <el-form-item label="上级模块编码">
-                      <span>{{ props.row.parentCode }}</span>
-                    </el-form-item>
-                    <el-form-item label="在用">
-                      <span>{{ props.row.isInUse }}</span>
-                    </el-form-item>
-                    <el-form-item label="备注">
-                      <span>{{ props.row.remark }}</span>
-                    </el-form-item>
-                    <el-form-item label="创建人">
-                      <span>{{ props.row.createId }}</span>
-                    </el-form-item>
-                    <el-form-item label="创建时间">
-                      <span>{{ props.row.createDatetime }}</span>
-                    </el-form-item>
-                    <el-form-item label="修改人">
-                      <span>{{ props.row.updateId }}</span>
-                    </el-form-item>
-                    <el-form-item label="修改时间">
-                      <span>{{ props.row.updateDatetime }}</span>
-                    </el-form-item>
-                  </el-form>
-                </template>
-              </el-table-column>
-
-              <el-table-column show-overflow-tooltip align="left" prop="name" label="模块名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>
+              <el-table-column show-overflow-tooltip align="left" prop="name" label="模块名称" min-width="100" fixed="left"  resizable show-overflow-tooltip>
                 <template slot-scope="scope">
                   <p v-on:click="displayModule(modules[scope.$index].code)"
                      style="text-decoration: underline">
@@ -82,15 +24,15 @@
                   </p>
                 </template>
               </el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="code" label="编码" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="url" label="URL地址" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="route" label="路由" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="iconClass" label="图标" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="displayIndex" label="显示顺序" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="parentName" label="上级模块" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="moduleType" label="模块类型" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="parentCode" label="上级模块编码" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="isInUse" label="在用" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="code" label="编码" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="url" label="URL地址" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="route" label="路由" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="iconClass" label="图标" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="displayIndex" label="显示顺序" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="parentName" label="上级模块" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="moduleType" label="模块类型" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="parentCode" label="上级模块编码" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="isInUse" label="在用" min-width="80"  resizable show-overflow-tooltip></el-table-column>
               <el-table-column label="操作" min-width="120" resizable>
                 <template slot-scope="scope">
                   <template>

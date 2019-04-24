@@ -96,7 +96,7 @@
                           <!--</el-table-column>-->
 
                           <!--<el-table-column show-overflow-tooltip align="left" prop="name" label="模板文件名称"-->
-                                           <!--min-width="100" fixed="left" sortable resizable show-overflow-tooltip>-->
+                                           <!--min-width="100" fixed="left"  resizable show-overflow-tooltip>-->
                               <!--<template slot-scope="scope">-->
                                       <!--<p v-on:click="displayModelFile(modelFiles[scope.$index].eid)" style="text-decoration: underline">-->
                                           <!--{{ modelFiles[scope.$index].name }}-->
@@ -105,10 +105,10 @@
                           <!--</el-table-column>-->
 
                           <!--<el-table-column align="left" clalss="setCenter" prop="modelKey" label="模板唯一标识" -->
-                                           <!--min-width="80" sortable resizable show-overflow-tooltip></el-table-column>-->
+                                           <!--min-width="80"  resizable show-overflow-tooltip></el-table-column>-->
 
                           <el-table-column align="left" clalss="setCenter" prop="modelName" label="模板名称"
-                                           min-width="80" sortable resizable show-overflow-tooltip>
+                                           min-width="80"  resizable show-overflow-tooltip>
                               <!--点击跳到display页面-->
                               <template slot-scope="scope">
                                     <p v-on:click="displayModelFile(modelFiles[scope.$index].eid)" style="text-decoration: underline">
@@ -118,24 +118,24 @@
                           </el-table-column>
 
                           <el-table-column align="left" clalss="setCenter" prop="category" label="分类目录"
-                                           min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
+                                           min-width="80"  resizable show-overflow-tooltip></el-table-column>
 
                           <el-table-column align="left" clalss="setCenter" prop="modelType" label="模板类别"
-                                           min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
+                                           min-width="80"  resizable show-overflow-tooltip></el-table-column>
 
                           <!--<el-table-column align="left" clalss="setCenter" prop="exportName" label="导出文件名称" -->
-                                           <!--min-width="80" sortable resizable show-overflow-tooltip></el-table-column>-->
+                                           <!--min-width="80"  resizable show-overflow-tooltip></el-table-column>-->
                           <!--<el-table-column align="left" clalss="setCenter" prop="exportFileType" label="导出文件类型" -->
-                                           <!--min-width="80" sortable resizable show-overflow-tooltip></el-table-column>-->
+                                           <!--min-width="80"  resizable show-overflow-tooltip></el-table-column>-->
                           <!--<el-table-column align="left" clalss="setCenter" prop="isPagenation" label="是否分页" -->
-                                           <!--min-width="80" sortable resizable show-overflow-tooltip></el-table-column>-->
+                                           <!--min-width="80"  resizable show-overflow-tooltip></el-table-column>-->
                           <!--<el-table-column align="left" clalss="setCenter" prop="displayNum" label="一页展示条数" -->
-                                           <!--min-width="80" sortable resizable show-overflow-tooltip></el-table-column>-->
+                                           <!--min-width="80"  resizable show-overflow-tooltip></el-table-column>-->
                           <!--<el-table-column align="left" clalss="setCenter" prop="isSearch" label="是否添加检索" -->
-                                           <!--min-width="80" sortable resizable show-overflow-tooltip></el-table-column>-->
+                                           <!--min-width="80"  resizable show-overflow-tooltip></el-table-column>-->
 
                           <el-table-column align="left" clalss="setCenter" prop="remark" label="备注"
-                                           min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
+                                           min-width="80"  resizable show-overflow-tooltip></el-table-column>
 
                           <!--操作按钮-->
                           <el-table-column label="操作" min-width="120" resizable>

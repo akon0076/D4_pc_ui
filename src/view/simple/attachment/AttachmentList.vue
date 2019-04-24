@@ -38,65 +38,7 @@
                     </div>
                     <div class="table-control">
                         <el-table v-loading="tableLoading" size="small" class="table-style" :data="attachments" border highlight-current-row @current-change="handleCurrentChange">
-                            <el-table-column type="expand" fixed="left">
-                                <template slot-scope="props">
-                                    <el-form label-position="left" inline class="list-table-expand">
-                                            <el-form-item label="标识">
-                                                <span>{{ props.row.EId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="名称">
-                                                <span>{{ props.row.name }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="附件的真实名称">
-                                                <span>{{ props.row.attachmentRealName }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="保存文件名">
-                                                <span>{{ props.row.attachmentLogicalName }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="上传时间">
-                                                <span>{{ props.row.uploadTime }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="上传人">
-                                                <span>{{ props.row.uploadEmployeeId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="上传人">
-                                                <span>{{ props.row.uploadEmployeeName }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="附件地址">
-                                                <span>{{ props.row.attachmentAddr }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="关联表单Id">
-                                                <span>{{ props.row.associateFormId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="关联表单名称">
-                                                <span>{{ props.row.associateFormName }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="附件大小">
-                                                <span>{{ props.row.associateSize }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="是否有效">
-                                                <span>{{ props.row.isEffective }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="备注">
-                                                <span>{{ props.row.remark }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="创建人">
-                                                <span>{{ props.row.createId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="创建时间">
-                                                <span>{{ props.row.createDatetime }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="修改人">
-                                                <span>{{ props.row.updateId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="修改时间">
-                                                <span>{{ props.row.updateDatetime }}</span>
-                                            </el-form-item>
-                                    </el-form>
-                                </template>
-                            </el-table-column>
-
-                            <el-table-column show-overflow-tooltip align="left" prop="name" label="附件名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>
+                            <el-table-column show-overflow-tooltip align="left" prop="name" label="附件名称" min-width="100" fixed="left"  resizable show-overflow-tooltip>
                                 <template slot-scope="scope">
                                         <p v-on:click="displayAttachment(attachments[scope.$index].eid)"
                                            style="text-decoration: underline">
@@ -104,15 +46,15 @@
                                         </p>
                                 </template>
                             </el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="attachmentRealName" label="附件的真实名称" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="attachmentLogicalName" label="保存文件名" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="uploadTime" label="上传时间" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="uploadEmployeeName" label="上传人" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="attachmentAddr" label="附件地址" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="associateFormName" label="关联表单名称" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="associateSize" label="附件大小" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="isEffective" label="是否有效" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="attachmentRealName" label="附件的真实名称" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="attachmentLogicalName" label="保存文件名" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="uploadTime" label="上传时间" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="uploadEmployeeName" label="上传人" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="attachmentAddr" label="附件地址" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="associateFormName" label="关联表单名称" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="associateSize" label="附件大小" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="isEffective" label="是否有效" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80"  resizable show-overflow-tooltip></el-table-column>
                         </el-table>
 
                         <!--分页功能-->

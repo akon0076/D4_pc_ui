@@ -37,83 +37,26 @@
             <div style=" margin-bottom: 15px">
             </div>
             <el-table v-loading="tableLoading" size="small" class="table-style" :data="logs" border
-                      highlight-current-row @current-change="handleCurrentChange">
-              <el-table-column type="expand" fixed="left">
-                <template slot-scope="props">
-                  <el-form label-position="left" inline class="list-table-expand">
-                    <el-form-item label="标识">
-                      <span>{{ props.row.EId }}</span>
-                    </el-form-item>
-                    <el-form-item label="名称">
-                      <span>{{ props.row.name }}</span>
-                    </el-form-item>
-                    <el-form-item label="操作员">
-                      <span>{{ props.row.operatorName }}</span>
-                    </el-form-item>
-                    <el-form-item label="操作员">
-                      <span>{{ props.row.operatorId }}</span>
-                    </el-form-item>
-                    <el-form-item label="IP地址">
-                      <span>{{ props.row.ipAddress }}</span>
-                    </el-form-item>
-                    <el-form-item label="日志类型">
-                      <span>{{ props.row.logType }}</span>
-                    </el-form-item>
-                    <el-form-item label="操作实体">
-                      <span>{{ props.row.entity }}</span>
-                    </el-form-item>
-                    <el-form-item label="操作类型">
-                      <span>{{ props.row.operationType }}</span>
-                    </el-form-item>
-                    <el-form-item label="操作时间">
-                      <span>{{ props.row.logDate }}</span>
-                    </el-form-item>
-                    <el-form-item label="操作内容">
-                      <span>{{ props.row.operationContent }}</span>
-                    </el-form-item>
-                    <el-form-item label="url">
-                      <span>{{ props.row.url }}</span>
-                    </el-form-item>
-                    <el-form-item label="模块">
-                      <span>{{ props.row.module }}</span>
-                    </el-form-item>
-                    <el-form-item label="备注">
-                      <span>{{ props.row.remark }}</span>
-                    </el-form-item>
-                    <el-form-item label="创建人">
-                      <span>{{ props.row.createId }}</span>
-                    </el-form-item>
-                    <el-form-item label="创建时间">
-                      <span>{{ props.row.createDatetime }}</span>
-                    </el-form-item>
-                    <el-form-item label="修改人">
-                      <span>{{ props.row.updateId }}</span>
-                    </el-form-item>
-                    <el-form-item label="修改时间">
-                      <span>{{ props.row.updateDatetime }}</span>
-                    </el-form-item>
-                  </el-form>
-                </template>
-              </el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="operatorName" label="操作员" min-width="80" sortable
+                      highlight-current-row>
+              <el-table-column align="left" clalss="setCenter" prop="operatorName" label="操作员" min-width="80"
                                resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="ipAddress" label="IP地址" min-width="80" sortable
+              <el-table-column align="left" clalss="setCenter" prop="ipAddress" label="IP地址" min-width="80"
                                resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="logType" label="日志类型" min-width="80" sortable
+              <el-table-column align="left" clalss="setCenter" prop="logType" label="日志类型" min-width="80"
                                resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="entity" label="操作实体" min-width="80" sortable
+              <el-table-column align="left" clalss="setCenter" prop="entity" label="操作实体" min-width="80"
                                resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="operationType" label="操作类型" min-width="80" sortable
+              <el-table-column align="left" clalss="setCenter" prop="operationType" label="操作类型" min-width="80"
                                resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="logDate" label="操作时间" min-width="80" sortable
+              <el-table-column align="left" clalss="setCenter" prop="logDate" label="操作时间" min-width="80"
                                resizable show-overflow-tooltip></el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="operationContent" label="操作内容" min-width="80"
-                               sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="url" label="url" min-width="80" sortable resizable
+                                resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" clalss="setCenter" prop="url" label="url" min-width="80"  resizable
                                show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="module" label="模块" min-width="80" sortable
+              <el-table-column align="left" clalss="setCenter" prop="module" label="模块" min-width="80"
                                resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80" sortable
+              <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80"
                                resizable show-overflow-tooltip></el-table-column>
               <el-table-column label="操作" min-width="120" resizable>
                 <template slot-scope="scope">

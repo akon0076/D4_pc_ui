@@ -40,59 +40,7 @@
                     </div>
                     <div class="table-control">
                         <el-table v-loading="tableLoading" size="small" class="table-style" :data="memberRegists" border highlight-current-row @current-change="handleCurrentChange">
-                            <el-table-column type="expand" fixed="left">
-                                <template slot-scope="props">
-                                    <el-form label-position="left" inline class="list-table-expand">
-                                            <el-form-item label="标识">
-                                                <span>{{ props.row.EId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="名称">
-                                                <span>{{ props.row.name }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="唯一键">
-                                                <span>{{ props.row.onlyCode }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="密码">
-                                                <span>{{ props.row.password }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="编码">
-                                                <span>{{ props.row.memberCode }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="名称">
-                                                <span>{{ props.row.memberName }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="联系人">
-                                                <span>{{ props.row.person }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="联系电话">
-                                                <span>{{ props.row.phone }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="地址">
-                                                <span>{{ props.row.address }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="审核状态">
-                                                <span>{{ props.row.auditState }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="备注">
-                                                <span>{{ props.row.remark }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="创建人">
-                                                <span>{{ props.row.createId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="创建时间">
-                                                <span>{{ props.row.createDatetime }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="修改人">
-                                                <span>{{ props.row.updateId }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="修改时间">
-                                                <span>{{ props.row.updateDatetime }}</span>
-                                            </el-form-item>
-                                    </el-form>
-                                </template>
-                            </el-table-column>
-
-                            <el-table-column show-overflow-tooltip align="left" prop="name" label="商家注册审核名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>
+                            <el-table-column show-overflow-tooltip align="left" prop="name" label="商家注册审核名称" min-width="100" fixed="left"  resizable show-overflow-tooltip>
                                 <template slot-scope="scope">
                                         <p v-on:click="displayMemberRegist(memberRegists[scope.$index].eid)"
                                            style="text-decoration: underline">
@@ -100,15 +48,15 @@
                                         </p>
                                 </template>
                             </el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="onlyCode" label="唯一键" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="password" label="密码" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="memberCode" label="编码" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="memberName" label="名称" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="person" label="联系人" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="phone" label="联系电话" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="address" label="地址" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="auditState" label="审核状态" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="onlyCode" label="唯一键" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="password" label="密码" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="memberCode" label="编码" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="memberName" label="名称" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="person" label="联系人" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="phone" label="联系电话" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="address" label="地址" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="auditState" label="审核状态" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80"  resizable show-overflow-tooltip></el-table-column>
 
                             <el-table-column label="操作" min-width="120" resizable>
                                 <template slot-scope="scope">

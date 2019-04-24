@@ -11,9 +11,6 @@
 
             <div class="text item">
                 <el-form label-position="left" inline class="display-form" label-width="200px">
-                        <el-form-item label="标识">
-                            <span>{{ module.EId }}</span>
-                        </el-form-item>
                         <el-form-item label="编码">
                             <span>{{ module.code }}</span>
                         </el-form-item>
@@ -50,18 +47,7 @@
                         <el-form-item label="备注">
                             <span>{{ module.remark }}</span>
                         </el-form-item>
-                        <el-form-item label="创建人">
-                            <span>{{ module.createId }}</span>
-                        </el-form-item>
-                        <el-form-item label="创建时间">
-                            <span>{{ module.createDatetime }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改人">
-                            <span>{{ module.updateId }}</span>
-                        </el-form-item>
-                        <el-form-item label="修改时间">
-                            <span>{{ module.updateDatetime }}</span>
-                        </el-form-item>
+
                 </el-form>
             </div>
         </el-card>

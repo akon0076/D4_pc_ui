@@ -40,26 +40,7 @@
                     </div>
                     <div class="table-control">
                         <el-table v-loading="tableLoading" size="small" class="table-style" :data="codeTables" border highlight-current-row @current-change="handleCurrentChange">
-                            <el-table-column type="expand" fixed="left">
-                                <template slot-scope="props">
-                                    <el-form label-position="left" inline class="list-table-expand">
-                                            <el-form-item label="名称">
-                                                <span>{{ props.row.name }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="码表全名">
-                                                <span>{{ props.row.fullname }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="码表类型">
-                                                <span>{{ props.row.codeType }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="显示顺序">
-                                                <span>{{ props.row.displayOrder }}</span>
-                                            </el-form-item>
-                                    </el-form>
-                                </template>
-                            </el-table-column>
-
-                            <el-table-column show-overflow-tooltip align="left" prop="name" label="码表名称" min-width="100" fixed="left" sortable resizable show-overflow-tooltip>
+                            <el-table-column show-overflow-tooltip align="left" prop="name" label="码表名称" min-width="100" fixed="left"  resizable show-overflow-tooltip>
                                 <template slot-scope="scope">
                                         <p v-on:click="displayCodeTable(codeTables[scope.$index].fullname)"
                                            style="text-decoration: underline">
@@ -67,9 +48,9 @@
                                         </p>
                                 </template>
                             </el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="fullname" label="码表全名" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="codeType" label="码表类型" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                    <el-table-column align="left" clalss="setCenter" prop="displayOrder" label="显示顺序" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="fullname" label="码表全名" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="codeType" label="码表类型" min-width="80"  resizable show-overflow-tooltip></el-table-column>
+                                    <el-table-column align="left" clalss="setCenter" prop="displayOrder" label="显示顺序" min-width="80"  resizable show-overflow-tooltip></el-table-column>
 
                             <el-table-column label="操作" min-width="120" resizable>
                                 <template slot-scope="scope">
