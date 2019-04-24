@@ -247,10 +247,10 @@
   .mh-login {
     width: 100%;
     height: 100%;
-    background-image: url("../../assets/images/背景.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    background-color: #ebebeb;
     min-width: 1000px;
     .form {
       position: absolute;
@@ -270,9 +270,6 @@
     padding: 35px 35px 15px 35px;
     background: rgba(255, 255, 255, 0.9);
     min-width: 270px;
-    position: absolute;
-    top: 10%;
-    left: 45%;
   }
 
   .icon {
