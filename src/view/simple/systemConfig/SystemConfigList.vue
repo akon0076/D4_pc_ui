@@ -35,7 +35,7 @@
                     <!--新增任务按钮-->
                   <down-search :selectValues="selectValues" @returnedValue="searchByCondition"></down-search>
                     <div style="float: right; margin-bottom: 15px">
-                        <el-button  type="primary" @click="addSystemConfig()"  v-permission:simple_systemConfig_SystemConfig_Add >新增系统参数</el-button>
+                        <el-button  type="primary" @click="addSystemConfig()"  v-permission:simple_system_SystemConfig_Add >新增系统参数</el-button>
                     </div>
                     <div class="table-control">
                         <el-table   ref="table" v-loading="tableLoading" size="small" class="table-style" :data="systemConfigs" border highlight-current-row @current-change="handleCurrentChange">

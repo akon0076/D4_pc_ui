@@ -99,7 +99,7 @@
                   </el-col>
                     <el-col :span="11">
                         <el-form-item>
-                            <el-button type="primary" @click="submitSystemConfig()"    :loading="isSubmiting" v-permission:simple_systemConfig_SystemConfig_Edit >提交</el-button>
+                            <el-button type="primary" @click="submitSystemConfig()"    :loading="isSubmiting" v-permission:simple_system_SystemConfig_Edit >提交</el-button>
                         </el-form-item>
                     </el-col>
 
