@@ -72,9 +72,9 @@
               </el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="code" label="编码" min-width="80" sortable resizable
                                show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="status" label="状态" min-width="80" sortable
+              <el-table-column align="left" clalss="setCenter" prop="status" label="状态" min-width="50" sortable
                                resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="type" label="类型" min-width="80" sortable resizable
+              <el-table-column align="left" clalss="setCenter" prop="type" label="类型" min-width="60" sortable resizable
                                show-overflow-tooltip></el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80" sortable
                                resizable show-overflow-tooltip></el-table-column>
@@ -82,7 +82,13 @@
               <el-table-column label="操作" min-width="120" resizable>
                 <template slot-scope="scope">
                   <template>
-                    <el-button @click="distributeRole(operators[scope.$index].eid)" type="text" size="small">分配角色
+                    <el-button @click="distributeRole(operators[scope.$index].eid)" type="text" size="small"
+                               v-permission:simple_permission_Operator_Edit>分配角色
+                    </el-button>
+                  </template>
+                  <template>
+                    <el-button @click="changePassword(operators[scope.$index].eid)" type="text" size="small"
+                               v-permission:simple_permission_Operator_Edit>修改密码
                     </el-button>
                   </template>
                   <template>
@@ -114,23 +120,30 @@
           </div>
         </el-col>
       </el-row>
+
+      <el-dialog
+        v-drag-dialog
+        title="修改密码"
+        :visible.sync="dialogVisible"
+        width="450px"
+        :before-close="handleClose">
+        <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+          <el-form-item label="密码" prop="pass">
+            <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"
+                      placeholder="请输入您的新密码"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="checkPass">
+            <el-input type="password"
+                      placeholder="请确认您的新密码"
+                      v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click="resetForm()">取消</el-button>
+            <el-button type="primary" @click="submitForm()">提交</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
     </el-card>
-
-    <el-dialog
-      title="角色分配"
-      :visible.sync="dialogVisible"
-    >
-      <el-transfer
-        :titles="['所有角色', '当前角色']"
-        v-model="roleData"
-        :data="roleDataTable">
-      </el-transfer>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="updateRoleAndPermission">确 定</el-button>
-      </span>
-    </el-dialog>
-
   </div>
 
 </template>
@@ -144,7 +157,43 @@
   export default {
     components: {downSearch},
     data() {
+      const validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (!(/^[0-9A-Za-z]{6,12}$/.test(value))) {
+            callback(new Error('密码长度在6-12位之间'));
+          } else if (this.ruleForm2.checkPass !== '') {
+            this.$refs.ruleForm2.validateField('checkPass');
+          }
+          callback();
+        }
+      };
+      const validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (!(/^[0-9A-Za-z]{6,12}$/.test(value))) {
+          callback(new Error('密码长度在6-12位之间'));
+        } else if (value !== this.ruleForm2.pass) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
       return {
+        ruleForm2: {
+          operatorId: '',
+          pass: '',
+          checkPass: ''
+        },
+        rules2: {
+          pass: [
+            {required: true, validator: validatePass, trigger: 'blur'}
+          ],
+          checkPass: [
+            {required: true, validator: validatePass2, trigger: 'blur'}
+          ]
+        },
         rules: {},
         currentPage: 1,
         pageSize: 10,
@@ -186,6 +235,32 @@
       refresh() {
         this.findOperators();
       },
+      changePassword(id) {
+        this.dialogVisible = true
+        this.ruleForm2.operatorId = id
+      },
+      resetForm(){
+        this.ruleForm2.operatorId = ''
+        this.ruleForm2.pass = ''
+        this.ruleForm2.checkPass = ''
+        this.dialogVisible = false
+      },
+      submitForm() {
+        OperatorService.changePassword(this.ruleForm2).then((res) => {
+          this.buttonRequestProgressClose();
+          this.dialogVisible = false
+          this.$message({
+            type: 'success',
+            message: '密码修改成功！'
+          })
+        }).catch((error) => {
+          this.buttonRequestProgressClose();
+          this.$message({
+            type: 'error',
+            message: '密码修改失败！'
+          })
+        })
+      },
       installParms() {
         var parms = {
           currentPage: this.currentPage,
@@ -194,68 +269,6 @@
           content: this.condition.content
         }
         return parms;
-      },
-      //查询所有角色
-      findAllRoles() {
-        let _this = this
-        RoleService.findAllRoles().then((res) => {
-          _this.initRolesDataTable(res.data)
-        }).catch((error) => {
-          this.$message({
-            type: 'error',
-            message: '网络繁忙，请稍候再试！'
-          })
-        })
-      },
-      //根据操作员Id查询对应的角色
-      findOperatorAndRoleByOperatorId() {
-        let _this = this
-        OperatorAndRoleService.findOperatorAndRoleByOperatorId(this.currentEditId).then((res) => {
-          _this.initRoleData(res.data)
-        }).catch((error) => {
-          this.$message({
-            type: 'error',
-            message: '网络繁忙，请稍候再试！'
-          })
-        })
-      },
-      //初始化角色选择框数据
-      initRolesDataTable(data) {
-        this.roleDataTable = []
-        let _this = this
-        data.forEach(function (item, index) {
-          _this.roleDataTable.push({
-            key: item.eid,
-            label: item.name,
-            disabled: false
-          })
-        })
-      },
-      //初始化已选择的角色选择框数据
-      initRoleData(data) {
-        this.roleData = []
-        let _this = this
-        data.forEach(function (item, index) {
-          _this.roleData.push(item.roleId)
-        })
-      },
-      //更新操作员权限
-      updateRoleAndPermission() {
-        let parms = {
-          operatorId: this.currentEditId,
-          roleId: this.roleData,
-        }
-        OperatorAndRoleService.updateOperatorAndRole(parms).then((res) => {
-          this.$message({
-            type: 'success',
-            message: '分配成功！'
-          })
-        }).catch((error) => {
-          this.$message({
-            type: 'error',
-            message: '网络繁忙，请稍候再试！'
-          })
-        })
       },
       findOperators() {
         var parms = this.installParms();
