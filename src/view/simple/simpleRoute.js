@@ -1,4 +1,3 @@
-import TestStudentRoute from './student/TestStudentRoute.js'
 import LogRoute from './log/LogRoute.js'
 import TaskRoute from './task/TaskRoute.js'
 import TaskConfigRoute from './task/TaskConfigRoute.js'
@@ -21,10 +20,6 @@ import EmployeeRoute from './organization/EmployeeRoute.js'
 import DepartmentRoute from './organization/DepartmentRoute.js'
 import Route from './fileUpload/Route.js'
 import AttachmentRoute from './attachment/AttachmentRoute.js'
-
-
-// import EmployeeManageRoute from './registrationAudit/EmployeeManageRoute'
-// import OrganizationManageRoute from './registrationAudit/OrganizationManageRoute'
 
 /**
  * 系统设置
@@ -60,8 +55,7 @@ export default [
       ...reportMesShowRoute,
       ...TaskConfigRoute,
       ...TaskRoute,
-      ...LogRoute,
-         ...TestStudentRoute,
-        ]
+      ...LogRoute
+    ]
   }
 ]

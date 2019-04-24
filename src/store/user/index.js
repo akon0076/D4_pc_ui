@@ -80,46 +80,6 @@ export default {
         })
       })
     },
-    /** 智慧餐饮商家登录 */
-    wisdomCateringAccountLoginSubmit({commit}, params) {
-      return new Promise((resolve, reject) => {
-        let md5 = crypto.createHash("md5");
-        md5.update(params.password);
-        let password = md5.digest('hex');
-        params.password = password
-        debugger
-        LoginService.wisdomCateringLoginSubmit(params).then((res) => {
-          if (res.data.captcha) {
-            if (res.data.isLogin) {
-              commit('ACCOUNT_AUTH_STATUS_CHANGED', {...res, params});
-              Msg.success('登录成功');
-              resolve()
-            } else {
-              Msg.warn('账号或密码错误,请重新输入');
-              reject('账号或密码错误,请重新输入')
-            }
-          } else {
-            Msg.warn('验证码错误');
-            reject('验证码错误');
-          }
-        }).catch(err => {
-          reject(err);
-          commit('ACCOUNT_LOGOUT_FAILURE');
-        })
-      })
-    },
-    /** 智慧餐饮商家登出 */
-    wisdomCateringAccountLogoutSubmit({commit}) {
-      return new Promise((resolve, reject) => {
-        LoginService.wisdomCateringLogout().then((res) => {
-          commit('ACCOUNT_LOGOUT_FAILURE');
-          resolve()
-        }).catch(err => {
-          commit('ACCOUNT_LOGOUT_FAILURE');
-          resolve()
-        })
-      })
-    },
     /** 登出 */
     accountLogoutSubmit({commit}) {
       return new Promise((resolve, reject) => {
@@ -129,17 +89,6 @@ export default {
         }).catch(err => {
           commit('ACCOUNT_LOGOUT_FAILURE');
           resolve()
-        })
-      })
-    },
-    /** 登出 */
-    test({commit}) {
-      return new Promise((resolve, reject) => {
-        LoginService.test().then(res => {
-          commit('ACCOUNT_LOGOUT_FAILURE');
-          resolve()
-        }).catch(err => {
-          reject(err)
         })
       })
     },

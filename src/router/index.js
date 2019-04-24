@@ -20,16 +20,6 @@ const routes = [
     component: () => import('../view/login/LoginPage')
   },
   {
-    path: '/wisdomCateringLogin',
-    name: 'wisdomCateringLogin',
-    meta: {
-      label: '智慧餐饮后台登录',
-      icon: 'icon iconfont icon-fl-origin',
-      requireAuth: false
-    },
-    component: () => import('../view/simple/wisdomCateringLogin/login')
-  },
-  {
     path: '/generate',
     name: 'generate',
     meta: {
@@ -38,16 +28,6 @@ const routes = [
       requireAuth: false
     },
     component: () => import('../view/dev/generator')
-  },
-  {
-    path: '/wisdomCateringMain',
-    name: 'wisdomCateringMain',
-    meta: {
-      label: '智慧餐饮后台管理主页面',
-      icon: 'icon iconfont icon-fl-origin',
-      requireAuth: false
-    },
-    component: () => import('../view/simple/wisdomCateringMain/main'),
   },
   {
     path: '/organizationRegistForm',
@@ -60,48 +40,6 @@ const routes = [
     component: () => import('../view/simple/regist/OrganizationRegistForm'),
   }
   ,
-  // {
-  //   path: '/taskWork',
-  //   name: 'taskWork',
-  //   meta: {
-  //     label: '定时任务',
-  //     icon: 'icon iconfont icon-fl-origin',
-  //     requireAuth: false
-  //   },
-  //   component: () => import('../view/task'),
-  //   children: [
-  //     {
-  //       path: '/',
-  //       name: 'tableList',
-  //       meta: {
-  //         label: '表格',
-  //         icon: 'icon iconfont icon-fl-origin',
-  //         requireAuth: false
-  //       },
-  //       component: () => import('../view/task/table'),
-  //     },
-  //     {
-  //       path: '/tableList',
-  //       name: 'tableList',
-  //       meta: {
-  //         label: '表格',
-  //         icon: 'icon iconfont icon-fl-origin',
-  //         requireAuth: false
-  //       },
-  //       component: () => import('../view/task/table'),
-  //     },
-  //     {
-  //       path: '/form',
-  //       name: 'form',
-  //       meta: {
-  //         label: '新增',
-  //         icon: 'icon iconfont icon-fl-origin',
-  //         requireAuth: false
-  //       },
-  //       component: () => import('../view/task/form'),
-  //     }
-  //   ]
-  // },
   {
     path: '/EmployeeRegistForm',
     name: 'EmployeeRegistForm',
