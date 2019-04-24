@@ -32,24 +32,6 @@
       <div class="text item">
         <el-form ref="employeeForm" :model="employee" label-width="150px" :rules="rules">
           <el-col :span="12">
-            <el-form-item label="编码" prop="code">
-              <el-input type="input" v-model="employee.code"
-                        placeholder="编码" clearable autosize
-                        resize="both" tabindex=1
-                        maxlength=200
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="密码" prop="passWord">
-              <el-input type="input" v-model="employee.passWord"
-                        placeholder="密码" clearable autosize
-                        resize="both" tabindex=2
-                        maxlength=255
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
             <el-form-item label="名称" prop="name">
               <el-input type="input" v-model="employee.name"
                         placeholder="名称" clearable autosize
@@ -76,6 +58,21 @@
                 :fetch-suggestions="searchOrganizationName "
                 placeholder="所属单位"
                 @select="handleSelectOrganizationName"
+                clearable autosize
+                resize="both" tabindex="5"
+              ></el-autocomplete>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="所属部门" prop="departmentName">
+              <el-autocomplete
+                :disabled="!employee.organizationId"
+                class="inline-input"
+                value-key="name"
+                v-model="employee.departmentName"
+                :fetch-suggestions="searchDepartmentName "
+                placeholder="所属部门"
+                @select="handleSelectDepartmentName"
                 clearable autosize
                 resize="both" tabindex="5"
               ></el-autocomplete>
@@ -149,29 +146,21 @@
             {required: false, message: '请输入名称', trigger: 'blur'},
             {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
           ],
-          code: [
-            {required: true, message: '请输入编码', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
-          ],
-          passWord: [
-            {required: true, message: '请输入密码', trigger: 'blur'},
-            {validator: validateString(0, 20, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
-          ],
           linkTel: [
             {required: false, message: '请输入联系电话', trigger: 'blur'},
             {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
           ],
           departmentName: [
-            {required: false, message: '请输入所属部门', trigger: 'blur'},
+            {required: true, message: '请输入所属部门', trigger: 'change'},
           ],
           organizationName: [
-            {required: false, message: '请输入所属单位', trigger: 'blur'},
+            {required: true, message: '请输入所属单位', trigger: 'change'},
           ],
           departmentId: [
-            {required: false, message: '请输入所属部门', trigger: 'blur'},
+            {required: true, message: '请输入所属部门', trigger: 'change'},
           ],
           organizationId: [
-            {required: false, message: '请输入所属单位', trigger: 'blur'},
+            {required: true, message: '请输入所属单位', trigger: 'change'},
           ],
           sex: [
             {required: false, message: '请输入性别', trigger: 'blur'},
@@ -375,7 +364,6 @@
       prepareForEdit(employeeEditDto) {
         this.employee = employeeEditDto.employee;
         this.sexCodeTables = employeeEditDto.sexCodeTables;
-        this.departmentDepartments = employeeEditDto.departmentDepartments
         this.organizationOrganizations = employeeEditDto.organizationOrganizations
       },
       searchSex(queryString, cb) {
@@ -431,6 +419,7 @@
         };
       },
       handleSelectDepartmentName(item) {
+        console.log(item.eid)
         this.employee.departmentId = item.eid;
       },
 
@@ -477,6 +466,17 @@
       },
       handleSelectOrganizationName(item) {
         this.employee.organizationId = item.eid;
+        DepartmentService.findAllDepartmentsByOrgId(this.employee.organizationId).then((resp) => {
+          this.departmentDepartments = resp.data
+        }).catch((error) => {
+          this.$message({
+            type: 'error',
+            message: '查询引用数据出错'
+          })
+        });
+      },
+      handleSelectDepartmentName(item) {
+        this.employee.departmentId = item.eid;
       },
     },
     created() {
@@ -490,6 +490,18 @@
         this.createEmployee();
       }
     },
+    watch: {
+      "employee.organizationName"(newvalue) {
+        if (newvalue) {
+        }
+        else {
+          this.employee.organizationId = '';
+          this.employee.departmentName = ''
+          this.employee.departmentId = ''
+        }
+
+      }
+    }
   }
 </script>
 <style scoped lang="scss">
