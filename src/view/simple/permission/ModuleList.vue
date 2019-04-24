@@ -55,9 +55,6 @@
                     <el-form-item label="在用">
                       <span>{{ props.row.isInUse }}</span>
                     </el-form-item>
-                    <el-form-item label="路由参数对象">
-                      <span>{{ props.row.routeParamsObj }}</span>
-                    </el-form-item>
                     <el-form-item label="备注">
                       <span>{{ props.row.remark }}</span>
                     </el-form-item>
@@ -94,7 +91,6 @@
               <el-table-column align="left" clalss="setCenter" prop="moduleType" label="模块类型" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="parentCode" label="上级模块编码" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="isInUse" label="在用" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="routeParamsObj" label="路由参数对象" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
               <el-table-column label="操作" min-width="120" resizable>
                 <template slot-scope="scope">
                   <template>
@@ -156,7 +152,6 @@
           {key:"moduleType",value:"模块类型"},
           {key:"parentCode",value:"上级模块编码"},
           {key:"isInUse",value:"在用"},
-          {key:"routeParamsObj",value:"路由参数对象"},
           {key:"remark",value:"备注"},
 
 

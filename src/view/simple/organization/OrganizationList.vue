@@ -68,111 +68,7 @@
                                                         <el-form-item label="显示顺序">
                                                             <span>{{ props.row.displayOrder }}</span>
                                                         </el-form-item>
-                                                        <el-form-item label="营业执照号">
-                                                            <span>{{ props.row.businessLicenseCode }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="传真">
-                                                            <span>{{ props.row.fax }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="注册资金(万元)">
-                                                            <span>{{ props.row.amount }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="法人">
-                                                            <span>{{ props.row.legalPerson }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="行业属性">
-                                                            <span>{{ props.row.industryAttributes }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="投资金额">
-                                                            <span>{{ props.row.investmentMoney }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="公司座机">
-                                                            <span>{{ props.row.landline }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="主营业务">
-                                                            <span>{{ props.row.mainBusiness }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="入驻时间">
-                                                            <span>{{ props.row.admissionTime }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="管理员名称">
-                                                            <span>{{ props.row.adminName }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="营业期限自">
-                                                            <span>{{ props.row.businessStartDate }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="管理员手机">
-                                                            <span>{{ props.row.adminLinkTel }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="营业期限至">
-                                                            <span>{{ props.row.businessEndDate }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="管理员邮箱">
-                                                            <span>{{ props.row.adminEmail }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="统一社会信用代码">
-                                                            <span>{{ props.row.unifiedCode }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="类型">
-                                                            <span>{{ props.row.type }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="登记机关">
-                                                            <span>{{ props.row.registerOffice }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="登记状态">
-                                                            <span>{{ props.row.registerStatus }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="核准日期">
-                                                            <span>{{ props.row.checkDate }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="住所">
-                                                            <span>{{ props.row.residence }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="成立日期">
-                                                            <span>{{ props.row.establishDate }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="审核状态">
-                                                            <span>{{ props.row.auditStatus }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="功能类型">
-                                                            <span>{{ props.row.functionType }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="入驻面积">
-                                                            <span>{{ props.row.admissionArea }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="入驻楼宇">
-                                                            <span>{{ props.row.admissionBuilding }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="企业规模">
-                                                            <span>{{ props.row.scale }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="所属行业">
-                                                            <span>{{ props.row.industry }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="经营模式">
-                                                            <span>{{ props.row.businessPattern }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="从业人员">
-                                                            <span>{{ props.row.workPersonNum }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="研发人员">
-                                                            <span>{{ props.row.researchPersonNum }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="备注">
-                                                            <span>{{ props.row.remark }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="创建人">
-                                                            <span>{{ props.row.createId }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="创建时间">
-                                                            <span>{{ props.row.createDatetime }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="修改人">
-                                                            <span>{{ props.row.updateId }}</span>
-                                                        </el-form-item>
-                                                        <el-form-item label="修改时间">
-                                                            <span>{{ props.row.updateDatetime }}</span>
-                                                        </el-form-item>
+
                                                 </el-form>
                                             </template>
                                         </el-table-column>
@@ -190,36 +86,6 @@
                                                 <el-table-column align="left" clalss="setCenter" prop="address" label="地址" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
                                                 <el-table-column align="left" clalss="setCenter" prop="parentName" label="上级单位" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
                                                 <el-table-column align="left" clalss="setCenter" prop="displayOrder" label="显示顺序" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="businessLicenseCode" label="营业执照号" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="fax" label="传真" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="amount" label="注册资金(万元)" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="legalPerson" label="法人" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="industryAttributes" label="行业属性" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="investmentMoney" label="投资金额" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="landline" label="公司座机" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="mainBusiness" label="主营业务" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="admissionTime" label="入驻时间" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="adminName" label="管理员名称" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="businessStartDate" label="营业期限自" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="adminLinkTel" label="管理员手机" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="businessEndDate" label="营业期限至" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="adminEmail" label="管理员邮箱" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="unifiedCode" label="统一社会信用代码" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="type" label="类型" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="registerOffice" label="登记机关" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="registerStatus" label="登记状态" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="checkDate" label="核准日期" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="residence" label="住所" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="establishDate" label="成立日期" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="auditStatus" label="审核状态" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="functionType" label="功能类型" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="admissionArea" label="入驻面积" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="admissionBuilding" label="入驻楼宇" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="scale" label="企业规模" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="industry" label="所属行业" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="businessPattern" label="经营模式" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="workPersonNum" label="从业人员" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
-                                                <el-table-column align="left" clalss="setCenter" prop="researchPersonNum" label="研发人员" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
                                                 <el-table-column align="left" clalss="setCenter" prop="remark" label="备注" min-width="80" sortable resizable show-overflow-tooltip></el-table-column>
 
                                         <el-table-column label="操作" min-width="120" resizable>
@@ -291,36 +157,6 @@
                     {key:"address",value:"地址"},
                     {key:"parentName",value:"上级单位"},
                     {key:"displayOrder",value:"显示顺序"},
-                    {key:"businessLicenseCode",value:"营业执照号"},
-                    {key:"fax",value:"传真"},
-                    {key:"amount",value:"注册资金(万元)"},
-                    {key:"legalPerson",value:"法人"},
-                    {key:"industryAttributes",value:"行业属性"},
-                    {key:"investmentMoney",value:"投资金额"},
-                    {key:"landline",value:"公司座机"},
-                    {key:"mainBusiness",value:"主营业务"},
-                    {key:"admissionTime",value:"入驻时间"},
-                    {key:"adminName",value:"管理员名称"},
-                    {key:"businessStartDate",value:"营业期限自"},
-                    {key:"adminLinkTel",value:"管理员手机"},
-                    {key:"businessEndDate",value:"营业期限至"},
-                    {key:"adminEmail",value:"管理员邮箱"},
-                    {key:"unifiedCode",value:"统一社会信用代码"},
-                    {key:"type",value:"类型"},
-                    {key:"registerOffice",value:"登记机关"},
-                    {key:"registerStatus",value:"登记状态"},
-                    {key:"checkDate",value:"核准日期"},
-                    {key:"residence",value:"住所"},
-                    {key:"establishDate",value:"成立日期"},
-                    {key:"auditStatus",value:"审核状态"},
-                    {key:"functionType",value:"功能类型"},
-                    {key:"admissionArea",value:"入驻面积"},
-                    {key:"admissionBuilding",value:"入驻楼宇"},
-                    {key:"scale",value:"企业规模"},
-                    {key:"industry",value:"所属行业"},
-                    {key:"businessPattern",value:"经营模式"},
-                    {key:"workPersonNum",value:"从业人员"},
-                    {key:"researchPersonNum",value:"研发人员"},
                     {key:"remark",value:"备注"},
                 ],
                 condition:''
