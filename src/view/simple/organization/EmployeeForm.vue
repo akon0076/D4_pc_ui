@@ -41,11 +41,11 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="联系电话" prop="linkTel">
-              <el-input type="input" v-model="employee.linkTel"
-                        placeholder="联系电话" clearable autosize
-                        resize="both" tabindex=4
-                        maxlength=100
+            <el-form-item label="职员编码" prop="code">
+              <el-input type="input" v-model="employee.code"
+                        placeholder="职员编码" clearable autosize
+                        resize="both" tabindex=3
+                        maxlength=255
               ></el-input>
             </el-form-item>
           </el-col>
@@ -102,6 +102,15 @@
               </el-date-picker>
             </el-form-item>
           </el-col>
+          <el-col :span="12">
+            <el-form-item label="联系电话" prop="linkTel">
+              <el-input type="input" v-model="employee.linkTel"
+                        placeholder="联系电话" clearable autosize
+                        resize="both" tabindex=4
+                        maxlength=100
+              ></el-input>
+            </el-form-item>
+          </el-col>
           <el-col :span="24">
             <el-form-item label="备注" prop="remark">
 
@@ -146,21 +155,25 @@
             {required: false, message: '请输入名称', trigger: 'blur'},
             {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
           ],
-          linkTel: [
-            {required: false, message: '请输入联系电话', trigger: 'blur'},
+          code: [
+            {required: true, message: '请输入职员编码', trigger: 'blur'},
             {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
           ],
+          linkTel: [
+            {required: false, message: '请输入联系电话', trigger: 'blur'},
+            {validator: validateString(0, 1000, /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/, "手机号格式错误"), trigger: 'blur'},
+          ],
           departmentName: [
-            {required: true, message: '请输入所属部门', trigger: 'change'},
+            {required: true, message: '请输入所属部门', trigger: 'blur'},
           ],
           organizationName: [
-            {required: true, message: '请输入所属单位', trigger: 'change'},
+            {required: true, message: '请输入所属单位', trigger: 'blur'},
           ],
           departmentId: [
-            {required: true, message: '请输入所属部门', trigger: 'change'},
+            {required: true, message: '请输入所属部门', trigger: 'blur'},
           ],
           organizationId: [
-            {required: true, message: '请输入所属单位', trigger: 'change'},
+            {required: true, message: '请输入所属单位', trigger: 'blur'},
           ],
           sex: [
             {required: false, message: '请输入性别', trigger: 'blur'},
