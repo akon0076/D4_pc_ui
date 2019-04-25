@@ -84,12 +84,17 @@ export class OperatorService {
     return simpleServer.connection(httpMethod, '/simple/permission/Operator/findOperatorsWithIdNameByName', body);
   }
 
-  //修改密码
+  //管理员修改密码
   static changePassword(form) {
     var httpMethod = 'POST';
     var body = simpleServer.getArgs(this.changePassword, arguments, 'POST');
     return simpleServer.connection(httpMethod, '/simple/permission/Operator/changePassword', body);
   }
 
-
+  //自己修改密码
+  static changeMyPassword(form) {
+    var httpMethod = 'POST';
+    var body = simpleServer.getArgs(this.changeMyPassword, arguments, 'POST');
+    return simpleServer.connection(httpMethod, '/simple/permission/Operator/changeMyPassword', body);
+  }
 }
