@@ -54,10 +54,6 @@ export class OperatorService {
 
   //编辑操作员
   static updateOperator(operator) {
-    let md5 = crypto.createHash("md5");
-    md5.update(operator.passWord);
-    let password = md5.digest('hex');
-    operator.passWord = password
     var httpMethod = 'POST';
     var body = simpleServer.getArgs(this.updateOperator, arguments, 'POST');
     return simpleServer.connection(httpMethod, '/simple/permission/Operator/updateOperator', body);

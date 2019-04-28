@@ -95,6 +95,7 @@
       submitForm(formName) {
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
+            this.buttonRequestProgressStart("正在更新,请稍后...");
             OperatorService.changeMyPassword(this.ruleForm2).then((res) => {
               this.buttonRequestProgressClose();
               this.handleClose()

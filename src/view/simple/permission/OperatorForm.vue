@@ -274,8 +274,7 @@
           })
         })
       },
-      updateOperator()//编辑操作员
-      {
+      updateOperator() { //编辑操作员
         this.isSubmiting = true;
         this.buttonRequestProgressStart("正在更新,请稍后...");
         OperatorService.updateOperator(this.operator).then((resp) => {
@@ -323,8 +322,7 @@
           })
         })
       },
-      createOperator()//创建新的操作员
-      {
+      createOperator() { //创建新的操作员
         OperatorService.createOperator().then((resp) => {
           this.prepareForEdit(resp.data);
         }).catch((error) => {
