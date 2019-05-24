@@ -25,14 +25,20 @@
                   <i :class="scope.row.iconClass"></i>
                 </template>
               </el-table-column>
-              <el-table-column align="center" clalss="setCenter" prop="displayIndex" label="显示顺序" min-width="60" resizable
+              <el-table-column align="center" clalss="setCenter" prop="displayIndex" label="显示顺序" min-width="60"
+                               resizable
                                show-overflow-tooltip></el-table-column>
               <el-table-column align="center" clalss="setCenter" prop="parentName" label="上级模块" min-width="80" resizable
                                show-overflow-tooltip></el-table-column>
               <el-table-column align="center" clalss="setCenter" prop="moduleType" label="模块类型" min-width="80" resizable
                                show-overflow-tooltip></el-table-column>
               <el-table-column align="center" clalss="setCenter" prop="isInUse" label="使用状态" min-width="60" resizable
-                               show-overflow-tooltip></el-table-column>
+                               show-overflow-tooltip>
+                <template slot-scope="scope" >
+                  <el-tag v-if="scope.row.isInUse=='在用'" size="success">{{ scope.row.isInUse }}</el-tag>
+                  <el-tag v-if="scope.row.isInUse=='停用'" size="danger">{{ scope.row.isInUse }}</el-tag>
+                </template>
+              </el-table-column>
               <el-table-column align="center" label="操作" min-width="100" resizable>
                 <template slot-scope="scope">
                   <template>
