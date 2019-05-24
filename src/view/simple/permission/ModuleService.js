@@ -4,6 +4,13 @@ import {simpleServer} from '@/tools/servers'
  * 模块
  */
 export class ModuleService {
+  // 获取全部模块树
+  static findModuleTree(pageDTO) {
+    var httpMethod = 'POST';
+    var body = simpleServer.getArgs(this.findModuleTree, arguments, 'POST');
+    return simpleServer.connection(httpMethod, '/simple/permission/Module/findModuleTree', body);
+  }
+
   // 分页查询列表
   static findModules(pageDTO) {
     var httpMethod = 'POST';

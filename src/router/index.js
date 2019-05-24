@@ -76,6 +76,11 @@ const routes = [
     name: '404',
     //component: () => import('@/packages/ui/errorPage/404.vue')
   },
+  {
+    path: '/test',
+    name: '404',
+    component: () => import('../view/dev/test')
+  },
   ...simpleRoute,
 ]
 
