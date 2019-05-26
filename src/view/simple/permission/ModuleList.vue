@@ -13,7 +13,7 @@
           </div>
           <div class="table-control">
             <el-table v-loading="tableLoading" size="small" class="table-style" :data="modules" row-key="code" border>
-              <el-table-column show-overflow-tooltip align="left" prop="name" label="模块名称" min-width="100" fixed="left"
+              <el-table-column show-overflow-tooltip align="left" prop="name" label="模块名称" min-width="180" fixed="left"
                                resizable show-overflow-tooltip></el-table-column>
               <el-table-column align="left" clalss="setCenter" prop="code" label="模块编码" min-width="80" resizable
                                show-overflow-tooltip></el-table-column>

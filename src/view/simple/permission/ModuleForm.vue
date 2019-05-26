@@ -7,28 +7,6 @@
           <el-breadcrumb-item>模块管理</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
-      <div class="alert-container clearfix">
-        <el-alert v-for="alert in alerts.successes" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="success"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.infos" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="info"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.warnings" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="warning"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.errors" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="error"
-                  show-icon>
-        </el-alert>
-      </div>
       <div class="text item">
         <el-form ref="moduleForm" :model="module" label-width="150px" :rules="rules">
           <el-col :span="12">
@@ -52,7 +30,7 @@
           <el-col :span="12">
             <el-form-item label="显示顺序" prop="displayIndex">
               <el-input type="number" step="1" v-model="module.displayIndex"
-                        placeholder="显示顺序" clearable autosize
+                        placeholder="显示顺序(默认为第一个)" clearable autosize
                         resize="both" tabindex=8
                         maxlength=250
               ></el-input>
@@ -140,121 +118,24 @@
   export default {
     components: {},
     data() {
-      var validateIntRange = d4utils.validateFloatRange;
-      var validateFloatRange = d4utils.validateFloatRange;
-      var validateString = d4utils.validateString;
-
       return {
         rules: {
           code: [
-            {required: true, message: '模块唯一编码', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
+            {required: true, message: '请输入模块唯一编码', trigger: 'blur'},
           ],
           name: [
             {required: true, message: '请输入模块名称', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
-          ],
-          route: [
-            {required: false, message: '请输入页面路由', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
-          ],
-          iconClass: [
-            {required: false, message: '请输入图标', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
-          ],
-          displayIndex: [
-
-            {required: true, message: '请输入显示顺序', trigger: 'blur'},
-            {validator: validateIntRange(-9223372036854775808, 9223372036854775807), trigger: 'blur'},
-          ],
-          parentId: [
-            {required: false, message: '请输入上级模块', trigger: 'blur'},
-          ],
-          parentName: [
-            {required: false, message: '请输入上级模块', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
           ],
           moduleType: [
             {required: true, message: '请输入模块类型', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
-          ],
-          parentCode: [
-            {required: false, message: '请输入上级模块', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
           ],
           isInUse: [
             {required: true, message: '请输入使用状态', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
-          ],
-          remark: [
-            {required: false, message: '请输入备注', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
-          ],
+          ]
         },
         isSubmiting: false,
         module: {},
         moduleId: null,
-        pickerOptionsCreateDatetime: {
-          disabledDate(time) {
-            //TODO: 请在此判断可以输入的日期范围,
-            //return time.getTime() > Date.now();
-            return false;
-          },
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date());
-            }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }]
-        },
-        pickerOptionsUpdateDatetime: {
-          disabledDate(time) {
-            //TODO: 请在此判断可以输入的日期范围,
-            //return time.getTime() > Date.now();
-            return false;
-          },
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date());
-            }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }]
-        },
-        alerts: {
-          remarks: [{title: "功能说明", description: "TODO: 请在这里加上功能说明"},],
-          successes: [], //TODO:[{title:'消息内容'},]
-          infos: [],
-          warnings: [],
-          errors: []
-        },
       }
     },
 
@@ -286,8 +167,7 @@
         ModuleService.saveModule(this.module).then((resp) => {
           this.buttonRequestProgressClose();
           this.isSubmiting = false;
-          var router = this.$router;
-          router.push({path: '/simple/permission/Module'})
+          this.$router.push({path: '/simple/permission/Module'})
         }).catch((error) => {
           this.buttonRequestProgressClose();
           this.isSubmiting = false;
@@ -353,8 +233,8 @@
         cb(results);
       },
       createFilterModuleType(queryString) {
-        return (模块类型) => {
-          return (模块类型.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        return (ModuleType) => {
+          return (ModuleType.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
         };
       },
       searchIsInUse(queryString, cb) {
@@ -363,8 +243,8 @@
         cb(results);
       },
       createFilterIsInUse(queryString) {
-        return (逻辑) => {
-          return (逻辑.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        return (UseStatus) => {
+          return (UseStatus.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
         };
       },
 
