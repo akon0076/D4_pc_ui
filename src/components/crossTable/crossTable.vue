@@ -216,6 +216,6 @@ import { d4utils } from '../../tools/d4utils';
   }
 </script>
 
-<style scope
+<style scope>
 
 </style>

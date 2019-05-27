@@ -15,26 +15,26 @@
             <el-table v-loading="tableLoading" size="small" class="table-style" :data="modules" row-key="code" border>
               <el-table-column show-overflow-tooltip align="left" prop="name" label="模块名称" min-width="180" fixed="left"
                                resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="code" label="模块编码" min-width="80" resizable
+              <el-table-column align="left" class="setCenter" prop="code" label="模块编码" min-width="80" resizable
                                show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="route" label="页面路由" min-width="80" resizable
+              <el-table-column align="left" class="setCenter" prop="route" label="页面路由" min-width="80" resizable
                                show-overflow-tooltip></el-table-column>
-              <el-table-column align="center" clalss="setCenter" prop="iconClass" label="图标" min-width="60" resizable
+              <el-table-column align="center" class="setCenter" prop="iconClass" label="图标" min-width="60" resizable
                                show-overflow-tooltip>
                 <template slot-scope="scope">
                   <i :class="scope.row.iconClass"></i>
                 </template>
               </el-table-column>
-              <el-table-column align="center" clalss="setCenter" prop="displayIndex" label="显示顺序" min-width="60"
+              <el-table-column align="center" class="setCenter" prop="displayIndex" label="显示顺序" min-width="60"
                                resizable
                                show-overflow-tooltip></el-table-column>
-              <el-table-column align="center" clalss="setCenter" prop="parentName" label="上级模块" min-width="80" resizable
+              <el-table-column align="center" class="setCenter" prop="parentName" label="上级模块" min-width="80" resizable
                                show-overflow-tooltip></el-table-column>
-              <el-table-column align="center" clalss="setCenter" prop="moduleType" label="模块类型" min-width="80" resizable
+              <el-table-column align="center" class="setCenter" prop="moduleType" label="模块类型" min-width="80" resizable
                                show-overflow-tooltip></el-table-column>
-              <el-table-column align="center" clalss="setCenter" prop="isInUse" label="使用状态" min-width="60" resizable
+              <el-table-column align="center" class="setCenter" prop="isInUse" label="使用状态" min-width="60" resizable
                                show-overflow-tooltip>
-                <template slot-scope="scope" >
+                <template slot-scope="scope">
                   <el-tag v-if="scope.row.isInUse=='在用'" size="success">{{ scope.row.isInUse }}</el-tag>
                   <el-tag v-if="scope.row.isInUse=='停用'" size="danger">{{ scope.row.isInUse }}</el-tag>
                 </template>
@@ -92,7 +92,6 @@
         currentPage: 1,
         pageSize: 10,
         totalCount: 0,
-        hightlight: true,
         modules: [],
         tableLoading: false,
         value: '',
@@ -149,7 +148,7 @@
         this.$router.push({path: '/simple/permission/module/display', query: {moduleCode: moduleId}});
       },
       deleteModule(moduleId) {
-        this.$confirm('此操作一旦执行无法恢复！您确定要删除吗?此操作会删除该模块以及该模块下的所有子模块，系统模块请不要删除！', '提示', {
+        this.$confirm('此操作会删除该模块以及该模块下的所有子模块，您确定要删除吗？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'

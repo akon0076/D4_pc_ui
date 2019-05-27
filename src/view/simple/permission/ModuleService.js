@@ -32,6 +32,19 @@ export class ModuleService {
     return simpleServer.connection(httpMethod, '/simple/permission/Module/findAllModules', body);
   }
 
+  // 找到全部叶节点模块
+  static findAllLeafModules() {
+    var httpMethod = 'GET';
+    var body = simpleServer.getArgs(this.findAllLeafModules, arguments, 'GET');
+    return simpleServer.connection(httpMethod, '/simple/permission/Module/findAllLeafModules', body);
+  }
+
+  // 找到全部非叶节点模块
+  static findAllParentModules() {
+    var httpMethod = 'GET';
+    var body = simpleServer.getArgs(this.findAllParentModules, arguments, 'GET');
+    return simpleServer.connection(httpMethod, '/simple/permission/Module/findAllParentModules', body);
+  }
 
   //根据模块Id查询模块
   static findModule(moduleId) {

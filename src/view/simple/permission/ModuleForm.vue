@@ -28,30 +28,6 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="显示顺序" prop="displayIndex">
-              <el-input type="number" step="1" v-model="module.displayIndex"
-                        placeholder="显示顺序(默认为第一个)" clearable autosize
-                        resize="both" tabindex=8
-                        maxlength=250
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="上级模块" prop="parentName">
-              <el-autocomplete
-                class="inline-input"
-                value-key="name"
-                v-model="module.parentName"
-                :fetch-suggestions="searchParentName "
-                placeholder="上级模块(不填默认为顶级模块)"
-                @select="handleSelectParentName"
-                clearable
-                autosize
-                resize="both" tabindex="9"
-              ></el-autocomplete>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
             <el-form-item label="模块类型" prop="moduleType">
               <el-autocomplete
                 class="inline-input"
@@ -78,12 +54,32 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
+            <el-form-item label="上级模块" prop="parentName">
+              <el-autocomplete
+                class="inline-input"
+                value-key="name"
+                v-model="module.parentName"
+                :fetch-suggestions="searchParentName "
+                placeholder="上级模块(不填默认为顶级模块)"
+                @select="handleSelectParentName"
+                clearable
+                autosize
+                resize="both" tabindex="9"
+              ></el-autocomplete>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
             <el-form-item label="页面路由" prop="route">
               <el-input type="input" v-model="module.route"
                         placeholder="页面路由（如/simple/permission/Module）" clearable autosize
                         resize="both" tabindex=6
                         maxlength=200
               ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="显示顺序" prop="displayIndex">
+              <el-input-number v-model="module.displayIndex" :min="1" :max="999999999" label="显示顺序(默认为第一个)"></el-input-number>
             </el-form-item>
           </el-col>
           <el-col :span="12">

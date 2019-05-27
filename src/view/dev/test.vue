@@ -1,134 +1,59 @@
 <template>
-  <div>
-    <el-table
-      :data="tableData"
-      style="width: 100%;margin-bottom: 20px;"
-      border
-      row-key="id">
-      <el-table-column
-        prop="date"
-        label="日期"
-        sortable
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="姓名"
-        sortable
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="地址">
-      </el-table-column>
-    </el-table>
 
-    <el-table
-      :data="tableData1"
-      style="width: 100%"
-      row-key="id"
-      border
-      lazy
-      :load="load"
-    >
-      <el-table-column
-        prop="date"
-        label="日期"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="姓名"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="地址">
-      </el-table-column>
-    </el-table>
-  </div>
+  <el-select v-model="value" placeholder="请选择">
+      <el-tree
+        :data="data"
+        node-key="code"
+        :default-expanded-keys="[1]"
+        :props="defaultProps">
+      </el-tree>
+  </el-select>
 </template>
 
 <script>
-
   export default {
     data() {
       return {
-        tableData: [{
-          id: 1,
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+        cities: [{
+          value: 'Beijing',
+          label: '北京'
         }, {
-          id: 2,
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
+          value: 'Shanghai',
+          label: '上海'
         }, {
-          id: 3,
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄',
-          children: [{
-            id: 31,
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            id: 32,
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }]
+          value: 'Nanjing',
+          label: '南京'
         }, {
-          id: 4,
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
+          value: 'Chengdu',
+          label: '成都'
+        }, {
+          value: 'Shenzhen',
+          label: '深圳'
+        }, {
+          value: 'Guangzhou',
+          label: '广州'
         }],
-        tableData1: [{
-          id: 1,
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          id: 2,
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          id: 3,
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄',
-          hasChildren: true
-        }, {
-          id: 4,
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }]
-      }
-    },
-    methods: {
-      load(tree, treeNode, resolve) {
-        resolve([
-          {
-            id: 31,
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            id: 32,
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }
-        ])
-      }
-    },
-  }
+        value: '',
+        data: [{
+          code: 1,
+          label: '一级 1',
+          nodes: [{
+            code: 2,
+            label: '二级 1-1',
+            nodes: [{
+              code: 3,
+              label: '三级 1-1-1'
+            }, {
+              code: 4,
+              label: '三级 1-1-2'
+            }]
+          }]
+        }],
+        defaultProps: {
+          children: 'nodes',
+          label: 'label'
+        }
+      };
+    }
+  };
 </script>
-<style scoped>
-
-</style>

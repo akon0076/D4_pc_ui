@@ -374,8 +374,4 @@ fileList(newval){
   background: rgba(3, 3, 3, 0.08);
 }
 </style>
-<style>
-  input::after{
-    content:
-  }
-</style>
+

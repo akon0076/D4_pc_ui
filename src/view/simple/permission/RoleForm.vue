@@ -7,43 +7,21 @@
           <el-breadcrumb-item>角色管理</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
-      <div class="alert-container clearfix">
-        <el-alert v-for="alert in alerts.successes" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="success"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.infos" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="info"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.warnings" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="warning"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.errors" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="error"
-                  show-icon>
-        </el-alert>
-      </div>
       <div class="text item">
         <el-form ref="roleForm" :model="role" label-width="150px" :rules="rules">
           <el-col :span="12">
-            <el-form-item label="编码" prop="code">
+            <el-form-item label="角色编码" prop="code">
               <el-input type="input" v-model="role.code"
-                        placeholder="编码" clearable autosize
+                        placeholder="角色编码" clearable autosize
                         resize="both" tabindex=3
                         maxlength=200
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="名称" prop="name">
+            <el-form-item label="角色名称" prop="name">
               <el-input type="input" v-model="role.name"
-                        placeholder="名称" clearable autosize
+                        placeholder="角色名称" clearable autosize
                         resize="both" tabindex=4
                         maxlength=200
               ></el-input>
@@ -81,89 +59,22 @@
   export default {
     components: {},
     data() {
-      var validateIntRange = d4utils.validateFloatRange;
-      var validateFloatRange = d4utils.validateFloatRange;
-      var validateString = d4utils.validateString;
-
       return {
         rules: {
           code: [
-            {required: true, message: '请输入编码', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
+            {required: true, message: '请输入角色编码', trigger: 'blur'},
           ],
           name: [
-            {required: true, message: '请输入名称', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
+            {required: true, message: '请输入角色名称', trigger: 'blur'},
           ],
           remark: [
             {required: false, message: '请输入备注', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
+            {min: 0, max: 9999, message: '长度在 0 到 9999 个字符', trigger: 'blur'}
           ],
         },
         isSubmiting: false,
         role: {},
-        roleId: null,
-        pickerOptionsCreateDatetime: {
-          disabledDate(time) {
-            //TODO: 请在此判断可以输入的日期范围,
-            //return time.getTime() > Date.now();
-            return false;
-          },
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date());
-            }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }]
-        },
-        pickerOptionsUpdateDatetime: {
-          disabledDate(time) {
-            //TODO: 请在此判断可以输入的日期范围,
-            //return time.getTime() > Date.now();
-            return false;
-          },
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date());
-            }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }]
-        },
-        alerts: {
-          remarks: [{title: "功能说明", description: "TODO: 请在这里加上功能说明"},],
-          successes: [], //TODO:[{title:'消息内容'},]
-          infos: [],
-          warnings: [],
-          errors: []
-        },
+        roleId: null
       }
     },
 
