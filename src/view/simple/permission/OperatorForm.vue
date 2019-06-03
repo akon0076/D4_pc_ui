@@ -7,30 +7,6 @@
           <el-breadcrumb-item>操作员管理</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
-      <div class="alert-container clearfix">
-        <el-alert v-for="alert in alerts.successes" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="success"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.infos" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="info"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.warnings" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="warning"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.errors" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="error"
-                  show-icon>
-        </el-alert>
-      </div>
-
-
       <div class="text item">
         <el-form ref="operatorForm" :model="operator" label-width="150px" :rules="rules">
           <el-col :span="12">
@@ -62,28 +38,26 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="状态" prop="status">
-              <el-autocomplete
-                class="inline-input"
-                value-key="name"
-                v-model="operator.status"
-                :fetch-suggestions="searchStatus "
-                placeholder="请选择操作员状态"
-                clearable autosize
-                resize="both" tabindex="5"
-              ></el-autocomplete>
+              <el-select v-model="operator.status" filterable placeholder="状态">
+                <el-option
+                  v-for="item in statusCodeTables"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="类型" prop="type">
-              <el-autocomplete
-                class="inline-input"
-                value-key="name"
-                v-model="operator.type"
-                :fetch-suggestions="searchType "
-                placeholder="请选择操作员类型"
-                clearable autosize
-                resize="both" tabindex="6"
-              ></el-autocomplete>
+              <el-select v-model="operator.type" filterable placeholder="类型">
+                <el-option
+                  v-for="item in typeCodeTables"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -142,7 +116,7 @@
       return {
         rules: {
           name: [
-            {required: false, message: '请输入名称', trigger: 'blur'},
+            {required: true, message: '请输入名称', trigger: 'blur'},
             {validator: validateString(0, 100, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
           ],
           code: [
@@ -154,13 +128,13 @@
             {validator: validateString(0, 100, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
           ],
           status: [
-            {required: false, message: '请选择操作员状态', trigger: 'blur'},
+            {required: true, message: '请选择操作员状态', trigger: 'blur'},
           ],
           type: [
-            {required: false, message: '请选择操作员类型', trigger: 'blur'},
+            {required: true, message: '请选择操作员类型', trigger: 'blur'},
           ],
           personId: [
-            {required: false, message: '请选择对应职员', trigger: 'blur'},
+            {required: true, message: '请选择对应职员', trigger: 'blur'},
           ],
           remark: [
             {required: false, message: '请输入备注', trigger: 'blur'},
@@ -168,73 +142,14 @@
           ],
         },
         isSubmiting: false,
+        typeCodeTables: [],
+        statusCodeTables: [],
         isAdd: true,
         employeeId: '',
         employeeName: '',
         employees: [],
         operator: {},
         operatorId: null,
-        pickerOptionsCreateDatetime: {
-          disabledDate(time) {
-            //TODO: 请在此判断可以输入的日期范围,
-            //return time.getTime() > Date.now();
-            return false;
-          },
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date());
-            }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }]
-        },
-        pickerOptionsUpdateDatetime: {
-          disabledDate(time) {
-            //TODO: 请在此判断可以输入的日期范围,
-            //return time.getTime() > Date.now();
-            return false;
-          },
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date());
-            }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }]
-        },
-        alerts: {
-          remarks: [{title: "功能说明", description: "TODO: 请在这里加上功能说明"},],
-          successes: [], //TODO:[{title:'消息内容'},]
-          infos: [],
-          warnings: [],
-          errors: []
-        },
       }
     },
 

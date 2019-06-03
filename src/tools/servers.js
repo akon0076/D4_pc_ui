@@ -163,7 +163,4 @@ export class BaseApi {
 
 export const simpleServer = new BaseApi(process.env.BASE_SIMPLE_API); // 基础simple平台管理
 export const generatorServer = new BaseApi(process.env.BASE_GENERATOR_API);// 基础代码生成平台管理
-export const pmServer = new BaseApi(process.env.BASE_PM_API);// 基础PM平台管理
-export const psServer = new BaseApi(process.env.BASE_PS_API);// 基础PS平台管理
-
 export const taskServer = new BaseApi(process.env.BASE_TASK_MISSION_API);// 基础PM平台管理

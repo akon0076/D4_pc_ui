@@ -29,28 +29,26 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="模块类型" prop="moduleType">
-              <el-autocomplete
-                class="inline-input"
-                value-key="name"
-                v-model="module.moduleType"
-                :fetch-suggestions="searchModuleType "
-                placeholder="模块类型"
-                clearable autosize
-                resize="both" tabindex="10"
-              ></el-autocomplete>
+              <el-select v-model="module.moduleType" filterable placeholder="模块类型">
+                <el-option
+                  v-for="item in moduleTypeCodeTables"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="使用状态" prop="isInUse">
-              <el-autocomplete
-                class="inline-input"
-                value-key="name"
-                v-model="module.isInUse"
-                :fetch-suggestions="searchIsInUse "
-                placeholder="使用状态"
-                clearable autosize
-                resize="both" tabindex="11"
-              ></el-autocomplete>
+              <el-select v-model="module.isInUse" filterable placeholder="使用状态">
+                <el-option
+                  v-for="item in isInUseCodeTables"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -132,6 +130,8 @@
         isSubmiting: false,
         module: {},
         moduleId: null,
+        moduleTypeCodeTables: [],
+        isInUseCodeTables: [],
       }
     },
 
@@ -223,28 +223,6 @@
         this.isInUseCodeTables = moduleEditDto.isInUseCodeTables;
         this.parentModules = moduleEditDto.parentModules
       },
-      searchModuleType(queryString, cb) {
-        var moduleTypeCodeTables = this.moduleTypeCodeTables;
-        var results = queryString ? moduleTypeCodeTables.filter(this.createFilterModuleType(queryString)) : moduleTypeCodeTables;
-        cb(results);
-      },
-      createFilterModuleType(queryString) {
-        return (ModuleType) => {
-          return (ModuleType.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-        };
-      },
-      searchIsInUse(queryString, cb) {
-        var isInUseCodeTables = this.isInUseCodeTables;
-        var results = queryString ? isInUseCodeTables.filter(this.createFilterIsInUse(queryString)) : isInUseCodeTables;
-        cb(results);
-      },
-      createFilterIsInUse(queryString) {
-        return (UseStatus) => {
-          return (UseStatus.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-        };
-      },
-
-
       searchParentName(queryString, cb) {
         var parentModules = this.parentModules;
 

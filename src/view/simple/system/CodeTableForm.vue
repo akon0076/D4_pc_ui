@@ -1,346 +1,375 @@
-
 <template>
-    <div class="spanControl-list" style="width: 100%;margin-left: 0!important;">
-        <el-card class="box-card card-head" style="margin: 0px; width: 100%; min-height: 99%">
-            <div slot="header" class="clearfix">
-              <el-breadcrumb separator-class="el-icon-arrow-right">
-                <el-breadcrumb-item :to="{ path: '/simple/system/CodeTable' }">码表管理列表</el-breadcrumb-item>
-                <el-breadcrumb-item>码表管理</el-breadcrumb-item>
-              </el-breadcrumb>
-            </div>
-            <div class="alert-container clearfix">
-                <el-alert  v-for="alert in alerts.successes"  :key="alert.title"
-                           v-bind:title="alert.title"
-                           type="success"
-                           show-icon>
-                </el-alert>
-                <el-alert  v-for="alert in alerts.infos"  :key="alert.title"
-                           v-bind:title="alert.title"
-                           type="info"
-                           show-icon >
-                </el-alert>
-                <el-alert  v-for="alert in alerts.warnings"  :key="alert.title"
-                           v-bind:title="alert.title"
-                           type="warning"
-                           show-icon >
-                </el-alert>
-                <el-alert  v-for="alert in alerts.errors"  :key="alert.title"
-                           v-bind:title="alert.title"
-                           type="error"
-                           show-icon >
-                </el-alert>
-            </div>
-            <div class="text item">
-                <el-form ref="codeTableForm" :model="codeTable" label-width="150px" :rules="rules">
-                                    <el-col :span="12">
-                                        <el-form-item label="名称" prop="name">
-                                            <el-input type="input" v-model="codeTable.name"
-                                                      placeholder="名称" clearable autosize
-                                                      resize ="both" tabindex=3
-                                                              maxlength=200
-                                            ></el-input>
-                                    </el-form-item>
-                                    </el-col>
-                                    <el-col :span="12">
-                                        <el-form-item label="码表类型" prop="codeType" >
-                                            <el-input :disabled="disableType"type="input" v-model="codeTable.codeType"
-                                                      placeholder="码表种类" clearable autosize
-                                                      resize ="both" tabindex=5
-                                                              maxlength=100
-                                            ></el-input>
-                                    </el-form-item>
-                                    </el-col>
-   <!--                             <el-col :span="12">
-                                    <el-form-item label="父级" prop="parentName" >
-                                        <el-autocomplete
-                                          style="display: block"
-                                                class="inline-input"
-                                                value-key="name"
-                                                v-model="codeTable.parentName"
-                                                :fetch-suggestions="searchParentName "
-                                                placeholder="如果选择父级,则码表类型自动确认"
-                                                @select="handleSelectParentName"
-                                                clearable autosize
-                                                resize ="both" tabindex="7"
-                                        ></el-autocomplete>
-                                    </el-form-item>
-                                </el-col>-->
-                                <el-col :span="12">
-                                    <el-form-item label="显示顺序" prop="displayOrder">
-                                        <el-input type="number" step="1" v-model="codeTable.displayOrder"
-                                                  placeholder="显示顺序" clearable autosize
-                                                  resize ="both" tabindex=8
-                                                          maxlength=250
-                                        ></el-input>
-                                    </el-form-item>
-                                </el-col>
-                    <el-col :span="24">
-                        <el-form-item>
-                            <el-button type="primary" @click="submitCodeTable()"    :loading="isSubmiting" v-permission:simple_system_CodeTable_Edit >提交</el-button>
-                        </el-form-item>
-                    </el-col>
-                </el-form>
-            </div>
-        </el-card>
-    </div>
+  <div class="spanControl-list" style="width: 100%;margin-left: 0!important;">
+    <el-card class="box-card card-head" style="margin: 0px; width: 100%; min-height: 99%">
+      <div slot="header" class="clearfix">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item :to="{ path: '/simple/system/CodeTable' }">码表管理列表</el-breadcrumb-item>
+          <el-breadcrumb-item>码表管理</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <el-tabs type="border-card" :value="tableName">
+        <el-tab-pane label="码表类型" v-if="typeDisabled" name="codeType">
+          <el-form ref="codeTypeForm" :model="codeTable" label-width="150px" :rules="codeTypeRules">
+            <el-col :span="12">
+              <el-form-item label="码表编码" prop="code">
+                <el-input type="input" v-model="codeTable.code"
+                          placeholder="码表编码(唯一确定一个码表)" clearable autosize
+                          resize="both" tabindex=1
+                          maxlength=200
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="码表名称" prop="name">
+                <el-input type="input" v-model="codeTable.name"
+                          placeholder="码表名称" clearable autosize
+                          resize="both" tabindex=3
+                          maxlength=200
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="是否公开" prop="public">
+                <el-select :disabled="publicDisable" v-model="codeTable.public" filterable placeholder="是否公开">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.label"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="显示顺序" prop="displayIndex">
+                <el-input-number v-model="codeTable.displayIndex" :min="1" :max="9999999"
+                                 label="显示顺序(默认为第一个)"></el-input-number>
+              </el-form-item>
+            </el-col>
+            <el-col :span="24">
+              <el-form-item>
+                <el-button type="primary" @click="submitCodeTable()" :loading="isSubmiting"
+                           v-permission:simple_system_CodeTable_Edit>提交
+                </el-button>
+              </el-form-item>
+            </el-col>
+          </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="码表选项" v-if="optionDisabled" name="optionType">
+          <el-form ref="optionForm" :model="codeTable" label-width="150px" :rules="optionRules">
+            <el-col :span="12">
+              <el-form-item label="码表类型" prop="codeTypeId">
+                <el-select v-model="codeTable.codeTypeId" @change="tableTypeChange" filterable placeholder="码表类型">
+                  <el-option
+                    v-for="item in allCodeType"
+                    :key="item.uuid"
+                    :label="item.name"
+                    :value="item.uuid">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="单位名称" prop="orgId">
+                <el-select :disabled="disable" v-model="codeTable.orgId" filterable placeholder="单位名称">
+                  <el-option
+                    v-for="item in allOrganization"
+                    :key="item.eid"
+                    :label="item.name"
+                    :value="item.eid">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="选项名称" prop="label">
+                <el-input type="input" v-model="codeTable.label"
+                          placeholder="选项名称" clearable autosize
+                          resize="both" tabindex=1
+                          maxlength=200
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="选项值" prop="value">
+                <el-input type="input" v-model="codeTable.value"
+                          placeholder="选项值" clearable autosize
+                          resize="both" tabindex=1
+                          maxlength=200
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="显示顺序" prop="displayIndex">
+                <el-input-number v-model="codeTable.displayIndex" :min="1" :max="999999"
+                                 label="显示顺序(默认为第一个)"></el-input-number>
+              </el-form-item>
+            </el-col>
+            <el-col :span="24">
+              <el-form-item>
+                <el-button type="primary" @click="submitOption()" :loading="isSubmiting"
+                           v-permission:simple_system_CodeTable_Edit>提交
+                </el-button>
+              </el-form-item>
+            </el-col>
+          </el-form>
+        </el-tab-pane>
+      </el-tabs>
+    </el-card>
+  </div>
 </template>
 
 <script>
 
+  import {CodeTableService} from './CodeTableService'
+  import {OrganizationService} from '../organization/OrganizationService'
 
-
-
-
-import {CodeTableService} from './CodeTableService'
-import {d4utils} from '../../../tools/d4utils'
-
-export default {
-  components: {},
-  data() {
-    var validateIntRange = d4utils.validateFloatRange;
-    var validateFloatRange = d4utils.validateFloatRange;
-    var validateString = d4utils.validateString;
-
-    return {
-      disableType:false,
-      isEdit:false,
-      rules: {
-        name: [
-          {required: true, message: '请输入名称', trigger: 'blur'},
-          {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
-        ],
-        codeType: [
-          {required: true, message: '请输入码表类型', trigger: 'blur'},
-          {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
-        ],
-        parentFullname: [
-          {required: false, message: '请输入父级', trigger: 'blur'},
-          {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
-        ],
-        parentId: [
-          {required: false, message: '请输入父级', trigger: 'blur'},
-        ],
-        parentName: [
-          {required: false, message: '请输入父级', trigger: 'blur'},
-        ],
-        displayOrder: [
-          {required: false, message: '请输入显示顺序', trigger: 'blur'},
-          {validator: validateIntRange(-2147483648, 2147483647), trigger: 'blur'},
-        ],
-        remark: [
-          {required: false, message: '请输入备注', trigger: 'blur'},
-          {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
-        ],
-      },
-      isSubmiting: false,
-      codeTable: {},
-      codeTableId: null,
-      pickerOptionsCreateDatetime: {
-        disabledDate(time) {
-          //TODO: 请在此判断可以输入的日期范围,
-          //return time.getTime() > Date.now();
-          return false;
+  export default {
+    components: {},
+    data() {
+      return {
+        options: [{
+          value: true,
+          label: '是'
+        }, {
+          value: false,
+          label: '否'
+        }],
+        disableType: false,
+        tableName: '',
+        allOrganization: [],
+        allCodeType: [],
+        isEdit: false,
+        disable: true,
+        publicDisable: false,
+        typeDisabled: true,
+        optionDisabled: true,
+        codeTypeRules: {
+          code: [
+            {required: true, message: '请输入码表编码', trigger: 'blur'},
+          ],
+          name: [
+            {required: true, message: '请输入码表名称', trigger: 'blur'},
+          ],
+          codeType: [
+            {required: true, message: '请输入码表类型', trigger: 'blur'},
+          ],
+          displayIndex: [
+            {required: false, message: '请输入显示顺序', trigger: 'blur'},
+          ]
         },
-        shortcuts: [{
-          text: '今天',
-          onClick(picker) {
-            picker.$emit('pick', new Date());
-          }
-        }, {
-          text: '昨天',
-          onClick(picker) {
-            const date = new Date();
-            date.setTime(date.getTime() - 3600 * 1000 * 24);
-            picker.$emit('pick', date);
-          }
-        }, {
-          text: '一周前',
-          onClick(picker) {
-            const date = new Date();
-            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', date);
-          }
-        }]
-      },
-      pickerOptionsUpdateDatetime: {
-        disabledDate(time) {
-          //TODO: 请在此判断可以输入的日期范围,
-          //return time.getTime() > Date.now();
-          return false;
+        optionRules: {
+          codeTypeId: [
+            {required: true, message: '请输入码表类型', trigger: 'blur'},
+          ],
+          orgId: [
+            {required: false, message: '请选择组织单位', trigger: 'blur'},
+          ],
+          label: [
+            {required: true, message: '请输入选项名称', trigger: 'blur'},
+          ],
+          value: [
+            {required: true, message: '请输入选项值', trigger: 'blur'},
+          ],
+          displayIndex: [
+            {required: false, message: '请输入显示顺序', trigger: 'blur'},
+          ]
         },
-        shortcuts: [{
-          text: '今天',
-          onClick(picker) {
-            picker.$emit('pick', new Date());
-          }
-        }, {
-          text: '昨天',
-          onClick(picker) {
-            const date = new Date();
-            date.setTime(date.getTime() - 3600 * 1000 * 24);
-            picker.$emit('pick', date);
-          }
-        }, {
-          text: '一周前',
-          onClick(picker) {
-            const date = new Date();
-            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', date);
-          }
-        }]
-      },
-      alerts: {
-        remarks: [{title: "功能说明", description: "TODO: 请在这里加上功能说明"},],
-        successes: [], //TODO:[{title:'消息内容'},]
-        infos: [],
-        warnings: [],
-        errors: []
-      },
-    }
-  },
-  methods: {
-    submitCodeTable() {
-      var refs = this.$refs;
-      refs['codeTableForm'].validate(valid => {
-        if (valid) {
-          if (this.isEdit)//编辑码表
-          {
-            this.updateCodeTable();
-          }
-          else//保存码表
-          {
-            this.saveCodeTable();
-          }
-        } else {
-          return false
-        }
-      })
-    },
-    saveCodeTable()//保存码表
-    {
-      this.isSubmiting = true;
-      this.buttonRequestProgressStart("正在保存,请稍后...");
-      CodeTableService.saveCodeTable(this.codeTable).then((resp) => {
-        this.buttonRequestProgressClose();
-        this.isSubmiting = false;
-        var router = this.$router;
-        router.push({path: '/simple/system/CodeTable'})
-      }).catch((error) => {
-        this.buttonRequestProgressClose();
-        this.isSubmiting = false;
-        this.$message({
-          type: 'error',
-          message: '保存出错'
-        })
-      })
-    },
-    updateCodeTable()//编辑码表
-    {
-      this.isSubmiting = true;
-      this.buttonRequestProgressStart("正在更新,请稍后...");
-      CodeTableService.updateCodeTable(this.codeTable).then((resp) => {
-        this.buttonRequestProgressClose();
-        this.isSubmiting = false;
-        var router = this.$router;
-        router.push({path: '/simple/system/CodeTable'})
-      }).catch((error) => {
-        this.buttonRequestProgressClose();
-        this.isSubmiting = false;
-        this.$message({
-          type: 'error',
-          message: '保存出错'
-        })
-      })
-    },
-    findCodeTableForEdit(codeTableId)//查找码表
-    {
-      CodeTableService.findCodeTableForEdit(codeTableId).then((resp) => {
-        this.prepareForEdit(resp.data);
-      }).catch((error) => {
-        this.$message({
-          type: 'error',
-          message: '查询码表出错'
-        })
-      })
-    },
-    createCodeTable()//创建新的码表
-    {
-      CodeTableService.createCodeTable().then((resp) => {
-        this.prepareForEdit(resp.data);
-      }).catch((error) => {
-        this.$message({
-          type: 'error',
-          message: '创建新的码表出错'
-        })
-      })
-    },
-    prepareForEdit(codeTableEditDto) {
-      this.codeTable = codeTableEditDto.codeTable;
-
-      this.parentCodeTables = codeTableEditDto.parentCodeTables
-    },
-
-
-    searchParentName(queryString, cb) {
-      var parentCodeTables = this.parentCodeTables;
-
-      //如果不为空，说明在加载页面的时候已经加载了所有的外键数据，否则表示没加载，则根据输入的信息从后台加载
-      if (parentCodeTables) {
-        var results = queryString ? parentCodeTables.filter(this.createFilterParentName(queryString)) : parentCodeTables;
-        cb(results);
-      }
-      else {
-        var results = d4utils.getObjectCached("findCodeTablesWithIdNameByName_" + queryString);
-        if (results) {
-          cb(results);
-        }
-        else {
-          var cb1 = cb;
-          CodeTableService.findCodeTablesWithIdNameByName(queryString).then((resp) => {
-            if (resp.data) {
-              var results = resp.data;
-              d4utils.cacheObject("findCodeTablesWithIdNameByName_" + queryString);
-              cb1(results)
-            }
-            else {
-              this.$message({
-                type: 'error',
-                message: '没有查询到引用数据'
-              });
-            }
-          }).catch((error) => {
-            this.$message({
-              type: 'error',
-              message: '查询引用数据出错'
-            })
-          });
-        }
+        isSubmiting: false,
+        codeTable: {},
+        codeTableId: null,
+        codeType: ''
       }
     },
-
-
-    createFilterParentName(queryString) {
-      return (codeTable) => {
-        return (codeTable.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-      };
+    methods: {
+      submitCodeTable() {
+        this.codeTable.codeType = "码表类型"
+        this.$refs['codeTypeForm'].validate(valid => {
+          if (valid) {
+            if (this.isEdit)//编辑码表
+            {
+              this.updateCodeTable();
+            }
+            else//保存码表
+            {
+              this.saveCodeTable();
+            }
+          } else {
+            return false
+          }
+        })
+      },
+      submitOption() {
+        this.codeTable.codeType = "码表选项"
+        this.$refs['optionForm'].validate(valid => {
+          if (valid) {
+            if (this.isEdit)//编辑码表
+            {
+              this.updateCodeTableOption();
+            }
+            else//保存码表
+            {
+              this.saveOption();
+            }
+          } else {
+            return false
+          }
+        })
+      },
+      saveCodeTable()//保存码表
+      {
+        this.isSubmiting = true;
+        this.buttonRequestProgressStart("正在保存,请稍后...");
+        CodeTableService.saveCodeTable(this.codeTable).then((resp) => {
+          this.buttonRequestProgressClose();
+          this.isSubmiting = false;
+          var router = this.$router;
+          router.push({path: '/simple/system/CodeTable'})
+        }).catch((error) => {
+          this.buttonRequestProgressClose();
+          this.isSubmiting = false;
+          this.$message({
+            type: 'error',
+            message: '保存出错'
+          })
+        })
+      },
+      saveOption()//保存码表选项
+      {
+        this.isSubmiting = true;
+        this.buttonRequestProgressStart("正在保存,请稍后...");
+        CodeTableService.saveOption(this.codeTable).then((resp) => {
+          this.buttonRequestProgressClose();
+          this.isSubmiting = false;
+          this.$router.push({path: '/simple/system/CodeTable'})
+        }).catch((error) => {
+          this.buttonRequestProgressClose();
+          this.isSubmiting = false;
+          console.log(error)
+          this.$message({
+            type: 'error',
+            message: '保存出错'
+          })
+        })
+      },
+      updateCodeTable() {//编辑码表
+        this.isSubmiting = true;
+        this.buttonRequestProgressStart("正在更新,请稍后...");
+        CodeTableService.updateCodeTable(this.codeTable).then((resp) => {
+          this.buttonRequestProgressClose();
+          this.isSubmiting = false;
+          var router = this.$router;
+          router.push({path: '/simple/system/CodeTable'})
+        }).catch((error) => {
+          this.buttonRequestProgressClose();
+          this.isSubmiting = false;
+          this.$message({
+            type: 'error',
+            message: '保存出错'
+          })
+        })
+      },
+      updateCodeTableOption() {//编辑码表
+        this.isSubmiting = true;
+        this.buttonRequestProgressStart("正在更新,请稍后...");
+        CodeTableService.updateCodeTableOption(this.codeTable).then((resp) => {
+          this.buttonRequestProgressClose();
+          this.isSubmiting = false;
+          var router = this.$router;
+          router.push({path: '/simple/system/CodeTable'})
+        }).catch((error) => {
+          this.buttonRequestProgressClose();
+          this.isSubmiting = false;
+          this.$message({
+            type: 'error',
+            message: '保存出错'
+          })
+        })
+      },
+      findCodeTableForEdit(uuid) {//查找码表
+        CodeTableService.findCodeTable(uuid).then((resp) => {
+          this.codeTable = resp.data
+          if (!this.codeTable.public) {
+            this.disable = false
+          }
+        }).catch((error) => {
+          this.$message({
+            type: 'error',
+            message: '查询码表出错'
+          })
+        })
+        OrganizationService.findAllOrganizations().then((resp) => {
+          this.allOrganization = resp.data
+        }).catch((error) => {
+          this.$message({
+            type: 'error',
+            message: '组织单位查询失败'
+          })
+        })
+        CodeTableService.findAllCodeType().then((resp) => {
+          this.allCodeType = resp.data
+        }).catch((error) => {
+          this.$message({
+            type: 'error',
+            message: '码表类型查询查询失败'
+          })
+        })
+      },
+      createCodeTable() {//创建新的码表
+        OrganizationService.findAllOrganizations().then((resp) => {
+          this.allOrganization = resp.data
+        }).catch((error) => {
+          this.$message({
+            type: 'error',
+            message: '组织单位查询失败'
+          })
+        })
+        CodeTableService.findAllCodeType().then((resp) => {
+          this.allCodeType = resp.data
+        }).catch((error) => {
+          this.$message({
+            type: 'error',
+            message: '码表类型查询查询失败'
+          })
+        })
+      },
+      tableTypeChange(id) {
+        let _this = this
+        this.allCodeType.forEach(item => {
+          if (item.uuid == id) {
+            if (!item.public) {
+              _this.disable = false
+              return;
+            } else {
+              _this.disable = true
+            }
+          }
+        })
+      },
+      tabsChange(data) {
+      }
     },
-    handleSelectParentName(item) {
-      this.codeTable.parentId = item.eId;
+    created() {
+      this.codeTableId = this.$route.params.codeTableId;
+      this.codeType = this.$route.params.type;
+      this.tableName = this.codeType
+      if (this.codeTableId) {//编辑
+        this.isEdit = true
+        this.publicDisable = true
+        if (this.codeType == "codeType") {
+          this.typeDisabled = true
+          this.optionDisabled = false
+        }
+        if (this.codeType == "optionType") {
+          this.typeDisabled = false
+          this.optionDisabled = true
+        }
+        this.findCodeTableForEdit(this.codeTableId);
+      } else {//新增
+        this.createCodeTable();
+      }
     },
-  },
-  created() {
-    this.codeTableId = this.$route.params.codeTableId;
-    if (this.codeTableId)//编辑
-    {
-      this.isEdit=true
-      this.findCodeTableForEdit(this.codeTableId);
-    }
-    else//新增
-    {
-      this.createCodeTable();
-    }
-  },
-};
+  };
 </script>
 <style scoped lang="scss">
 

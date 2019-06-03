@@ -80,15 +80,14 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="性别" prop="sex">
-              <el-autocomplete
-                class="inline-input"
-                value-key="name"
-                v-model="employee.sex"
-                :fetch-suggestions="searchSex "
-                placeholder="性别"
-                clearable autosize
-                resize="both" tabindex="6"
-              ></el-autocomplete>
+              <el-select v-model="employee.sex" filterable placeholder="性别">
+                <el-option
+                  v-for="item in sexCodeTables"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -161,7 +160,10 @@
           ],
           linkTel: [
             {required: false, message: '请输入联系电话', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/, "手机号格式错误"), trigger: 'blur'},
+            {
+              validator: validateString(0, 1000, /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/, "手机号格式错误"),
+              trigger: 'blur'
+            },
           ],
           departmentName: [
             {required: true, message: '请输入所属部门', trigger: 'blur'},
@@ -185,6 +187,7 @@
         },
         isSubmiting: false,
         employee: {},
+        sexCodeTables: [],
         employeeId: null,
         pickerOptionsBirthDate: {
           disabledDate(time) {

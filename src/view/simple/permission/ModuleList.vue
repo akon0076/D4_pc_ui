@@ -12,7 +12,7 @@
             <el-button type="primary" @click="addModule()" v-permission:simple_permission_Module_Add>新增模块</el-button>
           </div>
           <div class="table-control">
-            <el-table v-loading="tableLoading" size="small" class="table-style" :data="modules" row-key="code" border>
+            <el-table v-loading="tableLoading" size="small" class="table-style" :data="modules" row-key="code" border :expand-row-keys="['simple']">
               <el-table-column show-overflow-tooltip align="left" prop="name" label="模块名称" min-width="180" fixed="left"
                                resizable show-overflow-tooltip></el-table-column>
               <el-table-column align="left" class="setCenter" prop="code" label="模块编码" min-width="80" resizable
@@ -41,11 +41,11 @@
               </el-table-column>
               <el-table-column align="center" label="操作" min-width="100" resizable>
                 <template slot-scope="scope">
-                  <template>
-                    <el-button @click="displayModule(scope.row.code)" type="text" size="small"
-                               v-permission:simple_permission_Module_View>查看
-                    </el-button>
-                  </template>
+                  <!--<template>-->
+                    <!--<el-button @click="displayModule(scope.row.code)" type="text" size="small"-->
+                               <!--v-permission:simple_permission_Module_View>查看-->
+                    <!--</el-button>-->
+                  <!--</template>-->
                   <template>
                     <el-button @click="editOrganation(scope.row.code)" type="text" size="small"
                                v-permission:simple_permission_Module_Edit>编辑

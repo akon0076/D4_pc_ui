@@ -134,9 +134,10 @@
         if (data && data.length > 0) {
           data.forEach(item => {
             item.indexId = indexId++
-            this.setIndexId(item)
+            indexId = this.setIndexId(item.nodes, indexId)
           })
         }
+        return indexId
       },
       //点击模块树触发
       handleNodeClick(data) {
@@ -195,7 +196,7 @@
           })
         })
       },
-      chageData(){
+      chageData() {
         this.permissions = []
         let _this = this
         this.allPermissions.forEach(item => {
