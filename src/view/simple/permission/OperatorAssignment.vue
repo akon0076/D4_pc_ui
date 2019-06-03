@@ -12,6 +12,9 @@
         </el-col>
         <el-col :span="18" :offset="1">
           <div style="float: left">
+            <div style="margin-bottom: 15px;line-height: 15px;">
+              <span style="color: #E6A23C;">请选择左侧组织查看具体角色</span>
+            </div>
             <el-transfer
               filterable
               filter-placeholder="请输入角色名称"

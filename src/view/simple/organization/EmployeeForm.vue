@@ -7,43 +7,21 @@
           <el-breadcrumb-item>职员管理</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
-      <div class="alert-container clearfix">
-        <el-alert v-for="alert in alerts.successes" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="success"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.infos" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="info"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.warnings" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="warning"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.errors" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="error"
-                  show-icon>
-        </el-alert>
-      </div>
       <div class="text item">
         <el-form ref="employeeForm" :model="employee" label-width="150px" :rules="rules">
           <el-col :span="12">
-            <el-form-item label="名称" prop="name">
-              <el-input type="input" v-model="employee.name"
-                        placeholder="名称" clearable autosize
+            <el-form-item label="职员编码" prop="code">
+              <el-input type="input" v-model="employee.code"
+                        placeholder="职员编码" clearable autosize
                         resize="both" tabindex=3
                         maxlength=255
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="职员编码" prop="code">
-              <el-input type="input" v-model="employee.code"
-                        placeholder="职员编码" clearable autosize
+            <el-form-item label="职员姓名" prop="name">
+              <el-input type="input" v-model="employee.name"
+                        placeholder="职员姓名" clearable autosize
                         resize="both" tabindex=3
                         maxlength=255
               ></el-input>
@@ -151,7 +129,7 @@
       return {
         rules: {
           name: [
-            {required: false, message: '请输入名称', trigger: 'blur'},
+            {required: true, message: '请输入名称', trigger: 'blur'},
             {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
           ],
           code: [
@@ -166,13 +144,13 @@
             },
           ],
           departmentName: [
-            {required: true, message: '请输入所属部门', trigger: 'blur'},
+            {required: false, message: '请输入所属部门', trigger: 'blur'},
           ],
           organizationName: [
             {required: true, message: '请输入所属单位', trigger: 'blur'},
           ],
           departmentId: [
-            {required: true, message: '请输入所属部门', trigger: 'blur'},
+            {required: false, message: '请输入所属部门', trigger: 'blur'},
           ],
           organizationId: [
             {required: true, message: '请输入所属单位', trigger: 'blur'},
@@ -270,32 +248,10 @@
             }
           }]
         },
-        alerts: {
-          remarks: [{title: "功能说明", content: "TODO: 请在这里加上功能说明"},],
-          successes: [], //TODO:[{title:'消息内容'},]
-          infos: [],
-          warnings: [],
-          errors: []
-        },
       }
     },
 
     methods: {
-      addAlert(message, title, type) {
-        //type 可选的值为:remarks,successes,infos,warnings,errors
-        type = type ? type : "errors";
-        type = this.alerts[type] ? type : "errors";
-        title = title ? title : message;
-        this.alerts[type].unshift({title: title, content: message});
-      },
-      removeAlert(title, type) {
-        //type 可选的值为:remarks,successes,infos,warnings,errors
-        type = type ? type : "errors";
-        type = this.alerts[type] ? type : "errors";
-        for (var i = this.alerts[type].length - 1; i >= 0; i--) {
-          delete this.alerts[type][i]
-        }
-      },
       submitEmployee() {
         var refs = this.$refs;
         refs['employeeForm'].validate(valid => {
