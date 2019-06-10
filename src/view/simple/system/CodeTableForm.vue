@@ -57,9 +57,10 @@
         </el-tab-pane>
         <el-tab-pane label="码表选项" v-if="optionDisabled" name="optionType">
           <el-form ref="optionForm" :model="codeTable" label-width="150px" :rules="optionRules">
+            <el-row>
             <el-col :span="12">
               <el-form-item label="码表类型" prop="codeTypeId">
-                <el-select v-model="codeTable.codeTypeId" @change="tableTypeChange" filterable placeholder="码表类型">
+                <el-select v-model="codeTable.codeTypeId" filterable placeholder="码表类型">
                   <el-option
                     v-for="item in allCodeType"
                     :key="item.uuid"
@@ -70,22 +71,17 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="单位名称" prop="orgId">
-                <el-select :disabled="disable" v-model="codeTable.orgId" filterable placeholder="单位名称">
-                  <el-option
-                    v-for="item in allOrganization"
-                    :key="item.eid"
-                    :label="item.name"
-                    :value="item.eid">
-                  </el-option>
-                </el-select>
+              <el-form-item label="显示顺序" prop="displayIndex">
+                <el-input-number v-model="codeTable.displayIndex" :min="1" :max="999999"
+                                 label="显示顺序(默认为第一个)"></el-input-number>
               </el-form-item>
             </el-col>
+            </el-row>
+            <el-row>
             <el-col :span="12">
               <el-form-item label="选项名称" prop="label">
                 <el-input type="input" v-model="codeTable.label"
                           placeholder="选项名称" clearable autosize
-                          resize="both" tabindex=1
                           maxlength=200
                 ></el-input>
               </el-form-item>
@@ -94,17 +90,12 @@
               <el-form-item label="选项值" prop="value">
                 <el-input type="input" v-model="codeTable.value"
                           placeholder="选项值" clearable autosize
-                          resize="both" tabindex=1
                           maxlength=200
                 ></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="12">
-              <el-form-item label="显示顺序" prop="displayIndex">
-                <el-input-number v-model="codeTable.displayIndex" :min="1" :max="999999"
-                                 label="显示顺序(默认为第一个)"></el-input-number>
-              </el-form-item>
-            </el-col>
+            </el-row>
+            <el-row>
             <el-col :span="24">
               <el-form-item>
                 <el-button type="primary" @click="submitOption()" :loading="isSubmiting"
@@ -112,6 +103,7 @@
                 </el-button>
               </el-form-item>
             </el-col>
+            </el-row>
           </el-form>
         </el-tab-pane>
       </el-tabs>
@@ -137,10 +129,8 @@
         }],
         disableType: false,
         tableName: '',
-        allOrganization: [],
         allCodeType: [],
         isEdit: false,
-        disable: true,
         publicDisable: false,
         typeDisabled: true,
         optionDisabled: true,
@@ -289,21 +279,10 @@
       findCodeTableForEdit(uuid) {//查找码表
         CodeTableService.findCodeTable(uuid).then((resp) => {
           this.codeTable = resp.data
-          if (!this.codeTable.public) {
-            this.disable = false
-          }
         }).catch((error) => {
           this.$message({
             type: 'error',
             message: '查询码表出错'
-          })
-        })
-        OrganizationService.findAllOrganizations().then((resp) => {
-          this.allOrganization = resp.data
-        }).catch((error) => {
-          this.$message({
-            type: 'error',
-            message: '组织单位查询失败'
           })
         })
         CodeTableService.findAllCodeType().then((resp) => {
@@ -316,14 +295,6 @@
         })
       },
       createCodeTable() {//创建新的码表
-        OrganizationService.findAllOrganizations().then((resp) => {
-          this.allOrganization = resp.data
-        }).catch((error) => {
-          this.$message({
-            type: 'error',
-            message: '组织单位查询失败'
-          })
-        })
         CodeTableService.findAllCodeType().then((resp) => {
           this.allCodeType = resp.data
         }).catch((error) => {
@@ -333,21 +304,6 @@
           })
         })
       },
-      tableTypeChange(id) {
-        let _this = this
-        this.allCodeType.forEach(item => {
-          if (item.uuid == id) {
-            if (!item.public) {
-              _this.disable = false
-              return;
-            } else {
-              _this.disable = true
-            }
-          }
-        })
-      },
-      tabsChange(data) {
-      }
     },
     created() {
       this.codeTableId = this.$route.params.codeTableId;
