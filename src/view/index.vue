@@ -53,7 +53,6 @@
     },
     watch: {
       data(val) {
-        console.log(val);
       }
     }
   }

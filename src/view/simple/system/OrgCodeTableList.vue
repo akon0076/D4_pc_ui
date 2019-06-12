@@ -9,8 +9,7 @@
         <el-col>
           <!--新增任务按钮-->
           <div style="float: right; margin-bottom: 15px">
-            <el-button type="primary" @click="addCodeTable()" v-permission:simple_system_CodeTable_Add>新增码表</el-button>
-            <el-button type="primary" @click="addOption()" v-permission:simple_system_CodeTable_Add>新增选项</el-button>
+            <el-button type="primary" @click="addOption()" v-permission:simple_system_OrganizationCodeTable_Add>新增选项</el-button>
           </div>
           <div class="table-control">
             <el-table v-loading="tableLoading" size="small" class="table-style" :data="codeTables" border row-key="uuid"
@@ -18,33 +17,27 @@
               <el-table-column show-overflow-tooltip align="left" prop="name" label="码表名称" min-width="100" fixed="left"
                                resizable show-overflow-tooltip>
               </el-table-column>
-              <el-table-column align="center" prop="codeType" label="码表种类" min-width="80" resizable
-                               show-overflow-tooltip></el-table-column>
               <el-table-column align="left" prop="code" label="码表编码" min-width="80" resizable
                                show-overflow-tooltip></el-table-column>
               <el-table-column align="left" prop="label" label="选项名称" min-width="80" resizable
                                show-overflow-tooltip></el-table-column>
               <el-table-column align="left" prop="value" label="选项值" min-width="80" resizable
                                show-overflow-tooltip></el-table-column>
-              <el-table-column align="center" prop="displayIndex" label="显示顺序" min-width="60" resizable
-                               show-overflow-tooltip></el-table-column>
-              <el-table-column align="center" prop="public" label="是否公开" min-width="60" resizable
-                               show-overflow-tooltip>
-                <template slot-scope="scope">
-                  <el-tag v-if="scope.row.public" size="success">是</el-tag>
-                  <el-tag v-else size="danger">否</el-tag>
-                </template>
-              </el-table-column>
               <el-table-column align="center" label="操作" min-width="120" resizable>
                 <template slot-scope="scope">
                   <template>
-                    <el-button v-if="showEdit(scope.row)" @click="editOrganation(scope.row)" type="text" size="small"
-                               v-permission:simple_system_CodeTable_Edit>编辑
+                    <el-button v-if="showAdd(scope.row)" @click="addOption()" type="text" size="small"
+                               v-permission:simple_system_OrganizationCodeTable_Add>新增选项
                     </el-button>
                   </template>
                   <template>
-                    <el-button @click="deleteCodeTable(scope.row.uuid)" type="text" size="small"
-                               v-permission:simple_system_CodeTable_Delete><p
+                    <el-button v-if="showEdit(scope.row)" @click="editOrganation(scope.row)" type="text" size="small"
+                               v-permission:simple_system_OrganizationCodeTable_Edit>编辑选项
+                    </el-button>
+                  </template>
+                  <template>
+                    <el-button v-if="showEdit(scope.row)" @click="deleteCodeTable(scope.row.uuid)" type="text" size="small"
+                               v-permission:simple_system_OrganizationCodeTable_Delete><p
                       style="color: red !important;">删除</p></el-button>
                   </template>
                 </template>
@@ -110,7 +103,7 @@
       findCodeTables() {
         var parms = this.installParms();
         this.buttonRequestProgressStart("正在搜索,请稍后...");
-        CodeTableService.findAllCodeTablesTree(parms).then((res) => {
+        CodeTableService.findAllOrgCodeTablesTree(parms).then((res) => {
           this.buttonRequestProgressClose();
           this.codeTables = res.data.datas;
           this.totalCount = res.data.totalCount;
@@ -122,8 +115,14 @@
           })
         })
       },
+      showAdd(codetable) {
+        if (codetable.codeType == "码表类型") {
+          return true
+        }
+        return false
+      },
       showEdit(codetable) {
-        if (codetable.codeType == "组织单位") {
+        if (codetable.codeType == "码表类型") {
           return false
         }
         return true
@@ -170,22 +169,13 @@
         this.currentPage = val;
         this.findCodeTables();
       },
-      //新增码表
-      addCodeTable() {
-        this.$router.push({path: '/simple/system/codeTable/add/codeType', query: {}});
-      },
       //新增选项
       addOption() {
-        this.$router.push({path: '/simple/system/codeTable/add/optionType', query: {}});
+        this.$router.push({path: '/simple/system/orgCodeTableForm/add/optionType', query: {}});
       },
       //编辑码表
       editOrganation(codeTable) {
-        if (codeTable.codeType == "码表类型") {
-          this.$router.push({path: '/simple/system/codeTable/edit/codeType/' + codeTable.uuid, query: {}});
-        }
-        if (codeTable.codeType == "码表选项") {
-          this.$router.push({path: '/simple/system/codeTable/edit/optionType/' + codeTable.uuid, query: {}});
-        }
+        this.$router.push({path: '/simple/system/orgCodeTableForm/edit/optionType/' + codeTable.uuid, query: {}});
       },
     }
   }

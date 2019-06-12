@@ -134,7 +134,6 @@
         this.ruleForm.
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            console.log(this.ruleForm)
             TaskServer.addSchedulerJob(this.ruleForm).then((res) => {
               Msg.success("新增成功");
               this.$router.push({path: "/tableList"});

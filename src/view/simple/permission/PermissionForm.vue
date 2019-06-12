@@ -172,7 +172,6 @@
       },
       findAllModules() {
         ModuleService.findAllLeafModules().then((resp) => {
-          console.log(resp.data)
           let _this = this
           resp.data.forEach(item => {
             let module = {}

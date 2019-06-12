@@ -5,10 +5,6 @@ import reportMesShowRoute from './report/reportShow/reportMesShowRoute.js'
 import SystemConfigRoute from './systemConfig/SystemConfigRoute.js'
 import CodeTableRoute from './system/CodeTableRoute.js'
 import ModelFileRoute from './report/ModelFileRoute.js'
-import OrganizationRegistRoute from './regist/OrganizationRegistRoute.js'
-import MemberRegistRoute from './regist/MemberRegistRoute.js'
-import EmployeRegistRoute from './regist/EmployeRegistRoute.js'
-import EmpOpenIdRoute from './qingTui/EmpOpenIdRoute.js'
 import RoleRoute from './permission/RoleRoute.js'
 import RoleAndPermissionRoute from './permission/RoleAndPermissionRoute.js'
 import PermissionRoute from './permission/PermissionRoute.js'
@@ -49,10 +45,6 @@ export default [
       ...PermissionRoute,
       ...RoleAndPermissionRoute,
       ...RoleRoute,
-      ...EmpOpenIdRoute,
-      ...EmployeRegistRoute,
-      ...MemberRegistRoute,
-      ...OrganizationRegistRoute,
       ...ModelFileRoute,
       ...CodeTableRoute,
       ...SystemConfigRoute,

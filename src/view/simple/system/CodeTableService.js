@@ -18,11 +18,25 @@ export class CodeTableService {
     return simpleServer.connection(httpMethod, '/simple/system/CodeTable/findAllCodeTablesTree', body);
   }
 
+  // 找到全部码表树
+  static findAllOrgCodeTablesTree(pageDTO) {
+    var httpMethod = 'POST';
+    var body = simpleServer.getArgs(this.findAllOrgCodeTablesTree, arguments, 'POST');
+    return simpleServer.connection(httpMethod, '/simple/system/CodeTable/findAllOrgCodeTablesTree', body);
+  }
+
   //查询全部码表类型
   static findAllCodeType() {
     var httpMethod = 'GET';
     var body = simpleServer.getArgs(this.findAllCodeType, arguments, 'GET');
     return simpleServer.connection(httpMethod, '/simple/system/CodeTable/findAllCodeType', body);
+  }
+
+  //查找所有私有码表类型
+  static findAllPrivateCodeType() {
+    var httpMethod = 'GET';
+    var body = simpleServer.getArgs(this.findAllPrivateCodeType, arguments, 'GET');
+    return simpleServer.connection(httpMethod, '/simple/system/CodeTable/findAllPrivateCodeType', body);
   }
 
   //根据码表Id查询码表

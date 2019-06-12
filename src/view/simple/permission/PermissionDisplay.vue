@@ -59,7 +59,6 @@ export default {
     },
     created() {
         const code = this.$route.params.code;
-        console.log(code)
         this.findPermissionForView(code);
     },
 }

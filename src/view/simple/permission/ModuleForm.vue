@@ -9,93 +9,106 @@
       </div>
       <div class="text item">
         <el-form ref="moduleForm" :model="module" label-width="150px" :rules="rules">
-          <el-col :span="12">
-            <el-form-item label="模块编码" prop="code">
-              <el-input type="input" v-model="module.code"
-                        placeholder="模块唯一编码（如simple，simple/permission）" clearable autosize
-                        resize="both" tabindex=3
-                        maxlength=200
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="模块名称" prop="name">
-              <el-input type="input" v-model="module.name"
-                        placeholder="模块名称（如基础管理）" clearable autosize
-                        resize="both" tabindex=4
-                        maxlength=200
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="模块类型" prop="moduleType">
-              <el-select v-model="module.moduleType" filterable placeholder="模块类型">
-                <el-option
-                  v-for="item in moduleTypeCodeTables"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="使用状态" prop="isInUse">
-              <el-select v-model="module.isInUse" filterable placeholder="使用状态">
-                <el-option
-                  v-for="item in isInUseCodeTables"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="上级模块" prop="parentName">
-              <el-autocomplete
-                class="inline-input"
-                value-key="name"
-                v-model="module.parentName"
-                :fetch-suggestions="searchParentName "
-                placeholder="上级模块(不填默认为顶级模块)"
-                @select="handleSelectParentName"
-                clearable
-                autosize
-                resize="both" tabindex="9"
-              ></el-autocomplete>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="页面路由" prop="route">
-              <el-input type="input" v-model="module.route"
-                        placeholder="页面路由（如/simple/permission/Module）" clearable autosize
-                        resize="both" tabindex=6
-                        maxlength=200
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="显示顺序" prop="displayIndex">
-              <el-input-number v-model="module.displayIndex" :min="1" :max="999999999" label="显示顺序(默认为第一个)"></el-input-number>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="图标" prop="iconClass">
-              <el-input type="input" v-model="module.iconClass"
-                        placeholder="图标" clearable autosize
-                        resize="both" tabindex=7
-                        maxlength=200
-              ></el-input><el-link type="primary" href="https://www.iconfont.cn" target="_blank">https://www.iconfont.cn（阿里云图标库）</el-link>
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item>
-              <el-button type="primary" @click="submitModule()" :loading="isSubmiting"
-                         v-permission:simple_permission_Module_Edit>提交
-              </el-button>
-            </el-form-item>
-          </el-col>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="模块编码" prop="code">
+                <el-input type="input" v-model="module.code"
+                          placeholder="模块唯一编码（如simple，simple/permission）" clearable autosize
+                          resize="both" tabindex=3
+                          maxlength=200
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="模块名称" prop="name">
+                <el-input type="input" v-model="module.name"
+                          placeholder="模块名称（如基础管理）" clearable autosize
+                          resize="both" tabindex=4
+                          maxlength=200
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="模块类型" prop="moduleType">
+                <el-select v-model="module.moduleType" filterable placeholder="模块类型">
+                  <el-option
+                    v-for="item in moduleTypeCodeTables"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="使用状态" prop="isInUse">
+                <el-select v-model="module.isInUse" filterable placeholder="使用状态">
+                  <el-option
+                    v-for="item in isInUseCodeTables"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="上级模块" prop="parentName">
+                <el-autocomplete
+                  class="inline-input"
+                  value-key="name"
+                  v-model="module.parentName"
+                  :fetch-suggestions="searchParentName "
+                  placeholder="上级模块(不填默认为顶级模块)"
+                  @select="handleSelectParentName"
+                  clearable
+                  autosize
+                  resize="both" tabindex="9"
+                ></el-autocomplete>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="页面路由" prop="route">
+                <el-input type="input" v-model="module.route"
+                          placeholder="页面路由（如/simple/permission/Module）" clearable autosize
+                          resize="both" tabindex=6
+                          maxlength=200
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="显示顺序" prop="displayIndex">
+                <el-input-number v-model="module.displayIndex" :min="1" :max="999999999"
+                                 label="显示顺序(默认为第一个)"></el-input-number>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="图标" prop="iconClass">
+                <el-input type="input" v-model="module.iconClass"
+                          placeholder="图标" clearable autosize
+                          resize="both" tabindex=7
+                          maxlength=200
+                ></el-input>
+                <el-link type="primary" href="https://www.iconfont.cn" target="_blank">https://www.iconfont.cn（阿里云图标库）
+                </el-link>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="24">
+              <el-form-item>
+                <el-button type="primary" @click="submitModule()" :loading="isSubmiting"
+                           v-permission:simple_permission_Module_Edit>提交
+                </el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
       </div>
 

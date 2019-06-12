@@ -391,7 +391,6 @@
         };
       },
       handleSelectDepartmentName(item) {
-        console.log(item.eid)
         this.employee.departmentId = item.eid;
       },
 
