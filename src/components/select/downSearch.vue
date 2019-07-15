@@ -57,8 +57,7 @@
              this.selectValues = [];
              newVal.columns.forEach(column => {
 
-               if (column.label == "操作") {
-               } else {
+               if (column.label && column.label != "操作") {
                  column.key = column.property;
                  column.value = column.label;
 
