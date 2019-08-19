@@ -1,6 +1,6 @@
-const XLSX = require("xlsx");
+//const XLSX = require("xlsx");
 import FileSaver from "file-saver";
-const xlsxStyle =require("xlsx-style");
+//const xlsxStyle =require("xlsx-style");
 export class d4utils {
 
   static validateIntRange(min, max) {

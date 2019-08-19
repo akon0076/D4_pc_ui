@@ -10,7 +10,7 @@
 var fs = require("fs")
 var path = require("path")
 
-var walk = require('walk')
+//var walk = require('walk')
 
 var root = path.join('./src/view')
 
@@ -102,7 +102,7 @@ function nomangleParams(file,paramsSet,fileSignatureMap){
 
   //var content="static saveFile(data,files) { adfadf   static findCommoditysWithIdNameByName(     ) {asdf}  static saveFile1(data,files1) "
   var funs  = content.match(/static +\w+? *\([\w, \n]*\)?/g);
-
+  if(funs==null)return;
   //var paramsSet = new Set();
   var signatureMap = new Map();
   funs.forEach(function(signature,index,array){
