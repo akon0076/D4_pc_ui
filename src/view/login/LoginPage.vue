@@ -1,6 +1,10 @@
 <template>
   <div class="mh-login">
     <div class="form" >
+      <h1  style="display: inline;">用户名：000</h1>
+      <h1   style="display: inline;">密码：000</h1>
+      <h2 @click="dddsa"  style="    text-decoration: underline;
+    color: blue;">代码生成</h2>
       <el-form v-if="login" :model="loginForm" :rules="rules" ref="loginForm" label-position="left" label-width="0px"
                class="login-container">
         <div class="head">
@@ -133,6 +137,9 @@
     },
     /** 方法事件 */
     methods: {
+      dddsa(){
+        this.$router.push({path: '/generate'})
+      },
       Enter(e) {
         if (!!this.loginForm.userName && e.which === 13) {
           this.submitForm()
