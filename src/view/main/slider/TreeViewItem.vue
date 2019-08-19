@@ -3,7 +3,7 @@
 
           <div   v-for="menu in menus">
             <div v-if="menu.nodes == null || menu.nodes.length == 0">
-              <el-menu-item :index="menu.routeData">{{menu.text}}</el-menu-item>
+             <el-menu-item  :index="menu.routeData">{{menu.text}}</el-menu-item>
             </div>
             <div v-if="menu.nodes != null && menu.nodes.length != 0">
               <el-submenu :index="menu.id">

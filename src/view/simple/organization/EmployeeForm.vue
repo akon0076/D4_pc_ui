@@ -7,63 +7,23 @@
           <el-breadcrumb-item>职员管理</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
-      <div class="alert-container clearfix">
-        <el-alert v-for="alert in alerts.successes" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="success"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.infos" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="info"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.warnings" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="warning"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.errors" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="error"
-                  show-icon>
-        </el-alert>
-      </div>
       <div class="text item">
         <el-form ref="employeeForm" :model="employee" label-width="150px" :rules="rules">
           <el-col :span="12">
-            <el-form-item label="编码" prop="code">
+            <el-form-item label="职员编码" prop="code">
               <el-input type="input" v-model="employee.code"
-                        placeholder="编码" clearable autosize
-                        resize="both" tabindex=1
-                        maxlength=200
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="密码" prop="passWord">
-              <el-input type="input" v-model="employee.passWord"
-                        placeholder="密码" clearable autosize
-                        resize="both" tabindex=2
-                        maxlength=255
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="名称" prop="name">
-              <el-input type="input" v-model="employee.name"
-                        placeholder="名称" clearable autosize
+                        placeholder="职员编码" clearable autosize
                         resize="both" tabindex=3
                         maxlength=255
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="联系电话" prop="linkTel">
-              <el-input type="input" v-model="employee.linkTel"
-                        placeholder="联系电话" clearable autosize
-                        resize="both" tabindex=4
-                        maxlength=100
+            <el-form-item label="职员姓名" prop="name">
+              <el-input type="input" v-model="employee.name"
+                        placeholder="职员姓名" clearable autosize
+                        resize="both" tabindex=3
+                        maxlength=255
               ></el-input>
             </el-form-item>
           </el-col>
@@ -82,16 +42,30 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="性别" prop="sex">
+            <el-form-item label="所属部门" prop="departmentName">
               <el-autocomplete
+                :disabled="!employee.organizationId"
                 class="inline-input"
                 value-key="name"
-                v-model="employee.sex"
-                :fetch-suggestions="searchSex "
-                placeholder="性别"
+                v-model="employee.departmentName"
+                :fetch-suggestions="searchDepartmentName "
+                placeholder="所属部门"
+                @select="handleSelectDepartmentName"
                 clearable autosize
-                resize="both" tabindex="6"
+                resize="both" tabindex="5"
               ></el-autocomplete>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="性别" prop="sex">
+              <el-select v-model="employee.sex" filterable placeholder="性别">
+                <el-option
+                  v-for="item in sexCodeTables"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -103,6 +77,15 @@
                               placeholder="出生日期"
                               :picker-options="pickerOptionsBirthDate">
               </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="联系电话" prop="linkTel">
+              <el-input type="input" v-model="employee.linkTel"
+                        placeholder="联系电话" clearable autosize
+                        resize="both" tabindex=4
+                        maxlength=100
+              ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -146,32 +129,31 @@
       return {
         rules: {
           name: [
-            {required: false, message: '请输入名称', trigger: 'blur'},
+            {required: true, message: '请输入名称', trigger: 'blur'},
             {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
           ],
           code: [
-            {required: true, message: '请输入编码', trigger: 'blur'},
+            {required: true, message: '请输入职员编码', trigger: 'blur'},
             {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
-          ],
-          passWord: [
-            {required: true, message: '请输入密码', trigger: 'blur'},
-            {validator: validateString(0, 20, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
           ],
           linkTel: [
             {required: false, message: '请输入联系电话', trigger: 'blur'},
-            {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
+            {
+              validator: validateString(0, 1000, /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/, "手机号格式错误"),
+              trigger: 'blur'
+            },
           ],
           departmentName: [
             {required: false, message: '请输入所属部门', trigger: 'blur'},
           ],
           organizationName: [
-            {required: false, message: '请输入所属单位', trigger: 'blur'},
+            {required: true, message: '请输入所属单位', trigger: 'blur'},
           ],
           departmentId: [
             {required: false, message: '请输入所属部门', trigger: 'blur'},
           ],
           organizationId: [
-            {required: false, message: '请输入所属单位', trigger: 'blur'},
+            {required: true, message: '请输入所属单位', trigger: 'blur'},
           ],
           sex: [
             {required: false, message: '请输入性别', trigger: 'blur'},
@@ -183,6 +165,7 @@
         },
         isSubmiting: false,
         employee: {},
+        sexCodeTables: [],
         employeeId: null,
         pickerOptionsBirthDate: {
           disabledDate(time) {
@@ -265,32 +248,10 @@
             }
           }]
         },
-        alerts: {
-          remarks: [{title: "功能说明", content: "TODO: 请在这里加上功能说明"},],
-          successes: [], //TODO:[{title:'消息内容'},]
-          infos: [],
-          warnings: [],
-          errors: []
-        },
       }
     },
 
     methods: {
-      addAlert(message, title, type) {
-        //type 可选的值为:remarks,successes,infos,warnings,errors
-        type = type ? type : "errors";
-        type = this.alerts[type] ? type : "errors";
-        title = title ? title : message;
-        this.alerts[type].unshift({title: title, content: message});
-      },
-      removeAlert(title, type) {
-        //type 可选的值为:remarks,successes,infos,warnings,errors
-        type = type ? type : "errors";
-        type = this.alerts[type] ? type : "errors";
-        for (var i = this.alerts[type].length - 1; i >= 0; i--) {
-          delete this.alerts[type][i]
-        }
-      },
       submitEmployee() {
         var refs = this.$refs;
         refs['employeeForm'].validate(valid => {
@@ -375,7 +336,6 @@
       prepareForEdit(employeeEditDto) {
         this.employee = employeeEditDto.employee;
         this.sexCodeTables = employeeEditDto.sexCodeTables;
-        this.departmentDepartments = employeeEditDto.departmentDepartments
         this.organizationOrganizations = employeeEditDto.organizationOrganizations
       },
       searchSex(queryString, cb) {
@@ -477,6 +437,17 @@
       },
       handleSelectOrganizationName(item) {
         this.employee.organizationId = item.eid;
+        DepartmentService.findAllDepartmentsByOrgId(this.employee.organizationId).then((resp) => {
+          this.departmentDepartments = resp.data
+        }).catch((error) => {
+          this.$message({
+            type: 'error',
+            message: '查询引用数据出错'
+          })
+        });
+      },
+      handleSelectDepartmentName(item) {
+        this.employee.departmentId = item.eid;
       },
     },
     created() {
@@ -490,6 +461,18 @@
         this.createEmployee();
       }
     },
+    watch: {
+      "employee.organizationName"(newvalue) {
+        if (newvalue) {
+        }
+        else {
+          this.employee.organizationId = '';
+          this.employee.departmentName = ''
+          this.employee.departmentId = ''
+        }
+
+      }
+    }
   }
 </script>
 <style scoped lang="scss">

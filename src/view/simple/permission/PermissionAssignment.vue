@@ -5,8 +5,10 @@
         <el-col :span="5">
           <el-tree
             :data="menus"
+            node-key="indexId"
+            highlight-current
+            :default-expanded-keys="[1]"
             :props="defaultProps"
-            :accordion="true"
             @node-click="handleNodeClick">
           </el-tree>
         </el-col>
@@ -56,22 +58,34 @@
     computed: mapState({
       user: state => state.user,
     }),
-    mounted() {
-      this.currentEditId = this.$route.params.roleId;
+    created() {
       this.init()
     },
     methods: {
       init() {
+        this.currentEditId = this.$route.params.roleId;
+        this.findAllTreeNode();
+        this.findAllPermissions();
+        this.findRoleAndPermissionByRoleId();
+      },
+      findAllTreeNode() {
         ModuleService.findAllTreeNode("电脑模块").then((res) => {
           this.menus = res.data.nodes
+          this.setIndexId(this.menus, 1)
         }).catch((error) => {
           this.$message({
             type: 'error',
             message: '网络繁忙，请稍候再试！'
           })
         })
-        this.findAllPermissions();
-        this.findRoleAndPermissionByRoleId();
+      },
+      setIndexId(data, indexId) {
+        if (data && data.length > 0) {
+          data.forEach(item => {
+            item.indexId = indexId++
+            this.setIndexId(item)
+          })
+        }
       },
       //查询所有权限
       findAllPermissions() {
@@ -139,7 +153,6 @@
         this.permissionDataTable = []
         this.permissionData = []
         let _this = this
-        data.id = data.id == "基础管理" ? "simple" : data.id
         if (data.id)
           this.allPermissions.forEach(function (item) {
             if (item.key.replace(/_/g, "/").startsWith(data.id)) {

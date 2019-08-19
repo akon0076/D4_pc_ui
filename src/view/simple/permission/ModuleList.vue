@@ -1,45 +1,59 @@
-
 <template>
   <div class="span-control-list" style="width: 100%;margin-left: 0!important;">
     <el-card class="box-card set-organ" style="margin: 0px; width: 100%; min-height: 99%">
       <div slot="header" class="clearfix">
         <span>模块管理</span>
       </div>
-
       <el-row>
         <!--数据表格-->
         <el-col>
-<down-search  :selectValues="selectValues"  @returnedValue="searchByCondition"></down-search>
           <!--新增任务按钮-->
           <div style="float: right; margin-bottom: 15px">
-            <el-button  type="primary" @click="addModule()"  v-permission:simple_permission_Module_Add >新增模块</el-button>
+            <el-button type="primary" @click="addModule()" v-permission:simple_permission_Module_Add>新增模块</el-button>
           </div>
           <div class="table-control">
-            <el-table v-loading="tableLoading" size="small" class="table-style" :data="modules" border highlight-current-row @current-change="handleCurrentChange">
-              <el-table-column show-overflow-tooltip align="left" prop="name" label="模块名称" min-width="100" fixed="left"  resizable show-overflow-tooltip>
+            <el-table v-loading="tableLoading" size="small" class="table-style" :data="modules" row-key="code" border :expand-row-keys="['simple']">
+              <el-table-column show-overflow-tooltip align="left" prop="name" label="模块名称" min-width="180" fixed="left"
+                               resizable show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" class="setCenter" prop="code" label="模块编码" min-width="80" resizable
+                               show-overflow-tooltip></el-table-column>
+              <el-table-column align="left" class="setCenter" prop="route" label="页面路由" min-width="80" resizable
+                               show-overflow-tooltip></el-table-column>
+              <el-table-column align="center" class="setCenter" prop="iconClass" label="图标" min-width="60" resizable
+                               show-overflow-tooltip>
                 <template slot-scope="scope">
-                  <p v-on:click="displayModule(modules[scope.$index].code)"
-                     style="text-decoration: underline">
-                    {{ modules[scope.$index].name }}
-                  </p>
+                  <i :class="scope.row.iconClass"></i>
                 </template>
               </el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="code" label="编码" min-width="80"  resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="url" label="URL地址" min-width="80"  resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="route" label="路由" min-width="80"  resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="iconClass" label="图标" min-width="80"  resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="displayIndex" label="显示顺序" min-width="80"  resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="parentName" label="上级模块" min-width="80"  resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="moduleType" label="模块类型" min-width="80"  resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="parentCode" label="上级模块编码" min-width="80"  resizable show-overflow-tooltip></el-table-column>
-              <el-table-column align="left" clalss="setCenter" prop="isInUse" label="在用" min-width="80"  resizable show-overflow-tooltip></el-table-column>
-              <el-table-column label="操作" min-width="120" resizable>
+              <el-table-column align="center" class="setCenter" prop="displayIndex" label="显示顺序" min-width="60"
+                               resizable
+                               show-overflow-tooltip></el-table-column>
+              <el-table-column align="center" class="setCenter" prop="parentName" label="上级模块" min-width="80" resizable
+                               show-overflow-tooltip></el-table-column>
+              <el-table-column align="center" class="setCenter" prop="moduleType" label="模块类型" min-width="80" resizable
+                               show-overflow-tooltip></el-table-column>
+              <el-table-column align="center" class="setCenter" prop="isInUse" label="使用状态" min-width="60" resizable
+                               show-overflow-tooltip>
                 <template slot-scope="scope">
+                  <el-tag v-if="scope.row.isInUse=='在用'" size="success">{{ scope.row.isInUse }}</el-tag>
+                  <el-tag v-if="scope.row.isInUse=='停用'" size="danger">{{ scope.row.isInUse }}</el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column align="center" label="操作" min-width="100" resizable>
+                <template slot-scope="scope">
+                  <!--<template>-->
+                    <!--<el-button @click="displayModule(scope.row.code)" type="text" size="small"-->
+                               <!--v-permission:simple_permission_Module_View>查看-->
+                    <!--</el-button>-->
+                  <!--</template>-->
                   <template>
-                    <el-button @click="editOrganation(modules[scope.$index].code)" type="text" size="small" v-permission:simple_permission_Module_Edit >编辑</el-button>
+                    <el-button @click="editOrganation(scope.row.code)" type="text" size="small"
+                               v-permission:simple_permission_Module_Edit>编辑
+                    </el-button>
                   </template>
                   <template>
-                    <el-button @click="deleteModule(modules[scope.$index].code)" type="text" size="small" v-permission:simple_permission_Module_Delete ><p
+                    <el-button @click="deleteModule(scope.row.code)" type="text" size="small"
+                               v-permission:simple_permission_Module_Delete><p
                       style="color: red !important;">删除</p></el-button>
                   </template>
                 </template>
@@ -78,36 +92,28 @@
         currentPage: 1,
         pageSize: 10,
         totalCount: 0,
-        hightlight: true,
         modules: [],
         tableLoading: false,
         value: '',
         search: '',
-        selectValues:[
-          {key:"name",value:"模块名称"},
-          {key:"code",value:"编码"},
-          {key:"url",value:"URL地址"},
-          {key:"route",value:"路由"},
-          {key:"iconClass",value:"图标"},
-          {key:"displayIndex",value:"显示顺序"},
-          {key:"parentName",value:"上级模块"},
-          {key:"moduleType",value:"模块类型"},
-          {key:"parentCode",value:"上级模块编码"},
-          {key:"isInUse",value:"在用"},
-          {key:"remark",value:"备注"},
-
-
+        selectValues: [
+          {key: "name", value: "模块名称"},
+          {key: "code", value: "模块编码"},
+          {key: "route", value: "页面路由"},
+          {key: "parentName", value: "上级模块"},
+          {key: "moduleType", value: "模块类型"},
+          {key: "isInUse", value: "使用状态"}
         ],
-        condition:''
+        condition: ''
       }
     },
     created: function () {
       this.findModules();
     },
     methods: {
-      searchByCondition(value){
-        this.currentPage=1;
-        this.condition=value;
+      searchByCondition(value) {
+        this.currentPage = 1;
+        this.condition = value;
         this.findModules();
       },
       refresh() {
@@ -117,8 +123,8 @@
         var parms = {
           currentPage: this.currentPage,
           pageSize: this.pageSize,
-          columnName:this.condition.columnName,
-          content:this.condition.content
+          columnName: this.condition.columnName,
+          content: this.condition.content
         }
 
         return parms;
@@ -126,7 +132,7 @@
       findModules() {
         var parms = this.installParms();
         this.buttonRequestProgressStart("正在搜索,请稍后...");
-        ModuleService.findModules(parms).then((res) => {
+        ModuleService.findModuleTree(parms).then((res) => {
           this.buttonRequestProgressClose();
           this.modules = res.data.datas;
           this.totalCount = res.data.totalCount;
@@ -138,18 +144,17 @@
           })
         })
       },
-      displayModule(moduleId){
-        var router = this.$router;
-        router.push({path: '/simple/permission/module/display', query: {moduleCode:moduleId}});
+      displayModule(moduleId) {
+        this.$router.push({path: '/simple/permission/module/display', query: {moduleCode: moduleId}});
       },
       deleteModule(moduleId) {
-        this.$confirm('您确定要删除吗?', '提示', {
+        this.$confirm('此操作会删除该模块以及该模块下的所有子模块，您确定要删除吗？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           this.buttonRequestProgressStart("正在删除,请稍后...");
-          ModuleService.deleteModule(moduleId).then((res) =>{
+          ModuleService.deleteModule(moduleId).then((res) => {
             this.buttonRequestProgressClose();
             this.$message({
               type: 'success',
@@ -178,17 +183,15 @@
         this.currentPage = val;
         this.findModules();
       },
-      addModule(){
-        //新增模块
-        var router = this.$router;
-        router.push({path: '/simple/permission/module/add', query: {}});
+      //新增模块
+      addModule() {
+        this.$router.push({path: '/simple/permission/module/add', query: {}});
       },
-      editOrganation(moduleId){
-        //编辑模块
-        var router = this.$router;
-        router.push({path: '/simple/permission/module/edit', query: {moduleId:moduleId}});
+      //编辑模块
+      editOrganation(moduleId) {
+        this.$router.push({path: '/simple/permission/module/edit', query: {moduleId: moduleId}});
       },
-      handleCurrentChange(currentRow,oldCurrentRow) {
+      handleCurrentChange(currentRow, oldCurrentRow) {
         //this.currentRow = val;
       },
     }
@@ -198,7 +201,8 @@
   .form {
     float: left;
   }
-  .search-select{
+
+  .search-select {
     float: left;
     margin-right: 2%;
   }

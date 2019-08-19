@@ -8,60 +8,7 @@
         </el-breadcrumb>
       </div>
       <el-tabs type="border-card" :value="tableName">
-        <el-tab-pane label="码表类型" v-if="typeDisabled" name="codeType">
-          <el-form ref="codeTypeForm" :model="codeTable" label-width="150px" :rules="codeTypeRules">
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="码表编码" prop="code">
-                  <el-input type="input" v-model="codeTable.code"
-                            placeholder="码表编码(唯一确定一个码表)" clearable autosize
-                            resize="both" tabindex=1
-                            maxlength=200
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="码表名称" prop="name">
-                  <el-input type="input" v-model="codeTable.name"
-                            placeholder="码表名称" clearable autosize
-                            resize="both" tabindex=3
-                            maxlength=200
-                  ></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="12">
-                <el-form-item label="是否公开" prop="public">
-                  <el-select :disabled="publicDisable" v-model="codeTable.public" filterable placeholder="是否公开">
-                    <el-option
-                      v-for="item in options"
-                      :key="item.label"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item label="显示顺序" prop="displayIndex">
-                  <el-input-number v-model="codeTable.displayIndex" :min="1" :max="9999999"
-                                   label="显示顺序(默认为第一个)"></el-input-number>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="24">
-                <el-form-item>
-                  <el-button type="primary" @click="submitCodeTable()" :loading="isSubmiting"
-                             v-permission:simple_system_CodeTable_Edit>提交
-                  </el-button>
-                </el-form-item>
-              </el-col>
-            </el-row>
-          </el-form>
-        </el-tab-pane>
-        <el-tab-pane label="码表选项" v-if="optionDisabled" name="optionType">
+        <el-tab-pane label="码表选项" name="optionType">
           <el-form ref="optionForm" :model="codeTable" label-width="150px" :rules="optionRules">
             <el-row>
               <el-col :span="12">
@@ -105,7 +52,7 @@
               <el-col :span="24">
                 <el-form-item>
                   <el-button type="primary" @click="submitOption()" :loading="isSubmiting"
-                             v-permission:simple_system_CodeTable_Edit>提交
+                             v-permission:simple_system_OrganizationCodeTable_Edit>提交
                   </el-button>
                 </el-form-item>
               </el-col>
@@ -137,23 +84,6 @@
         tableName: '',
         allCodeType: [],
         isEdit: false,
-        publicDisable: false,
-        typeDisabled: true,
-        optionDisabled: true,
-        codeTypeRules: {
-          code: [
-            {required: true, message: '请输入码表编码', trigger: 'blur'},
-          ],
-          name: [
-            {required: true, message: '请输入码表名称', trigger: 'blur'},
-          ],
-          codeType: [
-            {required: true, message: '请输入码表类型', trigger: 'blur'},
-          ],
-          displayIndex: [
-            {required: false, message: '请输入显示顺序', trigger: 'blur'},
-          ]
-        },
         optionRules: {
           codeTypeId: [
             {required: true, message: '请输入码表类型', trigger: 'blur'},
@@ -178,23 +108,6 @@
       }
     },
     methods: {
-      submitCodeTable() {
-        this.codeTable.codeType = "码表类型"
-        this.$refs['codeTypeForm'].validate(valid => {
-          if (valid) {
-            if (this.isEdit)//编辑码表
-            {
-              this.updateCodeTable();
-            }
-            else//保存码表
-            {
-              this.saveCodeTable();
-            }
-          } else {
-            return false
-          }
-        })
-      },
       submitOption() {
         this.codeTable.codeType = "码表选项"
         this.$refs['optionForm'].validate(valid => {
@@ -212,24 +125,6 @@
           }
         })
       },
-      saveCodeTable()//保存码表
-      {
-        this.isSubmiting = true;
-        this.buttonRequestProgressStart("正在保存,请稍后...");
-        CodeTableService.saveCodeTable(this.codeTable).then((resp) => {
-          this.buttonRequestProgressClose();
-          this.isSubmiting = false;
-          var router = this.$router;
-          router.push({path: '/simple/system/CodeTable'})
-        }).catch((error) => {
-          this.buttonRequestProgressClose();
-          this.isSubmiting = false;
-          this.$message({
-            type: 'error',
-            message: '保存出错'
-          })
-        })
-      },
       saveOption()//保存码表选项
       {
         this.isSubmiting = true;
@@ -237,7 +132,7 @@
         CodeTableService.saveOption(this.codeTable).then((resp) => {
           this.buttonRequestProgressClose();
           this.isSubmiting = false;
-          this.$router.push({path: '/simple/system/CodeTable'})
+          this.$router.push({path: '/simple/system/OrganizationCodeTable'})
         }).catch((error) => {
           this.buttonRequestProgressClose();
           this.isSubmiting = false;
@@ -247,31 +142,14 @@
           })
         })
       },
-      updateCodeTable() {//编辑码表
-        this.isSubmiting = true;
-        this.buttonRequestProgressStart("正在更新,请稍后...");
-        CodeTableService.updateCodeTable(this.codeTable).then((resp) => {
-          this.buttonRequestProgressClose();
-          this.isSubmiting = false;
-          var router = this.$router;
-          router.push({path: '/simple/system/CodeTable'})
-        }).catch((error) => {
-          this.buttonRequestProgressClose();
-          this.isSubmiting = false;
-          this.$message({
-            type: 'error',
-            message: '保存出错'
-          })
-        })
-      },
-      updateCodeTableOption() {//编辑码表
+      updateCodeTableOption() {//编辑码表选项
         this.isSubmiting = true;
         this.buttonRequestProgressStart("正在更新,请稍后...");
         CodeTableService.updateCodeTableOption(this.codeTable).then((resp) => {
           this.buttonRequestProgressClose();
           this.isSubmiting = false;
           var router = this.$router;
-          router.push({path: '/simple/system/CodeTable'})
+          router.push({path: '/simple/system/OrganizationCodeTable'})
         }).catch((error) => {
           this.buttonRequestProgressClose();
           this.isSubmiting = false;
@@ -290,7 +168,7 @@
             message: '查询码表出错'
           })
         })
-        CodeTableService.findAllCodeType().then((resp) => {
+        CodeTableService.findAllPrivateCodeType().then((resp) => {
           this.allCodeType = resp.data
         }).catch((error) => {
           this.$message({
@@ -300,7 +178,7 @@
         })
       },
       createCodeTable() {//创建新的码表
-        CodeTableService.findAllCodeType().then((resp) => {
+        CodeTableService.findAllPrivateCodeType().then((resp) => {
           this.allCodeType = resp.data
         }).catch((error) => {
           this.$message({
@@ -312,19 +190,11 @@
     },
     created() {
       this.codeTableId = this.$route.params.codeTableId;
+      this.codeTableAddId = this.$route.params.codeTableAddId;
       this.codeType = this.$route.params.type;
       this.tableName = this.codeType
-      if (this.codeType == "codeType") {
-        this.typeDisabled = true
-        this.optionDisabled = false
-      }
-      if (this.codeType == "optionType") {
-        this.typeDisabled = false
-        this.optionDisabled = true
-      }
       if (this.codeTableId) {//编辑
         this.isEdit = true
-        this.publicDisable = true
         this.findCodeTableForEdit(this.codeTableId);
       } else {//新增
         this.createCodeTable();

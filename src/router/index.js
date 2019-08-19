@@ -6,7 +6,6 @@ import {store} from '../store'
 import simpleRoute from '../view/simple/simpleRoute';
 
 
-
 Vue.use(Router)
 const routes = [
   {
@@ -30,37 +29,6 @@ const routes = [
     component: () => import('../view/dev/generator')
   },
   {
-    path: '/organizationRegistForm',
-    name: 'organizationRegistForm',
-    meta: {
-      label: '单位注册',
-      icon: 'icon iconfont icon-fl-origin',
-      requireAuth: false
-    },
-    component: () => import('../view/simple/regist/OrganizationRegistForm'),
-  }
-  ,
-  {
-    path: '/EmployeeRegistForm',
-    name: 'EmployeeRegistForm',
-    meta: {
-      label: '人员注册',
-      icon: 'icon iconfont icon-fl-origin',
-      requireAuth: false
-    },
-    component: () => import('../view/simple/regist/EmployeRegistForm'),
-  },
-  {
-    path: '/MemberRegistForm',
-    name: 'MemberRegistForm',
-    meta: {
-      label: '人员注册',
-      icon: 'icon iconfont icon-fl-origin',
-      requireAuth: false
-    },
-    component: () => import('../view/simple/regist/MemberRegistForm'),
-  },
-  {
     path: '/',
     component: () => import('../view/main/main'),
     children: [
@@ -75,6 +43,11 @@ const routes = [
     path: '/404',
     name: '404',
     //component: () => import('@/packages/ui/errorPage/404.vue')
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('../view/dev/test')
   },
   ...simpleRoute,
 ]

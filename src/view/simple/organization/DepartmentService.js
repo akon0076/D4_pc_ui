@@ -12,6 +12,12 @@ export class DepartmentService {
         return simpleServer.connection(httpMethod, '/simple/organization/Department/findDepartments', body);
     }
 
+  static findAllDepartmentsByOrgId (orgId) {
+    var httpMethod = 'GET';
+    var body = simpleServer.getArgs(this.findAllDepartmentsByOrgId,arguments,'GET');
+    return simpleServer.connection(httpMethod, '/simple/organization/Department/findAllDepartmentsByOrgId', body);
+  }
+
 
     //根据部门Id查询部门
     static findDepartment (departmentId) {

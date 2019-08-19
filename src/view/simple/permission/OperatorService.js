@@ -54,10 +54,6 @@ export class OperatorService {
 
   //编辑操作员
   static updateOperator(operator) {
-    let md5 = crypto.createHash("md5");
-    md5.update(operator.passWord);
-    let password = md5.digest('hex');
-    operator.passWord = password
     var httpMethod = 'POST';
     var body = simpleServer.getArgs(this.updateOperator, arguments, 'POST');
     return simpleServer.connection(httpMethod, '/simple/permission/Operator/updateOperator', body);
@@ -84,5 +80,17 @@ export class OperatorService {
     return simpleServer.connection(httpMethod, '/simple/permission/Operator/findOperatorsWithIdNameByName', body);
   }
 
+  //管理员修改密码
+  static changePassword(form) {
+    var httpMethod = 'POST';
+    var body = simpleServer.getArgs(this.changePassword, arguments, 'POST');
+    return simpleServer.connection(httpMethod, '/simple/permission/Operator/changePassword', body);
+  }
 
+  //自己修改密码
+  static changeMyPassword(form) {
+    var httpMethod = 'POST';
+    var body = simpleServer.getArgs(this.changeMyPassword, arguments, 'POST');
+    return simpleServer.connection(httpMethod, '/simple/permission/Operator/changeMyPassword', body);
+  }
 }

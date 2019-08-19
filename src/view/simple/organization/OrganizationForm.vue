@@ -7,45 +7,23 @@
           <el-breadcrumb-item>单位管理</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
-      <div class="alert-container clearfix">
-        <el-alert v-for="alert in alerts.successes" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="success"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.infos" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="info"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.warnings" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="warning"
-                  show-icon>
-        </el-alert>
-        <el-alert v-for="alert in alerts.errors" :key="alert.title"
-                  v-bind:title="alert.title"
-                  type="error"
-                  show-icon>
-        </el-alert>
-      </div>
       <div class="text item">
         <el-form ref="organizationForm" :model="organization" label-width="150px" :rules="rules">
-          <el-col :span="12">
-            <el-form-item label="名称" prop="name">
-              <el-input type="input" v-model="organization.name"
-                        placeholder="名称" clearable autosize
-                        resize="both" tabindex=1
-                        maxlength=255
-              ></el-input>
-            </el-form-item>
-          </el-col>
           <el-col :span="12">
             <el-form-item label="编码" prop="code">
               <el-input type="input" v-model="organization.code"
                         placeholder="编码" clearable autosize
                         resize="both" tabindex=3
                         maxlength=200
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="名称" prop="name">
+              <el-input type="input" v-model="organization.name"
+                        placeholder="名称" clearable autosize
+                        resize="both" tabindex=1
+                        maxlength=255
               ></el-input>
             </el-form-item>
           </el-col>
@@ -130,7 +108,7 @@
       return {
         rules: {
           name: [
-            {required: false, message: '请输入名称', trigger: 'blur'},
+            {required: true, message: '请输入名称', trigger: 'blur'},
             {validator: validateString(0, 1000, /^.*$/, "输入的数据不正确，请检查"), trigger: 'blur'},
           ],
           code: [
@@ -163,67 +141,6 @@
         isSubmiting: false,
         organization: {},
         organizationId: null,
-        pickerOptionsCreateDatetime: {
-          disabledDate(time) {
-            //TODO: 请在此判断可以输入的日期范围,
-            //return time.getTime() > Date.now();
-            return false;
-          },
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date());
-            }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }]
-        },
-        pickerOptionsUpdateDatetime: {
-          disabledDate(time) {
-            //TODO: 请在此判断可以输入的日期范围,
-            //return time.getTime() > Date.now();
-            return false;
-          },
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date());
-            }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }]
-        },
-        alerts: {
-          remarks: [{title: "功能说明", description: "TODO: 请在这里加上功能说明"},],
-          successes: [], //TODO:[{title:'消息内容'},]
-          infos: [],
-          warnings: [],
-          errors: []
-        },
       }
     },
 

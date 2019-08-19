@@ -4,6 +4,13 @@ import {simpleServer} from '@/tools/servers'
  * 模块
  */
 export class ModuleService {
+  // 获取全部模块树
+  static findModuleTree(pageDTO) {
+    var httpMethod = 'POST';
+    var body = simpleServer.getArgs(this.findModuleTree, arguments, 'POST');
+    return simpleServer.connection(httpMethod, '/simple/permission/Module/findModuleTree', body);
+  }
+
   // 分页查询列表
   static findModules(pageDTO) {
     var httpMethod = 'POST';
@@ -25,6 +32,19 @@ export class ModuleService {
     return simpleServer.connection(httpMethod, '/simple/permission/Module/findAllModules', body);
   }
 
+  // 找到全部叶节点模块
+  static findAllLeafModules() {
+    var httpMethod = 'GET';
+    var body = simpleServer.getArgs(this.findAllLeafModules, arguments, 'GET');
+    return simpleServer.connection(httpMethod, '/simple/permission/Module/findAllLeafModules', body);
+  }
+
+  // 找到全部非叶节点模块
+  static findAllParentModules() {
+    var httpMethod = 'GET';
+    var body = simpleServer.getArgs(this.findAllParentModules, arguments, 'GET');
+    return simpleServer.connection(httpMethod, '/simple/permission/Module/findAllParentModules', body);
+  }
 
   //根据模块Id查询模块
   static findModule(moduleId) {

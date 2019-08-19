@@ -28,6 +28,8 @@
 </template>
 
 <script>
+  import {OperatorService} from '@/view/simple/permission/OperatorService';
+
   export default {
     props: {
       dialogVisible: Boolean,
@@ -93,9 +95,22 @@
       submitForm(formName) {
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
-            const {oldPwd, pass} = this.ruleForm2;
-            const {data} = await Ge.GE0001A05({newPassword: pass, password: oldPwd});
-            console.log(data);
+            this.buttonRequestProgressStart("正在更新,请稍后...");
+            OperatorService.changeMyPassword(this.ruleForm2).then((res) => {
+              this.buttonRequestProgressClose();
+              this.handleClose()
+              this.$refs[formName].resetFields();
+              this.$message({
+                type: 'success',
+                message: '密码修改成功！'
+              })
+            }).catch((error) => {
+              this.buttonRequestProgressClose();
+              this.$message({
+                type: 'error',
+                message: error.data.message
+              })
+            })
           } else {
             return false;
           }

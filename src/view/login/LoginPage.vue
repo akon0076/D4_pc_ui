@@ -74,7 +74,7 @@
             {{item.name}}
           </el-radio>
         </el-row>
-        <el-button class="organizationButton" style="   background: #f56c6cf5;"   type="danger" @click="setOrganization">确定</el-button>
+        <el-button class="organizationButton" type="primary" @click="setOrganization">确定</el-button>
       </el-form>
     </div>
 
@@ -183,6 +183,7 @@
                     this.login = false
                   }
                 } else {
+                  this.loginForm.password = this.pass
                   this.$message({
                     type: 'error',
                     message: '账号或密码错误,请重新输入'
@@ -243,12 +244,12 @@
 
   .organization {
     margin-top: 10px;
-    width: 400px;
+    width: 250px;
   }
 
   .organizationButton {
     margin-top: 30px;
-    width: 400px;
+    width: 250px;
   }
 
   .mh-login {

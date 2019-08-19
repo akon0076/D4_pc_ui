@@ -268,7 +268,6 @@
         GeneratorService.findAllUploadedFilesByIdAndName({id: '4', name: 'simple_test'}).then(res => {
           Msg.success("获取成功")
           this.fileArray = res.data;
-          console.log(res)
         })
       }
      ,
@@ -292,7 +291,6 @@
         var modelform = this.modelform
         this.$refs["modelform"].validate((valid) => {
             if (valid) {
-              console.log('submit!');
               GeneratorService.generateModel(modelform.modelDefinition).then((res) => {
                 if (res.data.errorMsg !== "") {
                   Msg.error("生成模型出错：" + res.data.errorMsg)
@@ -322,7 +320,6 @@
         var modelform = this.modelform
         this.$refs["modelform"].validate((valid) => {
             if (valid) {
-              console.log('submit!');
               GeneratorService.generateBaseCode(modelform.className).then((res) => {
                 if (res.data.errorMsg !== "") {
                   Msg.error("生成基础代码出错：" + res.data.errorMsg)
@@ -382,7 +379,6 @@
            this.buttonRequestProgressClose();
           Msg.success('成功' + res.data);
         }).catch((error) => {
-          console.log(error)
           //error的data属性是后台传入的数据,data的extendedData存有后台传入的数据
           this.isSubmiting = false;
           if (error.status === 590) {
